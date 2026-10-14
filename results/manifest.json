@@ -1,0 +1,72 @@
+{
+  "generated": "2026-10-14T19:10:04.388965+00:00",
+  "tocsin_version": "1.1.0",
+  "source_url": "https://phm-datasets.s3.amazonaws.com/NASA/4.+Bearings.zip",
+  "archive_zip_sha256": "21001ac266c465f5d345ec42d7b508c6a6328487fd9d4d7774422dd5ea10ad83",
+  "archives": [
+    {
+      "name": "1st_test.rar",
+      "sha256": "c25241571583948462a3916d97dc11c984a839f38a0da0907fff18c958c0a484",
+      "bytes": 366567310
+    },
+    {
+      "name": "2nd_test.rar",
+      "sha256": "b154d5ba1ae5f7f01cdd4f1bde5b08cfdc2f3134d51ad2f6614b1270a86ab632",
+      "bytes": 85581092
+    },
+    {
+      "name": "3rd_test.rar",
+      "sha256": "01e9ec83c6c55adc0300a20003a261f9a2ac2b714aae4984050325e589252bc8",
+      "bytes": 609047134
+    },
+    {
+      "name": "Readme Document for IMS Bearing Data.pdf",
+      "sha256": "cf46d37c21f7f292c11bbbdd4695d876c417ed1d6425e3d87c962ae2182ae6ed",
+      "bytes": 400443
+    }
+  ],
+  "runs": {
+    "test1": {
+      "files": 2156,
+      "first": "2003-10-22T12:06:24",
+      "last": "2003-11-25T23:39:56",
+      "per_file_sha256_digest": "c68766a68131d2a46e5ea33f80ff2c3c077d21efda746c7a275e93523af59769",
+      "parse_errors": 0,
+      "features_config_sha": null,
+      "extract_seconds": 458.0
+    },
+    "test2": {
+      "files": 984,
+      "first": "2004-02-12T10:32:39",
+      "last": "2004-02-19T06:22:39",
+      "per_file_sha256_digest": "b3e0cf0bc49a43e6e7bf777ae705ad880506ae859c47adaf6880afb08bbc883b",
+      "parse_errors": 0,
+      "features_config_sha": "19deb402d81478e4eb3ee01daa70a1f5c472475800a02d8e23e18e9ee034199c",
+      "extract_seconds": 198.9
+    },
+    "test3": {
+      "files": 6324,
+      "first": "2004-03-04T09:27:46",
+      "last": "2004-04-18T02:42:55",
+      "per_file_sha256_digest": "872b916cb721aa5e77b62ffc04fbe3f2564d6da4d4085153b1759dc802fcd80b",
+      "parse_errors": 0,
+      "features_config_sha": "19deb402d81478e4eb3ee01daa70a1f5c472475800a02d8e23e18e9ee034199c",
+      "extract_seconds": 3031.2
+    }
+  },
+  "frozen_config_sha256": "960523ff2c6bfcb824616c6bb809a21a8b9674c949ebf72a3e00af782cbcfd24",
+  "frozen_at": "2026-10-14T17:32:46.208916+00:00",
+  "seeds": {
+    "complications": "sha256(run|bearing|condition) with reading index",
+    "isolation_forest": 0
+  },
+  "software": {
+    "python": "3.12.10",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "fastapi": "0.143.1",
+    "uvicorn": "0.54.0"
+  },
+  "platform": "Windows-11-10.0.26200-SP0"
+}
