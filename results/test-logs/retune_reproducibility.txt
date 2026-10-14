@@ -1,0 +1,4 @@
+identical settings: {'band': True, 'thetas': True, 'global_ref': True, 'n_ref': True, 'k': True, 'feature_params': True, 'validation': True, 'defect_hz': True}
+v1.0 sha 19deb402d814 rerun sha 4cccaba51191 match False
+differing keys: ['version']
+rerun hash with version 1.0.0: 19deb402d814 equals v1.0: True
