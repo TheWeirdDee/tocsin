@@ -1,0 +1,71 @@
+{
+  "version": "1.0.0",
+  "frozen_at": "2026-10-14T17:32:46.208916+00:00",
+  "tuning_data": "IMS Test 1 only (first channel per bearing)",
+  "band": "2000-8000",
+  "feature_params": {
+    "band": [
+      2000.0,
+      8000.0
+    ],
+    "filter_order": 4,
+    "harmonics": 3,
+    "band_tol": 0.02,
+    "background_halfwidth_hz": 25.0,
+    "env_max_hz": 1000.0
+  },
+  "n_ref": 72,
+  "k": 3,
+  "floor_db": 0.5,
+  "iforest_floor": 0.05,
+  "seed": 0,
+  "thetas": {
+    "tocsin": 3.5,
+    "b0_rms": 5.5,
+    "b1_iforest": 4.5,
+    "a1_broadband_env": 9.5,
+    "a2_global_ref": 4.0,
+    "b0_rms_3sigma": 3.0,
+    "a3_no_persistence": 3.5
+  },
+  "global_ref": {
+    "BPFO": {
+      "median": 6.40109225737704,
+      "sigma": 1.151224557941381
+    },
+    "BPFI": {
+      "median": 6.885228519112971,
+      "sigma": 1.3492739290680118
+    },
+    "2xBSF": {
+      "median": 6.5081960451418865,
+      "sigma": 1.3457826248801916
+    }
+  },
+  "validation": {
+    "expected_fs": 20000.0,
+    "expected_n": 20480,
+    "min_length_fraction": 0.9,
+    "max_missing_fraction": 0.2,
+    "max_gap_samples": 2048
+  },
+  "bearing": {
+    "name": "Rexnord ZA-2115 (IMS rig)",
+    "n_rollers": 16,
+    "pitch_diameter": 2.815,
+    "roller_diameter": 0.331,
+    "contact_angle_deg": 15.17,
+    "source": "Qiu, Lee & Lin (2006), J. Sound Vib. 289:1066-1090"
+  },
+  "rpm_assumed": 2000.0,
+  "defect_hz": {
+    "BPFO": 236.40347128927536,
+    "BPFI": 296.929862044058,
+    "BSF": 139.91665578625418,
+    "2xBSF": 279.83331157250836,
+    "FTF": 14.77521695557971,
+    "shaft": 33.333333333333336
+  },
+  "selection_rule": "smallest theta with every undamaged bearing ALERT fraction <= 0.01",
+  "sha256": "19deb402d81478e4eb3ee01daa70a1f5c472475800a02d8e23e18e9ee034199c"
+}
