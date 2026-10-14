@@ -1,0 +1,78 @@
+{
+  "generated": "2026-10-14T19:09:47Z",
+  "hardware": {
+    "cpu": "Intel(R) Core(TM) i7-10510U CPU @ 1.80GHz",
+    "logical_cores": 8,
+    "ram_gb": 8.4,
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.10",
+    "summary": "Intel(R) Core(TM) i7-10510U CPU @ 1.80GHz, 8 logical cores, 8.4 GB RAM, Windows"
+  },
+  "config_sha": "960523ff2c6bfcb824616c6bb809a21a8b9674c949ebf72a3e00af782cbcfd24",
+  "samples": {
+    "in_process_runs": 200,
+    "http_runs": 35
+  },
+  "raw": {
+    "analysis_ms": {
+      "median": 53.84019999837619,
+      "p95": 75.38928000103618
+    },
+    "features_only_ms": {
+      "median": 10.583399998722598,
+      "p95": 14.432120001220026
+    },
+    "parse_ms": {
+      "median": 42.69140000178595,
+      "p95": 63.532834996294696
+    },
+    "http_analyze_ms": {
+      "median": 92.34769999602577,
+      "p95": 113.65057000293746
+    },
+    "cold_start_s": 4.905804800000624,
+    "rss_idle_mb": 124.391424,
+    "rss_after_load_mb": 126.963712,
+    "artifacts_mb": 155.71009,
+    "per_bearing_reference_bytes": 48,
+    "frozen_config_bytes": 2725
+  },
+  "rows": [
+    {
+      "name": "Analysis per reading, one channel (median / p95)",
+      "value": "53.8 / 75.4 ms",
+      "includes": "Parsing the 4-channel ASCII file, validation, band-pass, Hilbert envelope, FFT, defect-band features. Warm, single process, 200 runs."
+    },
+    {
+      "name": "Signal processing only (median)",
+      "value": "10.6 ms",
+      "includes": "Validation and features for one channel, excluding file parsing."
+    },
+    {
+      "name": "HTTP /api/analyze round trip (median / p95)",
+      "value": "92 / 114 ms",
+      "includes": "Local upload of a 0.55 MB file, parsing, analysis and JSON response. Server limited to 1 BLAS thread. 35 warm runs."
+    },
+    {
+      "name": "Server cold start",
+      "value": "4.9 s",
+      "includes": "Python interpreter start, imports and first /api/health response."
+    },
+    {
+      "name": "Server memory (resident)",
+      "value": "124 MB idle \u00b7 127 MB after load",
+      "includes": "Whole process tree (on Windows this includes the small venv launcher). Measured after serving the largest replay (Test 3), a spectrum, and 40 live analyses."
+    },
+    {
+      "name": "Learned state per bearing",
+      "value": "48 bytes",
+      "includes": "A median and a spread for each of three defect families. There is no trained model file."
+    },
+    {
+      "name": "Precomputed replay artifacts",
+      "value": "156 MB",
+      "includes": "All replays and stored spectra for the demo. Not needed for live analysis."
+    }
+  ],
+  "note": "Measured on a developer laptop, not on a 0.5-CPU / 256 MB container. Docker was not available on the build machine, so the constrained-container benchmark proposed in planning was not run."
+}
