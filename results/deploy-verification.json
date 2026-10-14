@@ -1,0 +1,314 @@
+[
+ {
+  "time": "2026-10-14T20:54:39.887188+00:00",
+  "label": "after-redeploy",
+  "api": "https://tocsin-production.up.railway.app",
+  "web": "https://tocsin-phi.vercel.app",
+  "build_commit": "3f857bf5c50bbecf9f058ccf2aad9eae954d8237",
+  "config_sha": "960523ff2c6bfcb824616c6bb809a21a8b9674c949ebf72a3e00af782cbcfd24",
+  "artifact_bundle": "tocsin-demo-artifacts-v1.1.0",
+  "uptime_s": 13.7,
+  "analyze_round_trip_ms": {
+   "median": 3176.9,
+   "max": 6645.5,
+   "n": 10,
+   "note": "includes uploading the 0.55 MB reading over the verifying machine's own internet connection"
+  },
+  "analyze_server_ms": {
+   "median": 37.5,
+   "max": 51.4,
+   "n": 10,
+   "note": "parse + validate + features + scoring inside the Railway container, as reported by the API"
+  },
+  "passed": 26,
+  "failed": 0,
+  "checks": [
+   {
+    "check": "health 200 and ready",
+    "pass": true,
+    "detail": "commit 3f857bf, bundle tocsin-demo-artifacts-v1.1.0"
+   },
+   {
+    "check": "artifact/config version agreement",
+    "pass": true,
+    "detail": "config 960523ff2c6b"
+   },
+   {
+    "check": "replay served gzip-compressed",
+    "pass": true,
+    "detail": "858,525 bytes on the wire"
+   },
+   {
+    "check": "spectrum decodes",
+    "pass": true,
+    "detail": "512 bins"
+   },
+   {
+    "check": "result 'heldout' available",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "result 'heldout_v1_0' available",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "result 'posthoc_tol4' available",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "result 'robustness' available",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "result 'deploy' available",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "unknown run 404",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "unknown result 404",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "index out of range 404",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "CORS preflight allows the frontend origin",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "CORS preflight refuses an unknown origin",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "valid upload analysed",
+    "pass": true,
+    "detail": "verdict BELOW_THRESHOLD, server 33 ms"
+   },
+   {
+    "check": "malformed upload 422",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "too-short reading -> no verdict",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "machine-stopped reading -> no verdict",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "oversized upload refused with 413 before the body is read",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "frontend / serves the app (direct URL)",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "frontend /demo/test3?b=3&t=6083 serves the app (direct URL)",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "frontend /evaluation#diagnosis serves the app (direct URL)",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "frontend /data serves the app (direct URL)",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "frontend /analyze serves the app (direct URL)",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "frontend /no-such-page serves the app (direct URL)",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "sample reading downloadable",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "time": "2026-10-14T20:56:13.857726+00:00",
+  "label": "after-restart",
+  "api": "https://tocsin-production.up.railway.app",
+  "web": "https://tocsin-phi.vercel.app",
+  "build_commit": "3f857bf5c50bbecf9f058ccf2aad9eae954d8237",
+  "config_sha": "960523ff2c6bfcb824616c6bb809a21a8b9674c949ebf72a3e00af782cbcfd24",
+  "artifact_bundle": "tocsin-demo-artifacts-v1.1.0",
+  "uptime_s": 3.4,
+  "analyze_round_trip_ms": {
+   "median": 5275.7,
+   "max": 7881.8,
+   "n": 10,
+   "note": "includes uploading the 0.55 MB reading over the verifying machine's own internet connection"
+  },
+  "analyze_server_ms": {
+   "median": 33.9,
+   "max": 42.9,
+   "n": 10,
+   "note": "parse + validate + features + scoring inside the Railway container, as reported by the API"
+  },
+  "passed": 26,
+  "failed": 0,
+  "checks": [
+   {
+    "check": "health 200 and ready",
+    "pass": true,
+    "detail": "commit 3f857bf, bundle tocsin-demo-artifacts-v1.1.0"
+   },
+   {
+    "check": "artifact/config version agreement",
+    "pass": true,
+    "detail": "config 960523ff2c6b"
+   },
+   {
+    "check": "replay served gzip-compressed",
+    "pass": true,
+    "detail": "858,525 bytes on the wire"
+   },
+   {
+    "check": "spectrum decodes",
+    "pass": true,
+    "detail": "512 bins"
+   },
+   {
+    "check": "result 'heldout' available",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "result 'heldout_v1_0' available",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "result 'posthoc_tol4' available",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "result 'robustness' available",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "result 'deploy' available",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "unknown run 404",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "unknown result 404",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "index out of range 404",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "CORS preflight allows the frontend origin",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "CORS preflight refuses an unknown origin",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "valid upload analysed",
+    "pass": true,
+    "detail": "verdict BELOW_THRESHOLD, server 39 ms"
+   },
+   {
+    "check": "malformed upload 422",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "too-short reading -> no verdict",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "machine-stopped reading -> no verdict",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "oversized upload refused with 413 before the body is read",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "frontend / serves the app (direct URL)",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "frontend /demo/test3?b=3&t=6083 serves the app (direct URL)",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "frontend /evaluation#diagnosis serves the app (direct URL)",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "frontend /data serves the app (direct URL)",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "frontend /analyze serves the app (direct URL)",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "frontend /no-such-page serves the app (direct URL)",
+    "pass": true,
+    "detail": ""
+   },
+   {
+    "check": "sample reading downloadable",
+    "pass": true,
+    "detail": ""
+   }
+  ]
+ }
+]
