@@ -1,0 +1,1262 @@
+{
+ "generated": "2026-10-14T18:28:03.109759+00:00",
+ "note": "Post-hoc and descriptive. The frozen configuration (N=72, k=3) was not changed.",
+ "grid": [
+  {
+   "n_ref": 36,
+   "k": 2,
+   "tocsin": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 6,
+    "tn": 0,
+    "precision": 0.25,
+    "recall": 1.0,
+    "lead_times_h": [
+     20.5,
+     41.5
+    ],
+    "terminal_lead_times_h": [
+     0.33,
+     18.17
+    ],
+    "healthy_alert_episodes": 27,
+    "healthy_alert_episodes_excl_last24h": 13,
+    "healthy_alert_hours": 43.5,
+    "healthy_monitored_days": 110.81,
+    "healthy_alert_hours_per_bearing_day": 0.393
+   },
+   "tocsin_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 2,
+    "tn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "lead_times_h": [
+     42.14,
+     227.85
+    ],
+    "terminal_lead_times_h": [
+     11.71,
+     25.21
+    ],
+    "healthy_alert_episodes": 7,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 7.39,
+    "healthy_monitored_days": 28.86,
+    "healthy_alert_hours_per_bearing_day": 0.256
+   },
+   "b0_rms": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 6,
+    "tn": 0,
+    "precision": 0.25,
+    "recall": 1.0,
+    "lead_times_h": [
+     47.17,
+     27.0
+    ],
+    "terminal_lead_times_h": [
+     27.0
+    ],
+    "healthy_alert_episodes": 12,
+    "healthy_alert_episodes_excl_last24h": 1,
+    "healthy_alert_hours": 70.83,
+    "healthy_monitored_days": 110.81,
+    "healthy_alert_hours_per_bearing_day": 0.639
+   },
+   "b0_rms_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 2,
+    "tn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "lead_times_h": [
+     43.98,
+     607.47
+    ],
+    "terminal_lead_times_h": [
+     12.71,
+     123.01
+    ],
+    "healthy_alert_episodes": 2,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 2.94,
+    "healthy_monitored_days": 28.86,
+    "healthy_alert_hours_per_bearing_day": 0.102
+   },
+   "b1_iforest": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 1,
+    "tn": 5,
+    "precision": 0.667,
+    "recall": 1.0,
+    "lead_times_h": [
+     46.83,
+     24.5
+    ],
+    "terminal_lead_times_h": [
+     3.17,
+     3.33
+    ],
+    "healthy_alert_episodes": 2,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 3.0,
+    "healthy_monitored_days": 110.81,
+    "healthy_alert_hours_per_bearing_day": 0.027
+   },
+   "b1_iforest_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 1,
+    "fn": 1,
+    "fp": 0,
+    "tn": 2,
+    "precision": 1.0,
+    "recall": 0.5,
+    "lead_times_h": [
+     118.26
+    ],
+    "terminal_lead_times_h": [],
+    "healthy_alert_episodes": 0,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 0.0,
+    "healthy_monitored_days": 28.86,
+    "healthy_alert_hours_per_bearing_day": 0.0
+   }
+  },
+  {
+   "n_ref": 36,
+   "k": 3,
+   "tocsin": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 5,
+    "tn": 1,
+    "precision": 0.286,
+    "recall": 1.0,
+    "lead_times_h": [
+     0.17,
+     39.83
+    ],
+    "terminal_lead_times_h": [
+     0.17,
+     26.83
+    ],
+    "healthy_alert_episodes": 11,
+    "healthy_alert_episodes_excl_last24h": 3,
+    "healthy_alert_hours": 39.83,
+    "healthy_monitored_days": 110.81,
+    "healthy_alert_hours_per_bearing_day": 0.359
+   },
+   "tocsin_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 2,
+    "tn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "lead_times_h": [
+     33.21,
+     227.69
+    ],
+    "terminal_lead_times_h": [
+     11.54,
+     25.04
+    ],
+    "healthy_alert_episodes": 5,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 8.22,
+    "healthy_monitored_days": 28.86,
+    "healthy_alert_hours_per_bearing_day": 0.285
+   },
+   "b0_rms": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 6,
+    "tn": 0,
+    "precision": 0.25,
+    "recall": 1.0,
+    "lead_times_h": [
+     47.0,
+     26.83
+    ],
+    "terminal_lead_times_h": [
+     29.17,
+     26.83
+    ],
+    "healthy_alert_episodes": 9,
+    "healthy_alert_episodes_excl_last24h": 1,
+    "healthy_alert_hours": 68.99,
+    "healthy_monitored_days": 110.81,
+    "healthy_alert_hours_per_bearing_day": 0.623
+   },
+   "b0_rms_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 2,
+    "tn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "lead_times_h": [
+     39.14,
+     119.99
+    ],
+    "terminal_lead_times_h": [
+     12.54,
+     119.99
+    ],
+    "healthy_alert_episodes": 2,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 2.11,
+    "healthy_monitored_days": 28.86,
+    "healthy_alert_hours_per_bearing_day": 0.073
+   },
+   "b1_iforest": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 1,
+    "tn": 5,
+    "precision": 0.667,
+    "recall": 1.0,
+    "lead_times_h": [
+     46.67,
+     23.83
+    ],
+    "terminal_lead_times_h": [
+     2.0,
+     3.17
+    ],
+    "healthy_alert_episodes": 1,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 2.5,
+    "healthy_monitored_days": 110.81,
+    "healthy_alert_hours_per_bearing_day": 0.023
+   },
+   "b1_iforest_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 1,
+    "fn": 1,
+    "fp": 0,
+    "tn": 2,
+    "precision": 1.0,
+    "recall": 0.5,
+    "lead_times_h": [
+     114.6
+    ],
+    "terminal_lead_times_h": [],
+    "healthy_alert_episodes": 0,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 0.0,
+    "healthy_monitored_days": 28.86,
+    "healthy_alert_hours_per_bearing_day": 0.0
+   }
+  },
+  {
+   "n_ref": 36,
+   "k": 5,
+   "tocsin": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 1,
+    "fn": 1,
+    "fp": 3,
+    "tn": 3,
+    "precision": 0.25,
+    "recall": 0.5,
+    "lead_times_h": [
+     26.5
+    ],
+    "terminal_lead_times_h": [
+     26.5
+    ],
+    "healthy_alert_episodes": 5,
+    "healthy_alert_episodes_excl_last24h": 2,
+    "healthy_alert_hours": 33.17,
+    "healthy_monitored_days": 110.81,
+    "healthy_alert_hours_per_bearing_day": 0.299
+   },
+   "tocsin_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 2,
+    "tn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "lead_times_h": [
+     11.21,
+     24.71
+    ],
+    "terminal_lead_times_h": [
+     11.21,
+     24.71
+    ],
+    "healthy_alert_episodes": 2,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 5.88,
+    "healthy_monitored_days": 28.86,
+    "healthy_alert_hours_per_bearing_day": 0.204
+   },
+   "b0_rms": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 6,
+    "tn": 0,
+    "precision": 0.25,
+    "recall": 1.0,
+    "lead_times_h": [
+     46.67,
+     26.5
+    ],
+    "terminal_lead_times_h": [
+     28.83,
+     26.5
+    ],
+    "healthy_alert_episodes": 8,
+    "healthy_alert_episodes_excl_last24h": 1,
+    "healthy_alert_hours": 67.83,
+    "healthy_monitored_days": 110.81,
+    "healthy_alert_hours_per_bearing_day": 0.612
+   },
+   "b0_rms_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 1,
+    "tn": 1,
+    "precision": 0.667,
+    "recall": 1.0,
+    "lead_times_h": [
+     33.04,
+     119.76
+    ],
+    "terminal_lead_times_h": [
+     12.21,
+     119.76
+    ],
+    "healthy_alert_episodes": 1,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 1.61,
+    "healthy_monitored_days": 28.86,
+    "healthy_alert_hours_per_bearing_day": 0.056
+   },
+   "b1_iforest": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 1,
+    "tn": 5,
+    "precision": 0.667,
+    "recall": 1.0,
+    "lead_times_h": [
+     46.33,
+     23.5
+    ],
+    "terminal_lead_times_h": [
+     12.83,
+     2.83
+    ],
+    "healthy_alert_episodes": 1,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 2.17,
+    "healthy_monitored_days": 110.81,
+    "healthy_alert_hours_per_bearing_day": 0.02
+   },
+   "b1_iforest_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 1,
+    "fn": 1,
+    "fp": 0,
+    "tn": 2,
+    "precision": 1.0,
+    "recall": 0.5,
+    "lead_times_h": [
+     111.76
+    ],
+    "terminal_lead_times_h": [],
+    "healthy_alert_episodes": 0,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 0.0,
+    "healthy_monitored_days": 28.86,
+    "healthy_alert_hours_per_bearing_day": 0.0
+   }
+  },
+  {
+   "n_ref": 72,
+   "k": 2,
+   "tocsin": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 6,
+    "tn": 0,
+    "precision": 0.25,
+    "recall": 1.0,
+    "lead_times_h": [
+     20.5,
+     41.5
+    ],
+    "terminal_lead_times_h": [
+     0.33
+    ],
+    "healthy_alert_episodes": 23,
+    "healthy_alert_episodes_excl_last24h": 6,
+    "healthy_alert_hours": 40.83,
+    "healthy_monitored_days": 109.31,
+    "healthy_alert_hours_per_bearing_day": 0.374
+   },
+   "tocsin_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 2,
+    "tn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "lead_times_h": [
+     43.31,
+     604.97
+    ],
+    "terminal_lead_times_h": [
+     12.37,
+     25.21
+    ],
+    "healthy_alert_episodes": 5,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 5.39,
+    "healthy_monitored_days": 28.41,
+    "healthy_alert_hours_per_bearing_day": 0.19
+   },
+   "b0_rms": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 6,
+    "tn": 0,
+    "precision": 0.25,
+    "recall": 1.0,
+    "lead_times_h": [
+     47.67,
+     27.0
+    ],
+    "terminal_lead_times_h": [
+     27.0
+    ],
+    "healthy_alert_episodes": 11,
+    "healthy_alert_episodes_excl_last24h": 1,
+    "healthy_alert_hours": 71.17,
+    "healthy_monitored_days": 109.31,
+    "healthy_alert_hours_per_bearing_day": 0.651
+   },
+   "b0_rms_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 2,
+    "tn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "lead_times_h": [
+     43.98,
+     607.47
+    ],
+    "terminal_lead_times_h": [
+     12.71,
+     123.01
+    ],
+    "healthy_alert_episodes": 2,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 2.94,
+    "healthy_monitored_days": 28.41,
+    "healthy_alert_hours_per_bearing_day": 0.103
+   },
+   "b1_iforest": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 3,
+    "tn": 3,
+    "precision": 0.4,
+    "recall": 1.0,
+    "lead_times_h": [
+     54.17,
+     26.5
+    ],
+    "terminal_lead_times_h": [
+     27.67,
+     26.5
+    ],
+    "healthy_alert_episodes": 383,
+    "healthy_alert_episodes_excl_last24h": 371,
+    "healthy_alert_hours": -16.68,
+    "healthy_monitored_days": 109.31,
+    "healthy_alert_hours_per_bearing_day": -0.153
+   },
+   "b1_iforest_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 1,
+    "tn": 1,
+    "precision": 0.667,
+    "recall": 1.0,
+    "lead_times_h": [
+     541.77,
+     622.67
+    ],
+    "terminal_lead_times_h": [
+     59.38,
+     158.46
+    ],
+    "healthy_alert_episodes": 1,
+    "healthy_alert_episodes_excl_last24h": 1,
+    "healthy_alert_hours": 0.33,
+    "healthy_monitored_days": 28.41,
+    "healthy_alert_hours_per_bearing_day": 0.012
+   }
+  },
+  {
+   "n_ref": 72,
+   "k": 3,
+   "tocsin": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 5,
+    "tn": 1,
+    "precision": 0.286,
+    "recall": 1.0,
+    "lead_times_h": [
+     0.17,
+     39.83
+    ],
+    "terminal_lead_times_h": [
+     0.17
+    ],
+    "healthy_alert_episodes": 12,
+    "healthy_alert_episodes_excl_last24h": 2,
+    "healthy_alert_hours": 36.17,
+    "healthy_monitored_days": 109.31,
+    "healthy_alert_hours_per_bearing_day": 0.331
+   },
+   "tocsin_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 2,
+    "tn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "lead_times_h": [
+     41.98,
+     227.69
+    ],
+    "terminal_lead_times_h": [
+     12.21,
+     25.04
+    ],
+    "healthy_alert_episodes": 4,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 4.89,
+    "healthy_monitored_days": 28.41,
+    "healthy_alert_hours_per_bearing_day": 0.172
+   },
+   "b0_rms": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 6,
+    "tn": 0,
+    "precision": 0.25,
+    "recall": 1.0,
+    "lead_times_h": [
+     47.0,
+     26.83
+    ],
+    "terminal_lead_times_h": [
+     29.5,
+     26.83
+    ],
+    "healthy_alert_episodes": 9,
+    "healthy_alert_episodes_excl_last24h": 1,
+    "healthy_alert_hours": 68.83,
+    "healthy_monitored_days": 109.31,
+    "healthy_alert_hours_per_bearing_day": 0.63
+   },
+   "b0_rms_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 2,
+    "tn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "lead_times_h": [
+     39.14,
+     119.99
+    ],
+    "terminal_lead_times_h": [
+     12.54,
+     119.99
+    ],
+    "healthy_alert_episodes": 2,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 2.11,
+    "healthy_monitored_days": 28.41,
+    "healthy_alert_hours_per_bearing_day": 0.074
+   },
+   "b1_iforest": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 3,
+    "tn": 3,
+    "precision": 0.4,
+    "recall": 1.0,
+    "lead_times_h": [
+     52.67,
+     26.33
+    ],
+    "terminal_lead_times_h": [
+     31.83,
+     26.33
+    ],
+    "healthy_alert_episodes": 139,
+    "healthy_alert_episodes_excl_last24h": 134,
+    "healthy_alert_hours": 256.5,
+    "healthy_monitored_days": 109.31,
+    "healthy_alert_hours_per_bearing_day": 2.347
+   },
+   "b1_iforest_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 0,
+    "tn": 2,
+    "precision": 1.0,
+    "recall": 1.0,
+    "lead_times_h": [
+     435.8,
+     599.47
+    ],
+    "terminal_lead_times_h": [
+     86.22,
+     174.96
+    ],
+    "healthy_alert_episodes": 0,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 0.0,
+    "healthy_monitored_days": 28.41,
+    "healthy_alert_hours_per_bearing_day": 0.0
+   }
+  },
+  {
+   "n_ref": 72,
+   "k": 5,
+   "tocsin": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 1,
+    "fn": 1,
+    "fp": 4,
+    "tn": 2,
+    "precision": 0.2,
+    "recall": 0.5,
+    "lead_times_h": [
+     26.17
+    ],
+    "terminal_lead_times_h": [
+     26.17
+    ],
+    "healthy_alert_episodes": 5,
+    "healthy_alert_episodes_excl_last24h": 1,
+    "healthy_alert_hours": 40.01,
+    "healthy_monitored_days": 109.31,
+    "healthy_alert_hours_per_bearing_day": 0.366
+   },
+   "tocsin_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 0,
+    "tn": 2,
+    "precision": 1.0,
+    "recall": 1.0,
+    "lead_times_h": [
+     41.64,
+     24.71
+    ],
+    "terminal_lead_times_h": [
+     11.87,
+     24.71
+    ],
+    "healthy_alert_episodes": 0,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 0.0,
+    "healthy_monitored_days": 28.41,
+    "healthy_alert_hours_per_bearing_day": 0.0
+   },
+   "b0_rms": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 6,
+    "tn": 0,
+    "precision": 0.25,
+    "recall": 1.0,
+    "lead_times_h": [
+     46.67,
+     26.5
+    ],
+    "terminal_lead_times_h": [
+     29.17,
+     26.5
+    ],
+    "healthy_alert_episodes": 8,
+    "healthy_alert_episodes_excl_last24h": 1,
+    "healthy_alert_hours": 67.67,
+    "healthy_monitored_days": 109.31,
+    "healthy_alert_hours_per_bearing_day": 0.619
+   },
+   "b0_rms_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 1,
+    "tn": 1,
+    "precision": 0.667,
+    "recall": 1.0,
+    "lead_times_h": [
+     33.04,
+     119.76
+    ],
+    "terminal_lead_times_h": [
+     12.21,
+     119.76
+    ],
+    "healthy_alert_episodes": 1,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 1.61,
+    "healthy_monitored_days": 28.41,
+    "healthy_alert_hours_per_bearing_day": 0.057
+   },
+   "b1_iforest": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 3,
+    "tn": 3,
+    "precision": 0.4,
+    "recall": 1.0,
+    "lead_times_h": [
+     49.33,
+     26.0
+    ],
+    "terminal_lead_times_h": [
+     49.33,
+     26.0
+    ],
+    "healthy_alert_episodes": 33,
+    "healthy_alert_episodes_excl_last24h": 29,
+    "healthy_alert_hours": 155.83,
+    "healthy_monitored_days": 109.31,
+    "healthy_alert_hours_per_bearing_day": 1.426
+   },
+   "b1_iforest_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 0,
+    "tn": 2,
+    "precision": 1.0,
+    "recall": 1.0,
+    "lead_times_h": [
+     275.96,
+     595.8
+    ],
+    "terminal_lead_times_h": [
+     85.88,
+     174.62
+    ],
+    "healthy_alert_episodes": 0,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 0.0,
+    "healthy_monitored_days": 28.41,
+    "healthy_alert_hours_per_bearing_day": 0.0
+   }
+  },
+  {
+   "n_ref": 144,
+   "k": 2,
+   "tocsin": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 6,
+    "tn": 0,
+    "precision": 0.25,
+    "recall": 1.0,
+    "lead_times_h": [
+     46.5,
+     41.5
+    ],
+    "terminal_lead_times_h": [
+     0.5,
+     18.17
+    ],
+    "healthy_alert_episodes": 22,
+    "healthy_alert_episodes_excl_last24h": 5,
+    "healthy_alert_hours": 40.5,
+    "healthy_monitored_days": 106.31,
+    "healthy_alert_hours_per_bearing_day": 0.381
+   },
+   "tocsin_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 2,
+    "tn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "lead_times_h": [
+     43.31,
+     227.85
+    ],
+    "terminal_lead_times_h": [
+     12.37,
+     25.21
+    ],
+    "healthy_alert_episodes": 4,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 5.72,
+    "healthy_monitored_days": 27.41,
+    "healthy_alert_hours_per_bearing_day": 0.209
+   },
+   "b0_rms": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 6,
+    "tn": 0,
+    "precision": 0.25,
+    "recall": 1.0,
+    "lead_times_h": [
+     53.5,
+     27.0
+    ],
+    "terminal_lead_times_h": [
+     27.0
+    ],
+    "healthy_alert_episodes": 11,
+    "healthy_alert_episodes_excl_last24h": 1,
+    "healthy_alert_hours": 73.67,
+    "healthy_monitored_days": 106.31,
+    "healthy_alert_hours_per_bearing_day": 0.693
+   },
+   "b0_rms_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 1,
+    "tn": 1,
+    "precision": 0.667,
+    "recall": 1.0,
+    "lead_times_h": [
+     43.98,
+     607.47
+    ],
+    "terminal_lead_times_h": [
+     12.71,
+     119.93
+    ],
+    "healthy_alert_episodes": 1,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 2.61,
+    "healthy_monitored_days": 27.41,
+    "healthy_alert_hours_per_bearing_day": 0.095
+   },
+   "b1_iforest": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 6,
+    "tn": 0,
+    "precision": 0.25,
+    "recall": 1.0,
+    "lead_times_h": [
+     55.83,
+     1019.84
+    ],
+    "terminal_lead_times_h": [
+     28.5,
+     29.33
+    ],
+    "healthy_alert_episodes": 270,
+    "healthy_alert_episodes_excl_last24h": 248,
+    "healthy_alert_hours": 269.83,
+    "healthy_monitored_days": 106.31,
+    "healthy_alert_hours_per_bearing_day": 2.538
+   },
+   "b1_iforest_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 1,
+    "tn": 1,
+    "precision": 0.667,
+    "recall": 1.0,
+    "lead_times_h": [
+     652.5,
+     622.84
+    ],
+    "terminal_lead_times_h": [
+     94.05,
+     175.79
+    ],
+    "healthy_alert_episodes": 11,
+    "healthy_alert_episodes_excl_last24h": 8,
+    "healthy_alert_hours": 7.45,
+    "healthy_monitored_days": 27.41,
+    "healthy_alert_hours_per_bearing_day": 0.272
+   }
+  },
+  {
+   "n_ref": 144,
+   "k": 3,
+   "tocsin": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 5,
+    "tn": 1,
+    "precision": 0.286,
+    "recall": 1.0,
+    "lead_times_h": [
+     46.33,
+     39.83
+    ],
+    "terminal_lead_times_h": [
+     0.33,
+     26.83
+    ],
+    "healthy_alert_episodes": 12,
+    "healthy_alert_episodes_excl_last24h": 2,
+    "healthy_alert_hours": 36.17,
+    "healthy_monitored_days": 106.31,
+    "healthy_alert_hours_per_bearing_day": 0.34
+   },
+   "tocsin_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 2,
+    "tn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "lead_times_h": [
+     41.98,
+     227.69
+    ],
+    "terminal_lead_times_h": [
+     12.21,
+     25.04
+    ],
+    "healthy_alert_episodes": 4,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 6.22,
+    "healthy_monitored_days": 27.41,
+    "healthy_alert_hours_per_bearing_day": 0.227
+   },
+   "b0_rms": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 6,
+    "tn": 0,
+    "precision": 0.25,
+    "recall": 1.0,
+    "lead_times_h": [
+     48.33,
+     26.83
+    ],
+    "terminal_lead_times_h": [
+     29.5,
+     26.83
+    ],
+    "healthy_alert_episodes": 8,
+    "healthy_alert_episodes_excl_last24h": 1,
+    "healthy_alert_hours": 72.99,
+    "healthy_monitored_days": 106.31,
+    "healthy_alert_hours_per_bearing_day": 0.687
+   },
+   "b0_rms_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 1,
+    "tn": 1,
+    "precision": 0.667,
+    "recall": 1.0,
+    "lead_times_h": [
+     39.14,
+     119.76
+    ],
+    "terminal_lead_times_h": [
+     12.54,
+     119.76
+    ],
+    "healthy_alert_episodes": 1,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 1.94,
+    "healthy_monitored_days": 27.41,
+    "healthy_alert_hours_per_bearing_day": 0.071
+   },
+   "b1_iforest": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 6,
+    "tn": 0,
+    "precision": 0.25,
+    "recall": 1.0,
+    "lead_times_h": [
+     55.67,
+     41.67
+    ],
+    "terminal_lead_times_h": [
+     50.0,
+     29.17
+    ],
+    "healthy_alert_episodes": 102,
+    "healthy_alert_episodes_excl_last24h": 91,
+    "healthy_alert_hours": 235.0,
+    "healthy_monitored_days": 106.31,
+    "healthy_alert_hours_per_bearing_day": 2.211
+   },
+   "b1_iforest_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 1,
+    "tn": 1,
+    "precision": 0.667,
+    "recall": 1.0,
+    "lead_times_h": [
+     615.0,
+     622.67
+    ],
+    "terminal_lead_times_h": [
+     102.88,
+     175.62
+    ],
+    "healthy_alert_episodes": 1,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 4.44,
+    "healthy_monitored_days": 27.41,
+    "healthy_alert_hours_per_bearing_day": 0.162
+   }
+  },
+  {
+   "n_ref": 144,
+   "k": 5,
+   "tocsin": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 4,
+    "tn": 2,
+    "precision": 0.333,
+    "recall": 1.0,
+    "lead_times_h": [
+     0.0,
+     26.5
+    ],
+    "terminal_lead_times_h": [
+     26.5
+    ],
+    "healthy_alert_episodes": 5,
+    "healthy_alert_episodes_excl_last24h": 1,
+    "healthy_alert_hours": 40.01,
+    "healthy_monitored_days": 106.31,
+    "healthy_alert_hours_per_bearing_day": 0.376
+   },
+   "tocsin_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 0,
+    "tn": 2,
+    "precision": 1.0,
+    "recall": 1.0,
+    "lead_times_h": [
+     41.64,
+     24.71
+    ],
+    "terminal_lead_times_h": [
+     11.87,
+     24.71
+    ],
+    "healthy_alert_episodes": 0,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 0.0,
+    "healthy_monitored_days": 27.41,
+    "healthy_alert_hours_per_bearing_day": 0.0
+   },
+   "b0_rms": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 6,
+    "tn": 0,
+    "precision": 0.25,
+    "recall": 1.0,
+    "lead_times_h": [
+     47.17,
+     26.5
+    ],
+    "terminal_lead_times_h": [
+     29.17,
+     26.5
+    ],
+    "healthy_alert_episodes": 7,
+    "healthy_alert_episodes_excl_last24h": 1,
+    "healthy_alert_hours": 71.0,
+    "healthy_monitored_days": 106.31,
+    "healthy_alert_hours_per_bearing_day": 0.668
+   },
+   "b0_rms_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 1,
+    "tn": 1,
+    "precision": 0.667,
+    "recall": 1.0,
+    "lead_times_h": [
+     33.04,
+     119.43
+    ],
+    "terminal_lead_times_h": [
+     12.21,
+     119.43
+    ],
+    "healthy_alert_episodes": 1,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 1.61,
+    "healthy_monitored_days": 27.41,
+    "healthy_alert_hours_per_bearing_day": 0.059
+   },
+   "b1_iforest": {
+    "n_faulty": 2,
+    "n_healthy": 6,
+    "tp": 2,
+    "fn": 0,
+    "fp": 5,
+    "tn": 1,
+    "precision": 0.286,
+    "recall": 1.0,
+    "lead_times_h": [
+     55.33,
+     41.33
+    ],
+    "terminal_lead_times_h": [
+     55.33,
+     28.83
+    ],
+    "healthy_alert_episodes": 18,
+    "healthy_alert_episodes_excl_last24h": 13,
+    "healthy_alert_hours": 181.58,
+    "healthy_monitored_days": 106.31,
+    "healthy_alert_hours_per_bearing_day": 1.708
+   },
+   "b1_iforest_tuning": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 1,
+    "tn": 1,
+    "precision": 0.667,
+    "recall": 1.0,
+    "lead_times_h": [
+     600.8,
+     602.3
+    ],
+    "terminal_lead_times_h": [
+     379.73,
+     174.62
+    ],
+    "healthy_alert_episodes": 1,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 2.44,
+    "healthy_monitored_days": 27.41,
+    "healthy_alert_hours_per_bearing_day": 0.089
+   }
+  }
+ ]
+}
