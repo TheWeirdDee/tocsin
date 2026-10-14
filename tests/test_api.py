@@ -77,8 +77,16 @@ def test_analyze_rejects_bad_input():
 
 def test_spa_fallback_and_api_404():
     assert client.get("/api/does-not-exist").status_code == 404
+    import server.app as srv
     r = client.get("/demo/test2?b=1&t=10")
-    assert r.status_code in (200, 503)  # 503 only when the frontend has not been built
+    root = client.get("/")
+    if os.path.isdir(srv.WEB_DIST):
+        # Local same-origin mode: direct URLs fall back to the SPA.
+        assert r.status_code == 200 and "text/html" in r.headers["content-type"]
+    else:
+        # API-only mode (Railway): the root describes the service, other paths are 404 JSON.
+        assert root.status_code == 200 and root.json()["service"] == "TOCSIN API"
+        assert r.status_code == 404
 
 
 def test_cors_allows_known_origin_and_preflight_but_not_others():
