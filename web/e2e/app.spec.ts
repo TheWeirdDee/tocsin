@@ -1,7 +1,7 @@
 import { expect, test, type Page } from '@playwright/test'
 
 const CROSS = process.env.E2E_CROSS_ORIGIN === '1'
-const API = CROSS ? 'http://127.0.0.1:8001' : ''
+const API = process.env.E2E_API_BASE ?? (CROSS ? 'http://127.0.0.1:8001' : '')
 
 async function noHorizontalScroll(page: Page) {
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
@@ -128,12 +128,12 @@ test('keyboard: skip link and visible focus', async ({ page, isMobile }) => {
   expect(outline).not.toBe('none')
 })
 
-test('frontend talks to the API origin it was built for (CORS in cross-origin mode)', async ({ page }) => {
+test('frontend talks to the API origin it was built for (CORS when cross-origin)', async ({ page }) => {
   const seen: string[] = []
   page.on('response', (r) => { if (r.url().includes('/api/')) seen.push(`${r.status()} ${r.url()}`) })
   await page.goto('/demo/test2?t=10')
   await expect(page.getByText('Reading 11 of 984')).toBeVisible()
   expect(seen.length).toBeGreaterThan(0)
   for (const s of seen) expect(s.startsWith('200 ')).toBeTruthy()
-  if (CROSS) for (const s of seen) expect(s).toContain('http://127.0.0.1:8001/api/')
+  if (API) for (const s of seen) expect(s).toContain(`${API}/api/`)
 })
