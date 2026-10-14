@@ -23,7 +23,7 @@
 - **Single light theme.** Implemented and tested fully, rather than shipping an untested dark mode.
 - **Custom SVG charts.** These keep causal display (nothing after the cursor), exact threshold lines and small bundles.
 
-- **Hosting: Vercel (frontend) and Railway (API)**, as the owner specified. The frontend calls the API cross-origin through `VITE_API_BASE`, with CORS limited to configured origins.
+- **Hosting: Vercel (frontend) and Railway (API)**, as the owner specified. Railway builds the Dockerfile from GitHub `main`. A Railway "restart" does not rebuild; a push does. The frontend calls the API cross-origin through `VITE_API_BASE`, with CORS limited to configured origins.
 - **Demo artifacts in a GitHub Release, not in Git.**
   - The local artifacts were 156 MB, 83% of it display spectra.
   - Spectra are now stored as 8-bit log amplitude (±0.3 dB, chart-only). The bundle is 49 MB, pinned by SHA-256 in `config/artifacts.lock.json` and verified at Docker build time.
@@ -34,6 +34,8 @@
 
 1. **Deadline confirmation.** The Devfolio schedule says the hackathon ends **15 Oct 2026, 11:59 PM IST** (19:29 WAT). No separate submission deadline is listed publicly, so please confirm in the Devfolio dashboard.
 2. **Organizer dataset.** PS01 says organizers "should provide" data, but none is linked publicly. Please confirm in the dashboard or Discord whether a mandatory dataset exists.
-3. **Hosting.** Vercel is logged in on this machine as `theweirddee`. The Railway CLI on the build machine is logged in under a different identity from the repository owner, so it is not used until the owner confirms the account and its plan.
+3. **Hosting: resolved.**
+   - Vercel project `tocsin` and Railway service `tocsin` are deployed. The Railway service sits in the owner's existing project `gentle-mercy`, which the owner chose because of the free-plan project limit.
+   - The Railway account is on a trial with limited credit. Keeping the API online after the trial needs an owner decision.
 4. **Submission assets.** The required video, deck and links are not stated publicly.
 5. **Team details for the submission form.** The author is recorded as Divine Dilibe.
