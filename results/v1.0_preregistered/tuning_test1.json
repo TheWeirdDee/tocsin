@@ -1,0 +1,5692 @@
+{
+ "generated": "2026-10-14T17:29:14.771238+00:00",
+ "run": "test1",
+ "grid": [
+  2.0,
+  30.0,
+  0.5
+ ],
+ "rule": "smallest theta with every undamaged bearing ALERT fraction <= 0.01",
+ "band_search": {
+  "1000-9000": {
+   "theta": 4.0,
+   "rule_failed": false,
+   "mean_lead_h": 29.04,
+   "per_bearing": [
+    {
+     "faulty": false,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 1,
+     "alert_hours": 1.67,
+     "alert_valid_snapshots": 10,
+     "alert_fraction": 0.0048,
+     "alert_hours_per_day": 0.117,
+     "alerted": true,
+     "first_alert": "2003-11-25T13:07:32",
+     "lead_time_h": 10.54,
+     "alert_active_at_end": false,
+     "terminal_alert_lead_time_h": 0.0,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 0,
+     "bearing": 1
+    },
+    {
+     "faulty": false,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 2,
+     "alert_hours": 1.44,
+     "alert_valid_snapshots": 9,
+     "alert_fraction": 0.00432,
+     "alert_hours_per_day": 0.102,
+     "alerted": true,
+     "first_alert": "2003-11-25T11:27:32",
+     "lead_time_h": 12.21,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 7.71,
+     "alert_episodes_last24h": 2,
+     "alert_episodes_before_last24h": 0,
+     "bearing": 2
+    },
+    {
+     "faulty": true,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 3,
+     "alert_hours": 7.11,
+     "alert_valid_snapshots": 43,
+     "alert_fraction": 0.02063,
+     "alert_hours_per_day": 0.5,
+     "alerted": true,
+     "first_alert": "2003-11-24T14:37:32",
+     "lead_time_h": 33.04,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 12.04,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 2,
+     "bearing": 3
+    },
+    {
+     "faulty": true,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 1,
+     "alert_hours": 7.78,
+     "alert_valid_snapshots": 46,
+     "alert_fraction": 0.02207,
+     "alert_hours_per_day": 0.547,
+     "alerted": true,
+     "first_alert": "2003-11-24T22:37:32",
+     "lead_time_h": 25.04,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 25.04,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 1,
+     "bearing": 4
+    }
+   ],
+   "curve": [
+    {
+     "theta": 2.0,
+     "max_healthy_alert_fraction": 0.03503,
+     "faulty_lead_h": [
+      71.38,
+      608.8
+     ],
+     "healthy_episodes": 8,
+     "detected": 2
+    },
+    {
+     "theta": 2.5,
+     "max_healthy_alert_fraction": 0.01823,
+     "faulty_lead_h": [
+      47.64,
+      604.97
+     ],
+     "healthy_episodes": 2,
+     "detected": 2
+    },
+    {
+     "theta": 3.0,
+     "max_healthy_alert_fraction": 0.0144,
+     "faulty_lead_h": [
+      44.48,
+      604.97
+     ],
+     "healthy_episodes": 4,
+     "detected": 2
+    },
+    {
+     "theta": 3.5,
+     "max_healthy_alert_fraction": 0.01104,
+     "faulty_lead_h": [
+      43.14,
+      604.97
+     ],
+     "healthy_episodes": 4,
+     "detected": 2
+    },
+    {
+     "theta": 4.0,
+     "max_healthy_alert_fraction": 0.0048,
+     "faulty_lead_h": [
+      33.04,
+      25.04
+     ],
+     "healthy_episodes": 3,
+     "detected": 2
+    },
+    {
+     "theta": 4.5,
+     "max_healthy_alert_fraction": 0.00288,
+     "faulty_lead_h": [
+      33.04,
+      25.04
+     ],
+     "healthy_episodes": 1,
+     "detected": 2
+    },
+    {
+     "theta": 5.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      11.37,
+      25.04
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 5.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      11.37,
+      25.04
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 6.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      11.04,
+      12.71
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 6.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      8.54,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 7.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      8.54,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 7.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      8.54,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 8.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 8.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 9.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      12.04
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 9.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 10.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 10.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 11.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 11.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 12.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 12.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 13.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 13.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 14.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 14.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 15.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 15.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 16.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 16.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 17.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 17.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 18.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 18.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 19.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 19.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 20.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 20.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 21.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 21.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 22.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 22.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 23.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 23.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 24.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 24.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 25.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 25.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 26.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 26.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 27.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 27.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 28.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 28.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 29.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 29.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 30.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    }
+   ]
+  },
+  "2000-8000": {
+   "theta": 3.5,
+   "rule_failed": false,
+   "mean_lead_h": 134.84,
+   "per_bearing": [
+    {
+     "faulty": false,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 2,
+     "alert_hours": 2.28,
+     "alert_valid_snapshots": 13,
+     "alert_fraction": 0.00624,
+     "alert_hours_per_day": 0.16,
+     "alerted": true,
+     "first_alert": "2003-11-25T13:07:32",
+     "lead_time_h": 10.54,
+     "alert_active_at_end": false,
+     "terminal_alert_lead_time_h": 0.0,
+     "alert_episodes_last24h": 2,
+     "alert_episodes_before_last24h": 0,
+     "bearing": 1
+    },
+    {
+     "faulty": false,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 2,
+     "alert_hours": 2.61,
+     "alert_valid_snapshots": 16,
+     "alert_fraction": 0.00768,
+     "alert_hours_per_day": 0.184,
+     "alerted": true,
+     "first_alert": "2003-11-25T11:27:32",
+     "lead_time_h": 12.21,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 8.87,
+     "alert_episodes_last24h": 2,
+     "alert_episodes_before_last24h": 0,
+     "bearing": 2
+    },
+    {
+     "faulty": true,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 4,
+     "alert_hours": 13.17,
+     "alert_valid_snapshots": 80,
+     "alert_fraction": 0.03839,
+     "alert_hours_per_day": 0.927,
+     "alerted": true,
+     "first_alert": "2003-11-24T05:41:24",
+     "lead_time_h": 41.98,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 12.21,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 3,
+     "bearing": 3
+    },
+    {
+     "faulty": true,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 4,
+     "alert_hours": 11.44,
+     "alert_valid_snapshots": 67,
+     "alert_fraction": 0.03215,
+     "alert_hours_per_day": 0.805,
+     "alerted": true,
+     "first_alert": "2003-11-16T11:58:46",
+     "lead_time_h": 227.69,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 25.04,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 4,
+     "bearing": 4
+    }
+   ],
+   "curve": [
+    {
+     "theta": 2.0,
+     "max_healthy_alert_fraction": 0.02735,
+     "faulty_lead_h": [
+      47.64,
+      608.8
+     ],
+     "healthy_episodes": 4,
+     "detected": 2
+    },
+    {
+     "theta": 2.5,
+     "max_healthy_alert_fraction": 0.02159,
+     "faulty_lead_h": [
+      44.48,
+      605.14
+     ],
+     "healthy_episodes": 2,
+     "detected": 2
+    },
+    {
+     "theta": 3.0,
+     "max_healthy_alert_fraction": 0.01583,
+     "faulty_lead_h": [
+      44.48,
+      604.97
+     ],
+     "healthy_episodes": 4,
+     "detected": 2
+    },
+    {
+     "theta": 3.5,
+     "max_healthy_alert_fraction": 0.00768,
+     "faulty_lead_h": [
+      41.98,
+      227.69
+     ],
+     "healthy_episodes": 4,
+     "detected": 2
+    },
+    {
+     "theta": 4.0,
+     "max_healthy_alert_fraction": 0.00432,
+     "faulty_lead_h": [
+      33.21,
+      227.69
+     ],
+     "healthy_episodes": 2,
+     "detected": 2
+    },
+    {
+     "theta": 4.5,
+     "max_healthy_alert_fraction": 0.00432,
+     "faulty_lead_h": [
+      33.21,
+      25.04
+     ],
+     "healthy_episodes": 2,
+     "detected": 2
+    },
+    {
+     "theta": 5.0,
+     "max_healthy_alert_fraction": 0.00096,
+     "faulty_lead_h": [
+      11.37,
+      12.54
+     ],
+     "healthy_episodes": 1,
+     "detected": 2
+    },
+    {
+     "theta": 5.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      11.37,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 6.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      11.37,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 6.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      8.54,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 7.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 7.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 8.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      12.37
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 8.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 9.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 9.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 10.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 10.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 11.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 11.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 12.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 12.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 13.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 13.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 14.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 14.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 15.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 15.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 16.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 16.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 17.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 17.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 18.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 18.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 19.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 19.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 20.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 20.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 21.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 21.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 22.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 22.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 23.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 23.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 24.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 24.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 25.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 25.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 26.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 26.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 27.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 27.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 28.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 28.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 29.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 29.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 30.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    }
+   ]
+  },
+  "4000-9000": {
+   "theta": 4.0,
+   "rule_failed": false,
+   "mean_lead_h": 27.46,
+   "per_bearing": [
+    {
+     "faulty": false,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 2,
+     "alert_hours": 3.11,
+     "alert_valid_snapshots": 18,
+     "alert_fraction": 0.00864,
+     "alert_hours_per_day": 0.219,
+     "alerted": true,
+     "first_alert": "2003-11-25T13:07:32",
+     "lead_time_h": 10.54,
+     "alert_active_at_end": false,
+     "terminal_alert_lead_time_h": 0.0,
+     "alert_episodes_last24h": 2,
+     "alert_episodes_before_last24h": 0,
+     "bearing": 1
+    },
+    {
+     "faulty": false,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 0,
+     "alert_hours": 0.0,
+     "alert_valid_snapshots": 0,
+     "alert_fraction": 0.0,
+     "alert_hours_per_day": 0.0,
+     "alerted": false,
+     "first_alert": null,
+     "lead_time_h": null,
+     "alert_active_at_end": false,
+     "terminal_alert_lead_time_h": null,
+     "alert_episodes_last24h": 0,
+     "alert_episodes_before_last24h": 0,
+     "bearing": 2
+    },
+    {
+     "faulty": true,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 2,
+     "alert_hours": 5.61,
+     "alert_valid_snapshots": 34,
+     "alert_fraction": 0.01631,
+     "alert_hours_per_day": 0.395,
+     "alerted": true,
+     "first_alert": "2003-11-24T16:57:32",
+     "lead_time_h": 30.71,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 11.37,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 1,
+     "bearing": 3
+    },
+    {
+     "faulty": true,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 1,
+     "alert_hours": 6.94,
+     "alert_valid_snapshots": 41,
+     "alert_fraction": 0.01967,
+     "alert_hours_per_day": 0.489,
+     "alerted": true,
+     "first_alert": "2003-11-24T23:27:32",
+     "lead_time_h": 24.21,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 24.21,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 1,
+     "bearing": 4
+    }
+   ],
+   "curve": [
+    {
+     "theta": 2.0,
+     "max_healthy_alert_fraction": 0.02063,
+     "faulty_lead_h": [
+      57.72,
+      609.64
+     ],
+     "healthy_episodes": 6,
+     "detected": 2
+    },
+    {
+     "theta": 2.5,
+     "max_healthy_alert_fraction": 0.01536,
+     "faulty_lead_h": [
+      44.48,
+      227.69
+     ],
+     "healthy_episodes": 2,
+     "detected": 2
+    },
+    {
+     "theta": 3.0,
+     "max_healthy_alert_fraction": 0.01392,
+     "faulty_lead_h": [
+      44.48,
+      182.29
+     ],
+     "healthy_episodes": 2,
+     "detected": 2
+    },
+    {
+     "theta": 3.5,
+     "max_healthy_alert_fraction": 0.01248,
+     "faulty_lead_h": [
+      33.21,
+      24.87
+     ],
+     "healthy_episodes": 2,
+     "detected": 2
+    },
+    {
+     "theta": 4.0,
+     "max_healthy_alert_fraction": 0.00864,
+     "faulty_lead_h": [
+      30.71,
+      24.21
+     ],
+     "healthy_episodes": 2,
+     "detected": 2
+    },
+    {
+     "theta": 4.5,
+     "max_healthy_alert_fraction": 0.00816,
+     "faulty_lead_h": [
+      11.37,
+      12.54
+     ],
+     "healthy_episodes": 2,
+     "detected": 2
+    },
+    {
+     "theta": 5.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      11.37,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 5.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      11.37,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 6.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 6.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 7.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 7.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      12.21
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 8.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      11.71
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 8.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      11.71
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 9.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 9.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 10.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 10.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 11.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 11.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 12.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 12.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 13.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 13.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 14.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 14.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 15.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 15.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 16.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 16.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 17.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 17.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 18.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 18.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 19.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 19.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 20.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 20.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 21.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 21.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 22.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 22.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 23.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 23.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 24.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 24.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 25.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 25.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 26.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 26.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 27.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 27.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 28.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 28.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 29.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 29.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 30.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    }
+   ]
+  }
+ },
+ "detectors": {
+  "tocsin": {
+   "theta": 3.5,
+   "rule_failed": false,
+   "summary": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 2,
+    "tn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "lead_times_h": [
+     41.98,
+     227.69
+    ],
+    "terminal_lead_times_h": [
+     12.21,
+     25.04
+    ],
+    "healthy_alert_episodes": 4,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 4.89,
+    "healthy_monitored_days": 28.41,
+    "healthy_alert_hours_per_bearing_day": 0.172
+   },
+   "per_bearing": [
+    {
+     "faulty": false,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 2,
+     "alert_hours": 2.28,
+     "alert_valid_snapshots": 13,
+     "alert_fraction": 0.00624,
+     "alert_hours_per_day": 0.16,
+     "alerted": true,
+     "first_alert": "2003-11-25T13:07:32",
+     "lead_time_h": 10.54,
+     "alert_active_at_end": false,
+     "terminal_alert_lead_time_h": 0.0,
+     "alert_episodes_last24h": 2,
+     "alert_episodes_before_last24h": 0,
+     "bearing": 1
+    },
+    {
+     "faulty": false,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 2,
+     "alert_hours": 2.61,
+     "alert_valid_snapshots": 16,
+     "alert_fraction": 0.00768,
+     "alert_hours_per_day": 0.184,
+     "alerted": true,
+     "first_alert": "2003-11-25T11:27:32",
+     "lead_time_h": 12.21,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 8.87,
+     "alert_episodes_last24h": 2,
+     "alert_episodes_before_last24h": 0,
+     "bearing": 2
+    },
+    {
+     "faulty": true,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 4,
+     "alert_hours": 13.17,
+     "alert_valid_snapshots": 80,
+     "alert_fraction": 0.03839,
+     "alert_hours_per_day": 0.927,
+     "alerted": true,
+     "first_alert": "2003-11-24T05:41:24",
+     "lead_time_h": 41.98,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 12.21,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 3,
+     "bearing": 3
+    },
+    {
+     "faulty": true,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 4,
+     "alert_hours": 11.44,
+     "alert_valid_snapshots": 67,
+     "alert_fraction": 0.03215,
+     "alert_hours_per_day": 0.805,
+     "alerted": true,
+     "first_alert": "2003-11-16T11:58:46",
+     "lead_time_h": 227.69,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 25.04,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 4,
+     "bearing": 4
+    }
+   ],
+   "curve": [
+    {
+     "theta": 2.0,
+     "max_healthy_alert_fraction": 0.02735,
+     "faulty_lead_h": [
+      47.64,
+      608.8
+     ],
+     "healthy_episodes": 4,
+     "detected": 2
+    },
+    {
+     "theta": 2.5,
+     "max_healthy_alert_fraction": 0.02159,
+     "faulty_lead_h": [
+      44.48,
+      605.14
+     ],
+     "healthy_episodes": 2,
+     "detected": 2
+    },
+    {
+     "theta": 3.0,
+     "max_healthy_alert_fraction": 0.01583,
+     "faulty_lead_h": [
+      44.48,
+      604.97
+     ],
+     "healthy_episodes": 4,
+     "detected": 2
+    },
+    {
+     "theta": 3.5,
+     "max_healthy_alert_fraction": 0.00768,
+     "faulty_lead_h": [
+      41.98,
+      227.69
+     ],
+     "healthy_episodes": 4,
+     "detected": 2
+    },
+    {
+     "theta": 4.0,
+     "max_healthy_alert_fraction": 0.00432,
+     "faulty_lead_h": [
+      33.21,
+      227.69
+     ],
+     "healthy_episodes": 2,
+     "detected": 2
+    },
+    {
+     "theta": 4.5,
+     "max_healthy_alert_fraction": 0.00432,
+     "faulty_lead_h": [
+      33.21,
+      25.04
+     ],
+     "healthy_episodes": 2,
+     "detected": 2
+    },
+    {
+     "theta": 5.0,
+     "max_healthy_alert_fraction": 0.00096,
+     "faulty_lead_h": [
+      11.37,
+      12.54
+     ],
+     "healthy_episodes": 1,
+     "detected": 2
+    },
+    {
+     "theta": 5.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      11.37,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 6.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      11.37,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 6.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      8.54,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 7.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 7.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 8.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      12.37
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 8.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 9.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 9.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 10.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 10.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 11.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 11.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 12.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 12.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 13.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 13.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 14.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 14.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 15.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 15.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 16.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 16.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 17.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 17.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 18.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 18.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 19.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 19.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 20.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 20.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 21.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 21.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 22.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 22.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 23.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 23.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 24.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 24.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 25.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 25.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 26.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 26.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 27.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 27.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 28.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 28.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 29.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 29.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 30.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    }
+   ]
+  },
+  "b0_rms": {
+   "theta": 5.5,
+   "rule_failed": false,
+   "summary": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 2,
+    "tn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "lead_times_h": [
+     39.14,
+     119.99
+    ],
+    "terminal_lead_times_h": [
+     12.54,
+     119.99
+    ],
+    "healthy_alert_episodes": 2,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 2.11,
+    "healthy_monitored_days": 28.41,
+    "healthy_alert_hours_per_bearing_day": 0.074
+   },
+   "per_bearing": [
+    {
+     "faulty": false,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 1,
+     "alert_hours": 0.17,
+     "alert_valid_snapshots": 2,
+     "alert_fraction": 0.00096,
+     "alert_hours_per_day": 0.012,
+     "alerted": true,
+     "first_alert": "2003-11-25T23:29:56",
+     "lead_time_h": 0.17,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 0.17,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 0,
+     "bearing": 1
+    },
+    {
+     "faulty": false,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 1,
+     "alert_hours": 1.94,
+     "alert_valid_snapshots": 12,
+     "alert_fraction": 0.00576,
+     "alert_hours_per_day": 0.137,
+     "alerted": true,
+     "first_alert": "2003-11-25T14:57:32",
+     "lead_time_h": 8.71,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 8.71,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 0,
+     "bearing": 2
+    },
+    {
+     "faulty": true,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 4,
+     "alert_hours": 10.11,
+     "alert_valid_snapshots": 61,
+     "alert_fraction": 0.02927,
+     "alert_hours_per_day": 0.712,
+     "alerted": true,
+     "first_alert": "2003-11-24T08:31:24",
+     "lead_time_h": 39.14,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 12.54,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 3,
+     "bearing": 3
+    },
+    {
+     "faulty": true,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 1,
+     "alert_hours": 91.17,
+     "alert_valid_snapshots": 542,
+     "alert_fraction": 0.26008,
+     "alert_hours_per_day": 6.417,
+     "alerted": true,
+     "first_alert": "2003-11-20T23:40:19",
+     "lead_time_h": 119.99,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 119.99,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 1,
+     "bearing": 4
+    }
+   ],
+   "curve": [
+    {
+     "theta": 2.0,
+     "max_healthy_alert_fraction": 0.95873,
+     "faulty_lead_h": [
+      656.67,
+      656.67
+     ],
+     "healthy_episodes": 2,
+     "detected": 2
+    },
+    {
+     "theta": 2.5,
+     "max_healthy_alert_fraction": 0.95873,
+     "faulty_lead_h": [
+      656.67,
+      656.67
+     ],
+     "healthy_episodes": 4,
+     "detected": 2
+    },
+    {
+     "theta": 3.0,
+     "max_healthy_alert_fraction": 0.91939,
+     "faulty_lead_h": [
+      656.67,
+      656.67
+     ],
+     "healthy_episodes": 6,
+     "detected": 2
+    },
+    {
+     "theta": 3.5,
+     "max_healthy_alert_fraction": 0.4453,
+     "faulty_lead_h": [
+      622.34,
+      623.17
+     ],
+     "healthy_episodes": 20,
+     "detected": 2
+    },
+    {
+     "theta": 4.0,
+     "max_healthy_alert_fraction": 0.02783,
+     "faulty_lead_h": [
+      80.05,
+      599.8
+     ],
+     "healthy_episodes": 3,
+     "detected": 2
+    },
+    {
+     "theta": 4.5,
+     "max_healthy_alert_fraction": 0.01823,
+     "faulty_lead_h": [
+      71.22,
+      150.56
+     ],
+     "healthy_episodes": 3,
+     "detected": 2
+    },
+    {
+     "theta": 5.0,
+     "max_healthy_alert_fraction": 0.01056,
+     "faulty_lead_h": [
+      45.14,
+      125.51
+     ],
+     "healthy_episodes": 2,
+     "detected": 2
+    },
+    {
+     "theta": 5.5,
+     "max_healthy_alert_fraction": 0.00576,
+     "faulty_lead_h": [
+      39.14,
+      119.99
+     ],
+     "healthy_episodes": 2,
+     "detected": 2
+    },
+    {
+     "theta": 6.0,
+     "max_healthy_alert_fraction": 0.00384,
+     "faulty_lead_h": [
+      32.71,
+      117.93
+     ],
+     "healthy_episodes": 1,
+     "detected": 2
+    },
+    {
+     "theta": 6.5,
+     "max_healthy_alert_fraction": 0.00096,
+     "faulty_lead_h": [
+      12.54,
+      112.76
+     ],
+     "healthy_episodes": 1,
+     "detected": 2
+    },
+    {
+     "theta": 7.0,
+     "max_healthy_alert_fraction": 0.00096,
+     "faulty_lead_h": [
+      12.54,
+      108.86
+     ],
+     "healthy_episodes": 1,
+     "detected": 2
+    },
+    {
+     "theta": 7.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      12.54,
+      107.36
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 8.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      12.54,
+      104.52
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 8.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      12.37,
+      97.55
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 9.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      11.87,
+      97.55
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 9.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      11.87,
+      93.38
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 10.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      11.21,
+      92.22
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 10.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      10.37,
+      8.04
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 11.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      10.21,
+      0.17
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 11.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      10.04,
+      0.17
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 12.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      9.71,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 12.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      8.21,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 13.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 13.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 14.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 14.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 15.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 15.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 16.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 16.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 17.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 17.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 18.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 18.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 19.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 19.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 20.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 20.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 21.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 21.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 22.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 22.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 23.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 23.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 24.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 24.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 25.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 25.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 26.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 26.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 27.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 27.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 28.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 28.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 29.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 29.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 30.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    }
+   ]
+  },
+  "b1_iforest": {
+   "theta": 4.5,
+   "rule_failed": false,
+   "summary": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 0,
+    "tn": 2,
+    "precision": 1.0,
+    "recall": 1.0,
+    "lead_times_h": [
+     435.8,
+     599.47
+    ],
+    "terminal_lead_times_h": [
+     86.22,
+     174.96
+    ],
+    "healthy_alert_episodes": 0,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 0.0,
+    "healthy_monitored_days": 28.41,
+    "healthy_alert_hours_per_bearing_day": 0.0
+   },
+   "per_bearing": [
+    {
+     "faulty": false,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 0,
+     "alert_hours": 0.0,
+     "alert_valid_snapshots": 0,
+     "alert_fraction": 0.0,
+     "alert_hours_per_day": 0.0,
+     "alerted": false,
+     "first_alert": null,
+     "lead_time_h": null,
+     "alert_active_at_end": false,
+     "terminal_alert_lead_time_h": null,
+     "alert_episodes_last24h": 0,
+     "alert_episodes_before_last24h": 0,
+     "bearing": 1
+    },
+    {
+     "faulty": false,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 0,
+     "alert_hours": 0.0,
+     "alert_valid_snapshots": 0,
+     "alert_fraction": 0.0,
+     "alert_hours_per_day": 0.0,
+     "alerted": false,
+     "first_alert": null,
+     "lead_time_h": null,
+     "alert_active_at_end": false,
+     "terminal_alert_lead_time_h": null,
+     "alert_episodes_last24h": 0,
+     "alert_episodes_before_last24h": 0,
+     "bearing": 2
+    },
+    {
+     "faulty": true,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 30,
+     "alert_hours": 167.39,
+     "alert_valid_snapshots": 1044,
+     "alert_fraction": 0.50096,
+     "alert_hours_per_day": 11.782,
+     "alerted": true,
+     "first_alert": "2003-11-07T19:51:44",
+     "lead_time_h": 435.8,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 86.22,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 30,
+     "bearing": 3
+    },
+    {
+     "faulty": true,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 6,
+     "alert_hours": 126.12,
+     "alert_valid_snapshots": 802,
+     "alert_fraction": 0.38484,
+     "alert_hours_per_day": 8.877,
+     "alerted": true,
+     "first_alert": "2003-11-01T00:11:44",
+     "lead_time_h": 599.47,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 174.96,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 6,
+     "bearing": 4
+    }
+   ],
+   "curve": [
+    {
+     "theta": 2.0,
+     "max_healthy_alert_fraction": 0.97265,
+     "faulty_lead_h": [
+      656.67,
+      655.67
+     ],
+     "healthy_episodes": 43,
+     "detected": 2
+    },
+    {
+     "theta": 2.5,
+     "max_healthy_alert_fraction": 0.96209,
+     "faulty_lead_h": [
+      656.0,
+      655.34
+     ],
+     "healthy_episodes": 44,
+     "detected": 2
+    },
+    {
+     "theta": 3.0,
+     "max_healthy_alert_fraction": 0.64155,
+     "faulty_lead_h": [
+      656.0,
+      645.84
+     ],
+     "healthy_episodes": 71,
+     "detected": 2
+    },
+    {
+     "theta": 3.5,
+     "max_healthy_alert_fraction": 0.13196,
+     "faulty_lead_h": [
+      615.0,
+      622.67
+     ],
+     "healthy_episodes": 42,
+     "detected": 2
+    },
+    {
+     "theta": 4.0,
+     "max_healthy_alert_fraction": 0.01871,
+     "faulty_lead_h": [
+      435.8,
+      622.67
+     ],
+     "healthy_episodes": 5,
+     "detected": 2
+    },
+    {
+     "theta": 4.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      435.8,
+      599.47
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 5.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      273.13,
+      599.47
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 5.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      156.4
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 6.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      156.4
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 6.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      154.56
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 7.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      97.38
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 7.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 8.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 8.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 9.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 9.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 10.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 10.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 11.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 11.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 12.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 12.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 13.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 13.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 14.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 14.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 15.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 15.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 16.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 16.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 17.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 17.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 18.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 18.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 19.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 19.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 20.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 20.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 21.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 21.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 22.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 22.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 23.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 23.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 24.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 24.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 25.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 25.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 26.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 26.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 27.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 27.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 28.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 28.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 29.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 29.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 30.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    }
+   ]
+  },
+  "a1_broadband_env": {
+   "theta": 9.5,
+   "rule_failed": false,
+   "summary": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 1,
+    "tn": 1,
+    "precision": 0.667,
+    "recall": 1.0,
+    "lead_times_h": [
+     39.14,
+     125.68
+    ],
+    "terminal_lead_times_h": [
+     12.54,
+     125.68
+    ],
+    "healthy_alert_episodes": 1,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 1.94,
+    "healthy_monitored_days": 28.41,
+    "healthy_alert_hours_per_bearing_day": 0.068
+   },
+   "per_bearing": [
+    {
+     "faulty": false,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 0,
+     "alert_hours": 0.0,
+     "alert_valid_snapshots": 0,
+     "alert_fraction": 0.0,
+     "alert_hours_per_day": 0.0,
+     "alerted": false,
+     "first_alert": null,
+     "lead_time_h": null,
+     "alert_active_at_end": false,
+     "terminal_alert_lead_time_h": null,
+     "alert_episodes_last24h": 0,
+     "alert_episodes_before_last24h": 0,
+     "bearing": 1
+    },
+    {
+     "faulty": false,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 1,
+     "alert_hours": 1.94,
+     "alert_valid_snapshots": 12,
+     "alert_fraction": 0.00576,
+     "alert_hours_per_day": 0.137,
+     "alerted": true,
+     "first_alert": "2003-11-25T14:57:32",
+     "lead_time_h": 8.71,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 8.71,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 0,
+     "bearing": 2
+    },
+    {
+     "faulty": true,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 4,
+     "alert_hours": 10.11,
+     "alert_valid_snapshots": 61,
+     "alert_fraction": 0.02927,
+     "alert_hours_per_day": 0.712,
+     "alerted": true,
+     "first_alert": "2003-11-24T08:31:24",
+     "lead_time_h": 39.14,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 12.54,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 3,
+     "bearing": 3
+    },
+    {
+     "faulty": true,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 1,
+     "alert_hours": 94.17,
+     "alert_valid_snapshots": 575,
+     "alert_fraction": 0.27591,
+     "alert_hours_per_day": 6.629,
+     "alerted": true,
+     "first_alert": "2003-11-20T17:59:03",
+     "lead_time_h": 125.68,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 125.68,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 1,
+     "bearing": 4
+    }
+   ],
+   "curve": [
+    {
+     "theta": 2.0,
+     "max_healthy_alert_fraction": 0.99808,
+     "faulty_lead_h": [
+      656.67,
+      656.67
+     ],
+     "healthy_episodes": 21,
+     "detected": 2
+    },
+    {
+     "theta": 2.5,
+     "max_healthy_alert_fraction": 0.90019,
+     "faulty_lead_h": [
+      656.67,
+      656.67
+     ],
+     "healthy_episodes": 12,
+     "detected": 2
+    },
+    {
+     "theta": 3.0,
+     "max_healthy_alert_fraction": 0.81862,
+     "faulty_lead_h": [
+      655.84,
+      656.0
+     ],
+     "healthy_episodes": 10,
+     "detected": 2
+    },
+    {
+     "theta": 3.5,
+     "max_healthy_alert_fraction": 0.68906,
+     "faulty_lead_h": [
+      653.0,
+      655.67
+     ],
+     "healthy_episodes": 30,
+     "detected": 2
+    },
+    {
+     "theta": 4.0,
+     "max_healthy_alert_fraction": 0.32678,
+     "faulty_lead_h": [
+      616.67,
+      650.17
+     ],
+     "healthy_episodes": 29,
+     "detected": 2
+    },
+    {
+     "theta": 4.5,
+     "max_healthy_alert_fraction": 0.12188,
+     "faulty_lead_h": [
+      274.13,
+      645.84
+     ],
+     "healthy_episodes": 18,
+     "detected": 2
+    },
+    {
+     "theta": 5.0,
+     "max_healthy_alert_fraction": 0.02783,
+     "faulty_lead_h": [
+      83.88,
+      623.17
+     ],
+     "healthy_episodes": 8,
+     "detected": 2
+    },
+    {
+     "theta": 5.5,
+     "max_healthy_alert_fraction": 0.01679,
+     "faulty_lead_h": [
+      77.22,
+      623.17
+     ],
+     "healthy_episodes": 2,
+     "detected": 2
+    },
+    {
+     "theta": 6.0,
+     "max_healthy_alert_fraction": 0.01583,
+     "faulty_lead_h": [
+      77.22,
+      622.67
+     ],
+     "healthy_episodes": 3,
+     "detected": 2
+    },
+    {
+     "theta": 6.5,
+     "max_healthy_alert_fraction": 0.01536,
+     "faulty_lead_h": [
+      76.72,
+      602.64
+     ],
+     "healthy_episodes": 2,
+     "detected": 2
+    },
+    {
+     "theta": 7.0,
+     "max_healthy_alert_fraction": 0.01488,
+     "faulty_lead_h": [
+      71.38,
+      596.8
+     ],
+     "healthy_episodes": 2,
+     "detected": 2
+    },
+    {
+     "theta": 7.5,
+     "max_healthy_alert_fraction": 0.01488,
+     "faulty_lead_h": [
+      64.22,
+      593.14
+     ],
+     "healthy_episodes": 1,
+     "detected": 2
+    },
+    {
+     "theta": 8.0,
+     "max_healthy_alert_fraction": 0.01488,
+     "faulty_lead_h": [
+      64.22,
+      590.47
+     ],
+     "healthy_episodes": 1,
+     "detected": 2
+    },
+    {
+     "theta": 8.5,
+     "max_healthy_alert_fraction": 0.01296,
+     "faulty_lead_h": [
+      64.22,
+      148.73
+     ],
+     "healthy_episodes": 1,
+     "detected": 2
+    },
+    {
+     "theta": 9.0,
+     "max_healthy_alert_fraction": 0.01056,
+     "faulty_lead_h": [
+      44.14,
+      127.43
+     ],
+     "healthy_episodes": 1,
+     "detected": 2
+    },
+    {
+     "theta": 9.5,
+     "max_healthy_alert_fraction": 0.00576,
+     "faulty_lead_h": [
+      39.14,
+      125.68
+     ],
+     "healthy_episodes": 1,
+     "detected": 2
+    },
+    {
+     "theta": 10.0,
+     "max_healthy_alert_fraction": 0.00432,
+     "faulty_lead_h": [
+      33.37,
+      123.43
+     ],
+     "healthy_episodes": 1,
+     "detected": 2
+    },
+    {
+     "theta": 10.5,
+     "max_healthy_alert_fraction": 0.00288,
+     "faulty_lead_h": [
+      32.87,
+      123.35
+     ],
+     "healthy_episodes": 1,
+     "detected": 2
+    },
+    {
+     "theta": 11.0,
+     "max_healthy_alert_fraction": 0.00096,
+     "faulty_lead_h": [
+      32.71,
+      119.99
+     ],
+     "healthy_episodes": 1,
+     "detected": 2
+    },
+    {
+     "theta": 11.5,
+     "max_healthy_alert_fraction": 0.00096,
+     "faulty_lead_h": [
+      32.71,
+      119.99
+     ],
+     "healthy_episodes": 1,
+     "detected": 2
+    },
+    {
+     "theta": 12.0,
+     "max_healthy_alert_fraction": 0.00096,
+     "faulty_lead_h": [
+      12.54,
+      119.93
+     ],
+     "healthy_episodes": 1,
+     "detected": 2
+    },
+    {
+     "theta": 12.5,
+     "max_healthy_alert_fraction": 0.00096,
+     "faulty_lead_h": [
+      12.54,
+      119.76
+     ],
+     "healthy_episodes": 1,
+     "detected": 2
+    },
+    {
+     "theta": 13.0,
+     "max_healthy_alert_fraction": 0.00096,
+     "faulty_lead_h": [
+      12.54,
+      119.76
+     ],
+     "healthy_episodes": 1,
+     "detected": 2
+    },
+    {
+     "theta": 13.5,
+     "max_healthy_alert_fraction": 0.00096,
+     "faulty_lead_h": [
+      12.54,
+      118.1
+     ],
+     "healthy_episodes": 1,
+     "detected": 2
+    },
+    {
+     "theta": 14.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      12.04,
+      118.1
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 14.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      11.87,
+      117.93
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 15.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      11.87,
+      115.43
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 15.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      11.54,
+      115.43
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 16.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      11.37,
+      112.6
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 16.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      11.37,
+      112.6
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 17.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      11.04,
+      108.86
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 17.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      10.37,
+      108.86
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 18.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      10.21,
+      108.86
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 18.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      10.21,
+      108.52
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 19.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      10.04,
+      107.36
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 19.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      9.71,
+      106.69
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 20.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      8.21,
+      104.52
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 20.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      8.21,
+      97.55
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 21.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      97.55
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 21.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      97.55
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 22.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      97.38
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 22.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      93.22
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 23.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      93.22
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 23.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 24.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 24.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 25.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 25.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 26.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 26.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 27.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 27.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 28.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 28.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 29.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 29.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 30.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.17,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    }
+   ]
+  },
+  "a2_global_ref": {
+   "theta": 4.0,
+   "rule_failed": false,
+   "summary": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 2,
+    "tn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "lead_times_h": [
+     33.21,
+     227.69
+    ],
+    "terminal_lead_times_h": [
+     25.04
+    ],
+    "healthy_alert_episodes": 3,
+    "healthy_alert_episodes_excl_last24h": 0,
+    "healthy_alert_hours": 2.77,
+    "healthy_monitored_days": 28.41,
+    "healthy_alert_hours_per_bearing_day": 0.097
+   },
+   "per_bearing": [
+    {
+     "faulty": false,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 1,
+     "alert_hours": 1.33,
+     "alert_valid_snapshots": 8,
+     "alert_fraction": 0.00384,
+     "alert_hours_per_day": 0.094,
+     "alerted": true,
+     "first_alert": "2003-11-25T13:07:32",
+     "lead_time_h": 10.54,
+     "alert_active_at_end": false,
+     "terminal_alert_lead_time_h": 0.0,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 0,
+     "bearing": 1
+    },
+    {
+     "faulty": false,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 2,
+     "alert_hours": 1.44,
+     "alert_valid_snapshots": 9,
+     "alert_fraction": 0.00432,
+     "alert_hours_per_day": 0.102,
+     "alerted": true,
+     "first_alert": "2003-11-25T11:27:32",
+     "lead_time_h": 12.21,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 7.71,
+     "alert_episodes_last24h": 2,
+     "alert_episodes_before_last24h": 0,
+     "bearing": 2
+    },
+    {
+     "faulty": true,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 2,
+     "alert_hours": 5.11,
+     "alert_valid_snapshots": 30,
+     "alert_fraction": 0.0144,
+     "alert_hours_per_day": 0.36,
+     "alerted": true,
+     "first_alert": "2003-11-24T14:27:32",
+     "lead_time_h": 33.21,
+     "alert_active_at_end": false,
+     "terminal_alert_lead_time_h": 0.0,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 1,
+     "bearing": 3
+    },
+    {
+     "faulty": true,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 4,
+     "alert_hours": 11.44,
+     "alert_valid_snapshots": 67,
+     "alert_fraction": 0.03215,
+     "alert_hours_per_day": 0.805,
+     "alerted": true,
+     "first_alert": "2003-11-16T11:58:46",
+     "lead_time_h": 227.69,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 25.04,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 4,
+     "bearing": 4
+    }
+   ],
+   "curve": [
+    {
+     "theta": 2.0,
+     "max_healthy_alert_fraction": 0.02303,
+     "faulty_lead_h": [
+      44.48,
+      610.14
+     ],
+     "healthy_episodes": 4,
+     "detected": 2
+    },
+    {
+     "theta": 2.5,
+     "max_healthy_alert_fraction": 0.02159,
+     "faulty_lead_h": [
+      44.48,
+      605.14
+     ],
+     "healthy_episodes": 2,
+     "detected": 2
+    },
+    {
+     "theta": 3.0,
+     "max_healthy_alert_fraction": 0.01583,
+     "faulty_lead_h": [
+      43.14,
+      604.97
+     ],
+     "healthy_episodes": 3,
+     "detected": 2
+    },
+    {
+     "theta": 3.5,
+     "max_healthy_alert_fraction": 0.01152,
+     "faulty_lead_h": [
+      33.21,
+      227.69
+     ],
+     "healthy_episodes": 5,
+     "detected": 2
+    },
+    {
+     "theta": 4.0,
+     "max_healthy_alert_fraction": 0.00432,
+     "faulty_lead_h": [
+      33.21,
+      227.69
+     ],
+     "healthy_episodes": 3,
+     "detected": 2
+    },
+    {
+     "theta": 4.5,
+     "max_healthy_alert_fraction": 0.00432,
+     "faulty_lead_h": [
+      11.37,
+      227.69
+     ],
+     "healthy_episodes": 2,
+     "detected": 2
+    },
+    {
+     "theta": 5.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      11.37,
+      227.69
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 5.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      11.37,
+      25.04
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 6.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      8.54,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 2
+    },
+    {
+     "theta": 6.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 7.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 7.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 8.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 8.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 9.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      12.54
+     ],
+     "healthy_episodes": 0,
+     "detected": 1
+    },
+    {
+     "theta": 9.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 10.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 10.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 11.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 11.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 12.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 12.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 13.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 13.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 14.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 14.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 15.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 15.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 16.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 16.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 17.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 17.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 18.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 18.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 19.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 19.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 20.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 20.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 21.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 21.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 22.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 22.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 23.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 23.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 24.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 24.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 25.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 25.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 26.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 26.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 27.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 27.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 28.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 28.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 29.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 29.5,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    },
+    {
+     "theta": 30.0,
+     "max_healthy_alert_fraction": 0.0,
+     "faulty_lead_h": [
+      0.0,
+      0.0
+     ],
+     "healthy_episodes": 0,
+     "detected": 0
+    }
+   ]
+  },
+  "b0_rms_3sigma": {
+   "theta": 3.0,
+   "rule_failed": null,
+   "summary": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 2,
+    "tn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "lead_times_h": [
+     656.67,
+     108.86
+    ],
+    "terminal_lead_times_h": [
+     656.67,
+     43.31
+    ],
+    "healthy_alert_episodes": 2,
+    "healthy_alert_episodes_excl_last24h": 2,
+    "healthy_alert_hours": 652.94,
+    "healthy_monitored_days": 28.41,
+    "healthy_alert_hours_per_bearing_day": 22.979
+   },
+   "per_bearing": [
+    {
+     "faulty": false,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 1,
+     "alert_hours": 326.47,
+     "alert_valid_snapshots": 1998,
+     "alert_fraction": 0.95873,
+     "alert_hours_per_day": 22.979,
+     "alerted": true,
+     "first_alert": "2003-10-29T14:59:46",
+     "lead_time_h": 656.67,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 656.67,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 1,
+     "bearing": 1
+    },
+    {
+     "faulty": false,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 1,
+     "alert_hours": 326.47,
+     "alert_valid_snapshots": 1998,
+     "alert_fraction": 0.95873,
+     "alert_hours_per_day": 22.979,
+     "alerted": true,
+     "first_alert": "2003-10-29T14:59:46",
+     "lead_time_h": 656.67,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 656.67,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 1,
+     "bearing": 2
+    },
+    {
+     "faulty": true,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 1,
+     "alert_hours": 326.47,
+     "alert_valid_snapshots": 1998,
+     "alert_fraction": 0.95873,
+     "alert_hours_per_day": 22.979,
+     "alerted": true,
+     "first_alert": "2003-10-29T14:59:46",
+     "lead_time_h": 656.67,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 656.67,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 1,
+     "bearing": 3
+    },
+    {
+     "faulty": true,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 3,
+     "alert_hours": 79.29,
+     "alert_valid_snapshots": 471,
+     "alert_fraction": 0.22601,
+     "alert_hours_per_day": 5.581,
+     "alerted": true,
+     "first_alert": "2003-11-21T10:48:36",
+     "lead_time_h": 108.86,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 43.31,
+     "alert_episodes_last24h": 1,
+     "alert_episodes_before_last24h": 3,
+     "bearing": 4
+    }
+   ],
+   "note": "not tuned"
+  },
+  "a3_no_persistence": {
+   "theta": 3.5,
+   "rule_failed": null,
+   "summary": {
+    "n_faulty": 2,
+    "n_healthy": 2,
+    "tp": 2,
+    "fn": 0,
+    "fp": 2,
+    "tn": 0,
+    "precision": 0.5,
+    "recall": 1.0,
+    "lead_times_h": [
+     112.26,
+     618.0
+    ],
+    "terminal_lead_times_h": [],
+    "healthy_alert_episodes": 28,
+    "healthy_alert_episodes_excl_last24h": 8,
+    "healthy_alert_hours": 7.27,
+    "healthy_monitored_days": 28.41,
+    "healthy_alert_hours_per_bearing_day": 0.256
+   },
+   "per_bearing": [
+    {
+     "faulty": false,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 9,
+     "alert_hours": 2.33,
+     "alert_valid_snapshots": 13,
+     "alert_fraction": 0.00624,
+     "alert_hours_per_day": 0.164,
+     "alerted": true,
+     "first_alert": "2003-11-16T00:28:46",
+     "lead_time_h": 239.19,
+     "alert_active_at_end": false,
+     "terminal_alert_lead_time_h": 0.0,
+     "alert_episodes_last24h": 8,
+     "alert_episodes_before_last24h": 1,
+     "bearing": 1
+    },
+    {
+     "faulty": false,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 19,
+     "alert_hours": 4.94,
+     "alert_valid_snapshots": 31,
+     "alert_fraction": 0.01488,
+     "alert_hours_per_day": 0.348,
+     "alerted": true,
+     "first_alert": "2003-11-07T22:11:44",
+     "lead_time_h": 433.47,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 0.44,
+     "alert_episodes_last24h": 12,
+     "alert_episodes_before_last24h": 7,
+     "bearing": 2
+    },
+    {
+     "faulty": true,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 38,
+     "alert_hours": 15.39,
+     "alert_valid_snapshots": 90,
+     "alert_fraction": 0.04319,
+     "alert_hours_per_day": 1.084,
+     "alerted": true,
+     "first_alert": "2003-11-21T07:24:03",
+     "lead_time_h": 112.26,
+     "alert_active_at_end": true,
+     "terminal_alert_lead_time_h": 0.0,
+     "alert_episodes_last24h": 6,
+     "alert_episodes_before_last24h": 32,
+     "bearing": 3
+    },
+    {
+     "faulty": true,
+     "n_snapshots": 2156,
+     "n_valid": 2156,
+     "monitored_valid_snapshots": 2084,
+     "monitoring_start": "2003-10-22T20:24:13",
+     "endpoint": "2003-11-25T23:39:56",
+     "monitored_hours": 340.97,
+     "alert_episodes": 71,
+     "alert_hours": 21.36,
+     "alert_valid_snapshots": 128,
+     "alert_fraction": 0.06142,
+     "alert_hours_per_day": 1.503,
+     "alerted": true,
+     "first_alert": "2003-10-31T05:39:46",
+     "lead_time_h": 618.0,
+     "alert_active_at_end": false,
+     "terminal_alert_lead_time_h": 0.0,
+     "alert_episodes_last24h": 2,
+     "alert_episodes_before_last24h": 70,
+     "bearing": 4
+    }
+   ],
+   "note": "not tuned"
+  }
+ }
+}
