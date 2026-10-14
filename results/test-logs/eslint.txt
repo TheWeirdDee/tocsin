@@ -1,0 +1,15 @@
+
+C:\Users\DELL\Desktop\tocsin\web\src\components\StateBadge.tsx
+   4:14  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+  12:14  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+C:\Users\DELL\Desktop\tocsin\web\src\components\charts\TrendChart.tsx
+  8:14  warning  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+C:\Users\DELL\Desktop\tocsin\web\src\main.tsx
+  17:10  warning  Fast refresh only works when a file has exports. Move your component(s) to a separate file  react-refresh/only-export-components
+  27:7   warning  Fast refresh only works when a file has exports. Move your component(s) to a separate file  react-refresh/only-export-components
+
+✖ 5 problems (0 errors, 5 warnings)
+
+eslint exit 0
