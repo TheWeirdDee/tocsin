@@ -1,0 +1,23 @@
+# Raw data, intermediate features and generated bundles never enter history
+data/
+dist/
+# Demo artifacts are published as a GitHub Release bundle (config/artifacts.lock.json)
+artifacts/
+# Internal planning
+TOCSIN_PRD.md
+internal/
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+# Node
+node_modules/
+web/dist/
+web/test-results/
+web/playwright-report/
+.vercel/
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
