@@ -10,6 +10,9 @@ All logs come from actual runs on 14 Oct 2026 (re-run after the deployment chang
 | Lint | `cd web && npx eslint .` | 0 errors, 5 warnings (React fast-refresh, dev-only) | `results/test-logs/eslint.txt` |
 | End-to-end, 3 viewports, same origin | `cd web && npm run build && npx playwright test` | 35 passed, 1 skipped (keyboard test on phone) | `results/test-logs/playwright.txt`, `results/e2e.json` |
 | End-to-end, 3 viewports, cross-origin (Vercel/Railway split) | `cd web && VITE_API_BASE=http://127.0.0.1:8001 npm run build && E2E_CROSS_ORIGIN=1 npx playwright test` | 35 passed, 1 skipped | `results/test-logs/playwright-cross-origin.txt` |
+| End-to-end against the live deployment | `E2E_BASE_URL=https://tocsin-phi.vercel.app E2E_API_BASE=https://tocsin-production.up.railway.app npx playwright test` | 35 passed, 1 skipped | `results/test-logs/playwright-deployed.txt`, `results/e2e-deployed.json` |
+| Deployed API and frontend checks, before and after a Railway restart | `python scripts/verify_deployment.py --api … --web …` | 26/26 passed, twice | `results/deploy-verification.json` |
+| CI (GitHub Actions) | `.github/workflows/ci.yml` | green on every push since the workflow was added | GitHub Actions tab |
 | Tuning reproducibility | rerun `scripts/tune.py`, compare with `config/frozen_v1.0.json` | see log | `results/test-logs/retune_reproducibility.txt` |
 
 ## What the tests cover
