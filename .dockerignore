@@ -1,0 +1,13 @@
+.git
+.github
+.venv
+data
+dist
+artifacts
+web
+docs
+tests
+**/__pycache__
+.pytest_cache
+TOCSIN_PRD.md
+internal
