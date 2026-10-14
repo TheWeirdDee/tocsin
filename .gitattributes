@@ -1,0 +1,7 @@
+# Redistributed NASA/IMS readings must stay byte-identical to the original archive (CRLF).
+web/public/samples/*.txt -text
+# Binary data and images
+*.png binary
+*.npy binary
+*.npz binary
+*.tar.gz binary
