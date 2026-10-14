@@ -2,6 +2,8 @@ import { defineConfig, devices } from '@playwright/test'
 
 const PORT = 8001
 const CROSS = process.env.E2E_CROSS_ORIGIN === '1'
+// E2E_BASE_URL (+ E2E_API_BASE) runs the suite against a deployed frontend/API; no local servers start.
+const DEPLOYED = process.env.E2E_BASE_URL
 const PY = process.platform === 'win32' ? String.raw`.venv\Scripts\python.exe` : '.venv/bin/python'
 
 export default defineConfig({
@@ -9,11 +11,11 @@ export default defineConfig({
   timeout: 60_000,
   fullyParallel: false,
   workers: 1,
-  reporter: [['list'], ['json', { outputFile: CROSS ? '../results/e2e-cross-origin.json' : '../results/e2e.json' }]],
-  use: { baseURL: CROSS ? 'http://127.0.0.1:4173' : `http://127.0.0.1:${PORT}`, trace: 'retain-on-failure' },
+  reporter: [['list'], ['json', { outputFile: DEPLOYED ? '../results/e2e-deployed.json' : CROSS ? '../results/e2e-cross-origin.json' : '../results/e2e.json' }]],
+  use: { baseURL: DEPLOYED ?? (CROSS ? 'http://127.0.0.1:4173' : `http://127.0.0.1:${PORT}`), trace: 'retain-on-failure' },
   // E2E_CROSS_ORIGIN=1 reproduces the production split: the built frontend on one origin
   // (vite preview, :4173, built with VITE_API_BASE=http://127.0.0.1:8001) calling the API on another.
-  webServer: [
+  webServer: DEPLOYED ? undefined : [
     {
       command: `${PY} -m uvicorn server.app:app --port ${PORT}`,
       cwd: '..',
