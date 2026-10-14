@@ -14,6 +14,15 @@ The verified facts are marked ✔. The unknowns that the owner must confirm are 
 | Judging | ✔ | The PS01 rubric weights are detection 25, early warning 15, robustness 15, engineering 15, explainability 10, deployment 10, commercial 10. The event page also mentions creativity, technical depth and execution |
 | Contact | ✔ | jsmyn.labs@gmail.com (from the event page) |
 
+## Live URLs (verified 14 Oct 2026)
+
+- App: **https://tocsin-phi.vercel.app**
+- API: **https://tocsin-production.up.railway.app** (`/api/health` reports the running commit and config hash)
+- Repository: https://github.com/TheWeirdDee/tocsin
+- Release bundles: https://github.com/TheWeirdDee/tocsin/releases/tag/demo-artifacts-v1.1.0
+
+The Railway service runs on a trial plan, which showed about $3 of credit left at deployment time. If the credit runs out, the API stops.
+
 ## Deployment (Vercel frontend, Railway API)
 
 See README → Deployment for the configuration. Railway goes first, because the frontend build needs its URL.
@@ -25,7 +34,7 @@ See README → Deployment for the configuration. Railway goes first, because the
 | Build | `Dockerfile` (via `railway.json`) | Vite: `npm ci`, `npm run build`, output `dist` (via `web/vercel.json`) |
 | Start | `uvicorn server.app:app --host 0.0.0.0 --port $PORT` (Dockerfile CMD) | static |
 | Health | `/api/health` (200 only when the config and artifacts agree) | n/a |
-| Variables | `TOCSIN_ALLOWED_ORIGINS=https://<vercel-production-domain>` | `VITE_API_BASE=https://<railway-public-domain>` |
+| Variables | `TOCSIN_ALLOWED_ORIGINS=https://tocsin-phi.vercel.app` | `VITE_API_BASE=https://tocsin-production.up.railway.app` |
 | Secrets | none | none (everything in `VITE_*` is public) |
 
 ## Text for the submission form (draft)
