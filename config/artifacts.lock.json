@@ -1,0 +1,10 @@
+{
+  "bundle": "tocsin-demo-artifacts-v1.1.0",
+  "version": "1.1.0",
+  "config_sha": "960523ff2c6bfcb824616c6bb809a21a8b9674c949ebf72a3e00af782cbcfd24",
+  "url": "https://github.com/TheWeirdDee/tocsin/releases/download/demo-artifacts-v1.1.0/tocsin-demo-artifacts-v1.1.0.tar.gz",
+  "sha256": "7afc2f0794e88e174630435c711037027c8f06280240d97e65f82c3baafaebc7",
+  "bytes": 49002725,
+  "release_tag": "demo-artifacts-v1.1.0",
+  "contents": "runs.json, replay decisions (byte-identical to scripts/build_artifacts.py output), 8-bit display spectra (tocsin/spectra_codec.py)"
+}
