@@ -8,7 +8,7 @@ It is built for a maintenance or reliability lead at a plant with rotating equip
 
 Built for **Wild Bugs PS01: MachinaSense**. The demo replays public run-to-failure recordings (IMS / NASA). It is **not a live machine feed**.
 
-> **App:** _Vercel URL pending_ · **API:** _Railway URL pending_ (see [Deployment](#deployment))
+> **App:** https://tocsin-phi.vercel.app · **API:** https://tocsin-production.up.railway.app ([health](https://tocsin-production.up.railway.app/api/health)) · see [Deployment](#deployment)
 >
 > Author: **Divine Dilibe** · Licence: [MIT](LICENSE) for the original code; data and third-party terms in [NOTICE.md](NOTICE.md)
 
@@ -168,6 +168,8 @@ Rerunning `tune.py` on Test 1 reproduces the identical band, thresholds and refe
 | Frontend unit (`vitest`, 6 tests) | 6 passed | `results/test-logs/vitest.txt` |
 | End-to-end, same origin (desktop 1440, tablet 820, Pixel 7) | 35 passed, 1 skipped | `results/test-logs/playwright.txt` |
 | End-to-end, cross-origin: built frontend on :4173 calls the API on :8001, as in the Vercel + Railway split | 35 passed, 1 skipped | `results/test-logs/playwright-cross-origin.txt` |
+| End-to-end against the **live deployment** (Vercel + Railway, 3 viewports) | 35 passed, 1 skipped | `results/test-logs/playwright-deployed.txt` |
+| Deployed API and frontend checks, before and after a backend restart (26 checks: readiness, version agreement, CORS allow/deny, valid/malformed/short/flat/oversized uploads, direct URLs, byte-exact sample download) | 26/26 passed, twice | `results/deploy-verification.json` |
 | TypeScript, ESLint | clean (5 dev-only fast-refresh warnings) | `results/test-logs/tsc.txt`, `eslint.txt` |
 | CI (GitHub Actions) | runs pytest after fetching the pinned bundle, plus tsc, eslint, vitest and the build | `.github/workflows/ci.yml` |
 
@@ -198,8 +200,11 @@ The skipped end-to-end test is the keyboard test on phone. Automated checks are 
 | Server cold start | 4.9 s |
 | Server resident memory | ~125 MB |
 | Learned state per bearing | 48 bytes (no model file) |
+| **Deployed (Railway container):** server-side analysis per uploaded reading, median, as reported by the API | 34–38 ms (two runs of 10) |
 
-Full detail and hardware are in [`results/deploy.json`](results/deploy.json). The 0.5-CPU / 256 MB container benchmark was **not** run: Docker is not installed on the build machine.
+Full detail and hardware are in [`results/deploy.json`](results/deploy.json).
+
+The deployed round trip from the build machine was 3–5 s. That time is almost entirely the upload of the 0.55 MB reading over this machine's own connection, and is recorded separately in `results/deploy-verification.json`. The 0.5-CPU / 256 MB container benchmark was **not** run: Docker is not installed on the build machine.
 
 ## Deployment
 
@@ -209,6 +214,16 @@ There are two services and no secrets.
 |---|---|---|
 | Frontend (`web/`) | **Vercel** | Root directory `web`, framework Vite. `web/vercel.json` sets `npm ci`, `npm run build`, output `dist`, and an SPA rewrite so direct URLs and refresh work. Build variable `VITE_API_BASE` = the public Railway URL. It is public by design, so never put a secret in it |
 | API (`server/`) | **Railway** | `Dockerfile` + `railway.json`: listens on `0.0.0.0:$PORT`, health check `/api/health`. Variable `TOCSIN_ALLOWED_ORIGINS` = the Vercel production origin (comma-separated list, no wildcard) |
+
+**Live deployment, verified:**
+
+| Item | Value |
+|---|---|
+| Frontend | https://tocsin-phi.vercel.app (Vercel project `tocsin`, root `web`, production branch `main`) |
+| API | https://tocsin-production.up.railway.app (Railway service `tocsin`, Dockerfile, health check `/api/health`) |
+| Variables | Vercel `VITE_API_BASE=https://tocsin-production.up.railway.app` · Railway `TOCSIN_ALLOWED_ORIGINS=https://tocsin-phi.vercel.app` |
+| Deployed commit | Both services build from `main` on every push. `/api/health` → `build_commit` shows the running commit |
+| Restart | `railway restart` brought the service back to ready in about 4 s, and all checks passed again |
 
 **Demo artifacts are not stored in Git.**
 
