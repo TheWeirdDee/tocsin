@@ -146,10 +146,11 @@ The **proposed deployment** is a browser app (Vercel) calling one small API serv
 | HTTP round trip on the laptop | 104 ms median | Local |
 | Server memory | about 125 MB | Laptop |
 | Cold start | about 5 s | Laptop |
+| Server analysis at 0.5 CPU / 256 MB | 83 / 162 ms (median / p95); peak memory 110 MB | Docker container on a GitHub Actions runner |
 | Learned state per bearing | 48 bytes | n/a |
 
 - **Deployed round trips** from the build machine took 3–5 s, almost entirely the upload of a 0.55 MB file over its connection. They are recorded separately.
-- **Not run:** a 0.5-CPU / 256 MB container benchmark (Docker was unavailable).
+- **Constrained container (PRD target):** the production image, run with `--cpus=0.5 --memory=256m` and no swap on a GitHub Actions runner. Results: server analysis of one reading 83 ms median, 162 ms p95; 50 of 50 analyses valid; peak container memory 110 MB of 256 MB, never killed for memory; cold start 5.6 s; image 607 MB. Source: `results/deploy_constrained.json`, [workflow run](https://github.com/TheWeirdDee/tocsin/actions/runs/38764581137).
 - **Hosting:** ownership, every environment variable and the verification workflow are in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). The API runs on a Railway trial with limited credit; if it runs out, the API stops.
 - **Sources:** `results/deploy.json`, `results/deploy-verification.json`.
 
