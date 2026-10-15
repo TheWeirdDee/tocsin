@@ -70,6 +70,8 @@ export default function Workspace() {
 
   // Guided examples choose their reading from the analysis output, never from a scripted index.
   const guideApplied = useRef<string | null>(null)
+  // The reading a guide chose, until the cursor state has reached it (see the canonical URL effect).
+  const guideTarget = useRef<number | null>(null)
   useEffect(() => {
     if (!replay || !guide || sp.get('t') != null || guideApplied.current === key + guide) return
     const bid = sp.get('b') ?? (guide === 'alert' ? '3' : '1')
@@ -80,7 +82,8 @@ export default function Workspace() {
     if (guide === 'miss') target = b.detectors.b0_rms.effective.findIndex((s) => s === S.ALERT)
     if (guide === 'gaps') target = b.valid.findIndex((v, i) => v === 0 && i > replay.n_ref + 10)
     guideApplied.current = key + guide
-    setT(Math.max(0, target))
+    guideTarget.current = Math.max(0, target)
+    setT(guideTarget.current)
   }, [replay, guide, key, sp])
 
   // playback clock
@@ -120,6 +123,12 @@ export default function Workspace() {
   useEffect(() => {
     if (playing || !replay) return
     if (guide && sp.get('t') == null && guideApplied.current !== key + guide) return // guide picks the reading first
+    // In the render where a guide chose its reading, the cursor has not caught up yet; writing the old
+    // cursor now would send the URL (and then the cursor) back to it.
+    if (guideTarget.current != null) {
+      if (tt !== clampCursor(guideTarget.current, n)) return
+      guideTarget.current = null
+    }
     const next = new URLSearchParams(sp)
     next.set('t', String(tt))
     if (bParam != null && !bValid) next.delete('b')
