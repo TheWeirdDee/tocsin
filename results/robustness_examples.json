@@ -1,0 +1,44 @@
+{
+ "A_alert_kept_through_invalid": {
+  "run": "test3",
+  "condition": "gaps",
+  "bearing": 1,
+  "invalid_index": 6253,
+  "timestamp": "2004-04-17T15:02:55",
+  "reason": "40% of samples missing (limit 20%); gap of 8192 consecutive missing samples (0.410 s) exceeds 2048",
+  "effective_state": "ALERT",
+  "next_valid_index": 6254,
+  "state_at_next_valid": 3,
+  "url": "/demo/test3?cond=gaps&b=1&t=6253"
+ },
+ "B_persistence_resumes_after_gap": {
+  "run": "test3",
+  "condition": "gaps",
+  "bearing": 1,
+  "before_index": 6248,
+  "count_before": 2,
+  "invalid_indices": [
+   6249
+  ],
+  "count_during_gap": 2,
+  "after_index": 6250,
+  "count_after": 3,
+  "state_after": "ALERT",
+  "url": "/demo/test3?cond=gaps&b=1&t=6249"
+ },
+ "C_invalid_never_normal": {
+  "run": "test3",
+  "condition": "gaps",
+  "bearing": 1,
+  "invalid_index": 84,
+  "timestamp": "2004-03-04T23:22:46",
+  "displayed_state": "DATA_INSUFFICIENT",
+  "last_valid_state": "NORMAL",
+  "reason": "40% of samples missing (limit 20%); gap of 8192 consecutive missing samples (0.410 s) exceeds 2048",
+  "url": "/demo/test3?cond=gaps&b=1&t=84"
+ },
+ "exhaustive_check": {
+  "invalid_readings_checked": 39324,
+  "invalid_readings_shown_with_a_verdict": 0
+ }
+}
