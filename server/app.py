@@ -12,6 +12,7 @@ artifact bundle are present and agree on the config hash.
 from __future__ import annotations
 
 import asyncio
+import ipaddress
 import json
 import math
 import os
@@ -285,11 +286,15 @@ ANALYZE_CONCURRENCY = int(os.environ.get("TOCSIN_ANALYZE_CONCURRENCY", "2"))
 ANALYZE_RATE_PER_MIN = int(os.environ.get("TOCSIN_ANALYZE_RATE_PER_MIN", "30"))
 ANALYZE_TIMEOUT_S = float(os.environ.get("TOCSIN_ANALYZE_TIMEOUT_S", "30"))
 MAX_READING_ROWS = 2 * 20_480  # bounds the work per request (the supported reading is 20,480 samples)
-# Client identity for rate limiting. Behind Railway's edge proxy the peer address is the proxy,
-# so the client is the right-most X-Forwarded-For entry (the one the proxy appended). Entries
-# further left are supplied by the client and are ignored, so they cannot be used to dodge the
-# limit. Locally (no proxy) the peer address is used and X-Forwarded-For is ignored entirely.
-TRUSTED_PROXY_HOPS = int(os.environ.get("TOCSIN_TRUSTED_PROXY_HOPS", "1" if os.environ.get("RAILWAY_PUBLIC_DOMAIN") else "0"))
+# Client identity for rate limiting. Behind Railway the peer address is an edge proxy, and the
+# right-most X-Forwarded-For entry is also an edge address (measured on the deployment), so
+# neither identifies a visitor. Railway's edge sets X-Real-IP to the client's remote address
+# (docs: public networking, specs and limits) and replaces any copy the client sends. On Railway
+# that header is read; anywhere else no header is trusted and the peer address is used.
+# X-Forwarded-For is never used. A missing, repeated or malformed value falls back to the
+# peer address, which is conservative: it can only merge visitors into one bucket, never split one.
+CLIENT_IP_HEADER = os.environ.get(
+    "TOCSIN_CLIENT_IP_HEADER", "x-real-ip" if os.environ.get("RAILWAY_PUBLIC_DOMAIN") else "").strip().lower()
 _analyze_slots = asyncio.Semaphore(ANALYZE_CONCURRENCY)
 _inflight = {"count": 0}  # analyses still computing in worker threads, including abandoned ones
 _rate: dict[str, deque] = defaultdict(deque)
@@ -305,13 +310,22 @@ def _problem(status: int, code: str, message: str, **extra) -> JSONResponse:
     return JSONResponse({"detail": message, "code": code, **extra}, status_code=status)
 
 
-def client_id(request: Request) -> str:
+def client_identity_source(request: Request) -> tuple[str, str]:
+    """(client address, where it came from: "header" or "peer")."""
     peer = request.client.host if request.client else "unknown"
-    if TRUSTED_PROXY_HOPS <= 0:
-        return peer
-    xff = request.headers.get("x-forwarded-for", "")
-    parts = [p.strip() for p in xff.split(",") if p.strip()]
-    return parts[-TRUSTED_PROXY_HOPS] if len(parts) >= TRUSTED_PROXY_HOPS else peer
+    if not CLIENT_IP_HEADER:
+        return peer, "peer"
+    values = request.headers.getlist(CLIENT_IP_HEADER)
+    if len(values) != 1:
+        return peer, "peer"
+    try:
+        return str(ipaddress.ip_address(values[0].strip())), "header"
+    except ValueError:
+        return peer, "peer"
+
+
+def client_id(request: Request) -> str:
+    return client_identity_source(request)[0]
 
 
 def _rate_limited(client: str) -> float | None:
@@ -457,11 +471,12 @@ async def analyze(request: Request, file: UploadFile = File(...), sample_rate: f
 
 @app.get("/api/client-id")
 def client_identity(request: Request):
-    """Diagnostic for rate-limit identity: a short hash, never the address itself."""
+    """Diagnostic for rate-limit identity, about the caller's own request only: a short hash of
+    the address used (never the address), where it came from, and which header is trusted."""
     import hashlib
-    cid = client_id(request)
-    return {"client_hash": hashlib.sha256(cid.encode()).hexdigest()[:12], "trusted_proxy_hops": TRUSTED_PROXY_HOPS,
-            "forwarded_entries": len([p for p in request.headers.get("x-forwarded-for", "").split(",") if p.strip()])}
+    cid, source = client_identity_source(request)
+    return {"client_hash": hashlib.sha256(cid.encode()).hexdigest()[:12], "source": source,
+            "trusted_header": CLIENT_IP_HEADER or None}
 
 
 # ---- static frontend with SPA fallback (direct URLs and refresh work) ----
