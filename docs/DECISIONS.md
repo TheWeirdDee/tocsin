@@ -9,7 +9,7 @@
 | Isolation forest "trained on tuning healthy data" | Fit per bearing on that bearing's own first 72 valid readings | Same information as TOCSIN and the RMS baseline. A global model would be a different comparison |
 | States include CRITICAL and BASELINE_SUSPECT (vs "fleet norms") | States are BASELINING, NORMAL, WATCH, ALERT and DATA_INSUFFICIENT | CRITICAL had no validated definition. "Fleet norms" were not established from permitted data. Both were removed rather than invented |
 | Alert text like "inspect this shift" | "Prioritize inspection of this bearing" | No validated rule supports a time-bound instruction |
-| Constrained benchmark inside a 0.5 CPU / 256 MB container | Measured on the build laptop and reported as such | Docker is not installed on the build machine. The target is not reported as a measurement |
+| Constrained benchmark inside a 0.5 CPU / 256 MB container | Measured as planned, on a GitHub Actions runner (Docker is not installed on the build machine): 83 ms median analysis, peak 110 MB, no OOM (`results/deploy_constrained.json`). Earlier laptop measurements are kept and labelled | The runner's CPU differs from the laptop and from Railway, so its milliseconds are reported only as what they are: latency at half a CPU on that runner |
 | Fault point = last snapshot | Kept, and called the "recording endpoint" everywhere | The dataset has no failure timestamp |
 | Test 1 channel: "use the first" | Kept: channels 1, 3, 5 and 7 | Pre-registered before tuning |
 | Owner name, prior-project references, schedule | Not in any public material | They are not facts about the product |
