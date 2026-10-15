@@ -1,0 +1,40 @@
+# command: E2E_BASE_URL=https://tocsin-phi.vercel.app E2E_API_BASE=https://tocsin-production.up.railway.app npx playwright test --project=desktop --project=phone --last-failed
+# purpose: rerun of the 13 failures from playwright-deployed.txt with deployed-mode timeouts (expect 20 s, test 120 s)
+# target: live deployment at c7819c34892dca0cf06e73920974e1d350c943df
+# run: 2026-10-15T12:47:50Z
+
+
+Running 13 tests using 1 worker
+
+  ok  1 [desktop] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on / (7.2s)
+  ok  2 [desktop] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on /demo/test2?cond=gaps&b=1&t=101 (6.9s)
+  ok  3 [desktop] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on /evaluation (14.4s)
+  ok  4 [desktop] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on /data (8.2s)
+  ok  5 [desktop] › e2e\app.spec.ts:16:1 › landing explains the product and opens the demo (3.0s)
+  ok  6 [desktop] › e2e\audit.spec.ts:8:5 › TC-01 malformed replay URLs › t=-4 renders a usable page with a canonical cursor (6.2s)
+  ok  7 [desktop] › e2e\audit.spec.ts:8:5 › TC-01 malformed replay URLs › t=abc renders a usable page with a canonical cursor (5.1s)
+  ok  8 [desktop] › e2e\audit.spec.ts:81:1 › TC-09 the spectrum keeps up during playback and names its reading (7.5s)
+  ok  9 [desktop] › e2e\audit.spec.ts:169:1 › landing offers the five scenario entry points and they open working pages (13.2s)
+  ok 10 [desktop] › e2e\audit.spec.ts:184:1 › evaluation reports bearing-level counts, fault identification and the no-switch rationale (6.5s)
+  ok 11 [phone] › e2e\app.spec.ts:90:1 › deep link to an evaluation section scrolls there (3.6s)
+  ok 12 [phone] › e2e\audit.spec.ts:169:1 › landing offers the five scenario entry points and they open working pages (9.7s)
+  x  13 [phone] › e2e\audit.spec.ts:184:1 › evaluation reports bearing-level counts, fault identification and the no-switch rationale (6.7s)
+
+
+  1) [phone] › e2e\audit.spec.ts:184:1 › evaluation reports bearing-level counts, fault identification and the no-switch rationale 
+
+    Error: browserContext.close: ENOENT: no such file or directory, open 'C:\Users\DELL\Desktop\tocsin\web\test-results\.playwright-artifacts-1\traces\45efdff6a4d2e1f7e786-8c61f9e96a55bc250a3b-recording4.trace'
+
+    Error: ENOENT: no such file or directory, open 'C:\Users\DELL\Desktop\tocsin\web\test-results\.playwright-artifacts-1\2702f8411dbc36bbe042d71656e6b2a8.zip'
+
+    Error Context: test-results\audit-evaluation-reports-b-c9db6-and-the-no-switch-rationale-phone\error-context.md
+
+  1 failed
+    [phone] › e2e\audit.spec.ts:184:1 › evaluation reports bearing-level counts, fault identification and the no-switch rationale 
+  12 passed (1.8m)
+
+# isolated rerun of the one tooling failure (trace file removed by a concurrent local run), 2026-10-15T12:53:19Z
+
+  ok 1 [phone] › e2e\audit.spec.ts:184:1 › evaluation reports bearing-level counts, fault identification and the no-switch rationale (7.6s)
+
+  1 passed (10.2s)
