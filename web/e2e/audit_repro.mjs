@@ -1,9 +1,10 @@
 // Reproduce audit findings TC-01/03/05/06/07/09 against a deployed or local frontend.
-// node e2e/audit_repro.mjs <baseURL> <outJson>
+// node e2e/audit_repro.mjs <baseURL> <outJson> [apiURL]
 import { chromium } from '@playwright/test'
 import fs from 'node:fs'
 const base = process.argv[2] ?? 'https://tocsin-phi.vercel.app'
 const out = process.argv[3]
+const api = process.argv[4] ?? 'https://tocsin-production.up.railway.app'
 const res = {}
 const b = await chromium.launch()
 const page = await b.newPage({ viewport: { width: 1440, height: 900 } })
@@ -29,7 +30,7 @@ await page.waitForTimeout(800)
 res.tc03 = { evidenceText: (await text('.evidence'))?.slice(0, 600), priorityText: (await text('.prio-list'))?.slice(0, 300) }
 
 // TC-07 retained values during missing data
-const rep = await (await page.request.get('https://tocsin-production.up.railway.app/api/replay/test2?condition=gaps')).json()
+const rep = await (await page.request.get(`${api}/api/replay/test2?condition=gaps`)).json()
 const idx = rep.bearings['1'].valid.findIndex((v, i) => v === 0 && i > 100)
 await page.goto(`${base}/demo/test2?cond=gaps&b=1&t=${idx}`, { waitUntil: 'networkidle' })
 await page.waitForTimeout(800)
