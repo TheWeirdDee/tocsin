@@ -33,6 +33,37 @@ export default function DataPage() {
         </p>
       </header>
 
+      <Sec id="scope" title="What is and is not supported">
+        <div className="scope-grid">
+          <div>
+            <h3>Supported today</h3>
+            <ul className="limits">
+              <li>Replaying the three recorded IMS run-to-failure tests, with decisions precomputed by the frozen pipeline.</li>
+              <li>Analyzing one IMS-compatible reading (20 kHz, 2000 RPM, 20,480 samples, ZA-2115 bearing) against a stored healthy reference of an IMS test bearing.</li>
+              <li>Seeded noise and missing-data perturbations of the real recordings, each rerun through the full pipeline.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Not supported</h3>
+            <ul className="limits">
+              <li>Monitoring your own machine. There is no machine setup, no machine-specific healthy reference, no sequential upload history and no inspection outcomes.</li>
+              <li>Other bearings, sample rates or speeds. A file may parse and its spectrum may be computable, but comparing it with an IMS reference is not scientifically supported, so the API rejects other settings.</li>
+              <li>Reliable fault detection. On two held-out failures TOCSIN alerted on one.</li>
+            </ul>
+          </div>
+        </div>
+        <p className="small muted" style={{ marginTop: 14 }}>The gap between this research demonstrator and a usable manual-upload monitoring workflow is assessed in <code>docs/PRODUCT_GAP.md</code> in the repository.</p>
+      </Sec>
+
+      <Sec id="labels" title="Labels and operating conditions available">
+        <dl className="defs">
+          <dt>Labels</dt><dd>For each test, the readme names the bearing or bearings damaged <em>at the end</em> of the test: Test 1 bearing 3 (inner race) and bearing 4 (roller); Test 2 bearing 1 (outer race); Test 3 bearing 3 (outer race). All other bearings are undamaged. There is no fault-onset time and no per-reading label.</dd>
+          <dt>Operating conditions</dt><dd>One rig. Shaft speed held at a nominal 2000 RPM. Radial load 6000 lb. Forced lubrication. Conditions do not change within or between tests, so a change in operating conditions is <strong>not</strong> demonstrated by this data.</dd>
+          <dt>Fault point used</dt><dd>The last recorded reading of each test (the recording endpoint). Lead times are measured to it, not to a physical failure time.</dd>
+          <dt>Split</dt><dd>Test 1 for tuning; Tests 2 and 3 held out (2 damaged and 6 undamaged bearings).</dd>
+        </dl>
+      </Sec>
+
       <Sec id="source" title="Source and licence">
         <dl className="defs">
           <dt>Dataset</dt><dd>IMS Bearing Data Set: NSF I/UCR Center for Intelligent Maintenance Systems, University of Cincinnati, with support from Rexnord Corp.</dd>
@@ -59,7 +90,7 @@ export default function DataPage() {
       </Sec>
 
       <Sec id="runs" title="Runs used">
-        <div className="table-scroll">
+        <div className="table-scroll" tabIndex={0} role="region" aria-label="Table (scrolls horizontally on narrow screens)">
           <table className="data">
             <thead><tr><th>Run</th><th>Role</th><th className="n">Files (archive / readme)</th><th>Recorded</th><th>Channels used</th><th>Readme label</th></tr></thead>
             <tbody>
@@ -93,7 +124,7 @@ export default function DataPage() {
               {cfg.bearing.n_rollers} rollers per row, pitch diameter {cfg.bearing.pitch_diameter} in, roller diameter {cfg.bearing.roller_diameter} in, contact angle {cfg.bearing.contact_angle_deg}°.
               Source: {cfg.bearing.source}. This is not stated in the IMS readme. Frequencies are computed in code from the standard kinematic formulas at the assumed {cfg.rpm_assumed} RPM.
             </p>
-            <div className="table-scroll">
+            <div className="table-scroll" tabIndex={0} role="region" aria-label="Table (scrolls horizontally on narrow screens)">
               <table className="data">
                 <thead><tr><th>Frequency</th><th className="n">Hz at {cfg.rpm_assumed} RPM</th><th className="n">Orders (× shaft)</th></tr></thead>
                 <tbody>
