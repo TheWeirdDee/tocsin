@@ -1,8 +1,8 @@
 # command: TOCSIN_ARTIFACTS=<fetched bundle> <clean venv>/python -m pytest -q   (venv created only from requirements-dev.txt; bundle fetched from GitHub release demo-artifacts-v1.1.0 by scripts/fetch_artifacts.py, sha256 7afc2f0794e8...)
 # cwd: repo root
 # env: Windows 11 Pro 10.0.26200, Python 3.12.10 (.venv), Node v24.13.1
-# tree: HEAD c7819c3 + uncommitted, fingerprint 4b62c8d0e00ae926b04368580b43661237f410530ffbdeae7a8928b229b45ce4
-# run: 2026-10-15T13:45:42Z
+# tree: HEAD 260348a + uncommitted, fingerprint a05ab1006140d80b05dcc433f3e0181cda4aaadb2d35bcbc67f56b351b5f3a4d
+# run: 2026-10-15T15:04:29Z
 
 fastapi==0.143.1
 numpy==2.5.4
@@ -11,4 +11,4 @@ scipy==1.18.1
 uvicorn==0.54.0
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-67 passed, 1 warning in 9.72s
+67 passed, 1 warning in 17.54s
