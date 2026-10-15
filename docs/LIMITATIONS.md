@@ -35,7 +35,7 @@
 - The replay serves precomputed analyses, produced by the same pipeline for each listed condition. Live computation is demonstrated for single uploaded readings. Persistence needs a stream, which the demo does not ingest live.
 - Analysis of uploaded readings is fixed to the IMS bearing geometry.
 - No remaining-useful-life estimate, no fault-size estimate, no hardware integration.
-- Latency and memory were measured on a developer laptop (including a single-core pinned run) and as server-side timings on the deployed Railway service. No 0.5 CPU / 256 MB container test was run, because Docker was unavailable.
+- Latency and memory were measured on a developer laptop (including a single-core pinned run) and as server-side timings on the deployed Railway service. The 0.5 CPU / 256 MB container test ran on a GitHub Actions runner (83 ms median analysis, peak 110 MB, no OOM). That runner's CPU is not the target hardware; the test shows the service fits the limits, not how fast a specific edge device would be.
 - Only a dark theme is provided.
 - Automated responsive and keyboard tests passed. That is not an accessibility certification.
 
