@@ -26,7 +26,7 @@ The skipped test is the keyboard skip-link test on the phone profile, which has 
 
 ## Checks against the live deployment
 
-### Release `260348a` (current, 15 Oct 2026)
+### Release `260348a` (15 Oct 2026; superseded, see the top of this section for the latest)
 
 Both services served `260348a`, config `960523ff…`, bundle `tocsin-demo-artifacts-v1.1.0`, `consistent: true`.
 
