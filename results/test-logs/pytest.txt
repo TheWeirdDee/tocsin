@@ -1,8 +1,8 @@
 # command: .venv/Scripts/python -m pytest -v
 # cwd: repo root
 # env: Windows 11 Pro 10.0.26200, Python 3.12.10 (.venv), Node v24.13.1
-# tree: HEAD c7819c3 + uncommitted, fingerprint 4b62c8d0e00ae926b04368580b43661237f410530ffbdeae7a8928b229b45ce4
-# run: 2026-10-15T13:27:38Z
+# tree: HEAD 260348a + uncommitted, fingerprint a05ab1006140d80b05dcc433f3e0181cda4aaadb2d35bcbc67f56b351b5f3a4d
+# run: 2026-10-15T14:41:07Z
 
 ============================= test session starts =============================
 platform win32 -- Python 3.12.10, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\DELL\Desktop\tocsin\.venv\Scripts\python.exe
@@ -85,4 +85,4 @@ tests/test_state_metrics.py::test_out_of_order_timestamps_never_produce_negative
     from starlette.testclient import TestClient as TestClient  # noqa
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-======================= 67 passed, 1 warning in 12.96s ========================
+======================= 67 passed, 1 warning in 12.14s ========================
