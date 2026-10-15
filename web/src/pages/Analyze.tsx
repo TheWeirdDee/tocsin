@@ -18,12 +18,16 @@ const SAMPLES = [
   { href: '/samples/ims_test2_2004.02.19.05.42.39.txt', label: 'IMS Test 2, near the recording endpoint (19 Feb 2004 05:42)' },
 ]
 
-interface Inputs { fileName: string; fileSize: number; column: number; reference: string }
+// fileRevision changes on every file choice, so two different files with the same name and size never
+// share a signature (re-audit R-06).
+interface Inputs { fileName: string; fileSize: number; fileRevision: number; column: number; reference: string }
 const sig = (i: Inputs) => JSON.stringify(i)
 
 export default function Analyze() {
   const [runs, setRuns] = useState<RunsIndex | null>(null)
   const [file, setFile] = useState<File | null>(null)
+  const [fileRevision, setFileRevision] = useState(0)
+  const chooseFile = (f: File | null) => { setFile(f); setFileRevision((r) => r + 1) }
   const [col, setCol] = useState('0')
   const [ref, setRef] = useState('test2:1')
   const [busy, setBusy] = useState(false)
@@ -40,11 +44,13 @@ export default function Analyze() {
   useEffect(() => {
     const s = sampleParam === 'first' ? SAMPLES[0] : sampleParam === 'late' ? SAMPLES[1] : null
     if (s) loadSample(s.href)
+    // Runs only when the sample link changes; loadSample is recreated every render by design.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sampleParam])
 
   const current: Inputs | null = useMemo(
-    () => (file ? { fileName: file.name, fileSize: file.size, column: Number(col), reference: ref } : null),
-    [file, col, ref],
+    () => (file ? { fileName: file.name, fileSize: file.size, fileRevision, column: Number(col), reference: ref } : null),
+    [file, fileRevision, col, ref],
   )
   // A result is only current for the exact inputs it was computed from (audit TC-05).
   const stale = !!res && (!current || sig(current) !== sig(res.inputs))
@@ -81,7 +87,7 @@ export default function Analyze() {
       const r = await fetch(href)
       if (!r.ok) throw new Error()
       const blob = await r.blob()
-      setFile(new File([blob], href.split('/').pop()!, { type: 'text/plain' }))
+      chooseFile(new File([blob], href.split('/').pop()!, { type: 'text/plain' }))
     } catch {
       setErr('Could not load the sample file.')
     }
@@ -118,15 +124,15 @@ export default function Analyze() {
           className={`drop${dragging ? ' on' : ''}`}
           onDragOver={(e) => { e.preventDefault(); setDragging(true) }}
           onDragLeave={() => setDragging(false)}
-          onDrop={(e) => { e.preventDefault(); setDragging(false); if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]) }}
+          onDrop={(e) => { e.preventDefault(); setDragging(false); if (e.dataTransfer.files[0]) chooseFile(e.dataTransfer.files[0]) }}
         >
           <Upload />
           <div>
             <strong>{file ? file.name : 'Drop a reading here'}</strong>
-            <p className="small muted">IMS ASCII (tab-separated columns) or CSV, one column per channel, up to 8 MB. Empty cells count as missing samples at their own position.</p>
+            <p className="small muted">IMS ASCII (tab-separated columns) or CSV, one column per channel, up to 8 MB. Empty cells, and blank lines inside the data, count as missing samples at their own position; rows must all have the same number of fields.</p>
           </div>
           <button type="button" className="btn btn-sm" onClick={() => inputRef.current?.click()}>Choose file</button>
-          <input ref={inputRef} type="file" className="visually-hidden" accept=".txt,.csv,.tsv,text/plain,text/csv" onChange={(e) => setFile(e.target.files?.[0] ?? null)} aria-label="Reading file" />
+          <input ref={inputRef} type="file" className="visually-hidden" accept=".txt,.csv,.tsv,text/plain,text/csv" onChange={(e) => chooseFile(e.target.files?.[0] ?? null)} aria-label="Reading file" />
         </div>
         <div className="small" style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
           <span className="muted">Or use a real IMS reading:</span>
