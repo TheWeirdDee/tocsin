@@ -28,7 +28,8 @@ export interface BearingMetrics {
 }
 
 export interface Evidence {
-  bearing: number
+  bearing: number | null
+  subject?: string
   timestamp: string
   index?: number
   state: StateName
