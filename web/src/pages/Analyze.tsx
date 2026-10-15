@@ -14,8 +14,8 @@ import './workspace.css'
 const SUPPORTED = { sampleRate: 20000, rpm: 2000, samples: 20480 }
 
 const SAMPLES = [
-  { href: '/samples/ims_test2_2004.02.12.10.32.39.txt', label: 'IMS Test 2, first reading (12 Feb 2004 10:32)' },
-  { href: '/samples/ims_test2_2004.02.19.05.42.39.txt', label: 'IMS Test 2, near the recording endpoint (19 Feb 2004 05:42)' },
+  { href: '/samples/ims_test2_2004.02.12.10.32.39.txt', title: 'Try an early-test sample', label: 'IMS Test 2, first reading (12 Feb 2004 10:32)' },
+  { href: '/samples/ims_test2_2004.02.19.05.42.39.txt', title: 'Try a late-test sample', label: 'IMS Test 2, near the recording endpoint (19 Feb 2004 05:42)' },
 ]
 
 // fileRevision changes on every file choice, so two different files with the same name and size never
@@ -102,18 +102,18 @@ export default function Analyze() {
     <div className="wrap ev-page">
       <header className="ev-head">
         <p className="eyebrow">Live file analysis</p>
-        <h1>Check a single IMS-format reading against a stored healthy reference</h1>
+        <h1>Analyze a vibration reading</h1>
         <p className="lede">
-          Unlike the replay, this runs the analysis pipeline on the server, now, for the file you choose. TOCSIN checks the reading's quality,
-          measures the strength of each bearing-fault vibration pattern, and compares it with the healthy reference of one IMS test bearing.
-          One reading can reach WATCH at most: an alert needs three consecutive readings.
+          Choose a provided sample or upload a compatible file. TOCSIN checks its quality and compares its vibration measurements with a stored reference from the laboratory tests.
+          The analysis runs on the server when you press the button. One reading can reach WATCH at most: an alert needs three consecutive readings.
         </p>
+        <p style={{ marginTop: 12 }}><strong>New here?</strong> Choose a provided sample, then press “Analyze reading.”</p>
         <div className="notice info" role="note">
           <Info />
           <div>
-            <strong>Supported scope: IMS-compatible readings only.</strong> The references were recorded on the IMS rig (Rexnord ZA-2115 bearings),
-            at {SUPPORTED.sampleRate.toLocaleString()} Hz and {SUPPORTED.rpm.toLocaleString()} RPM, as {SUPPORTED.samples.toLocaleString()}-sample readings.
-            A file from other machinery may parse, and its spectrum may be computable, but comparing it with these references is not scientifically supported.
+            <strong>Supported files.</strong> This prototype supports the documented IMS laboratory setup (Rexnord ZA-2115 bearings):
+            {' '}{SUPPORTED.sampleRate.toLocaleString()} Hz sampling, {SUPPORTED.rpm.toLocaleString()} RPM and {SUPPORTED.samples.toLocaleString()} samples per reading.
+            A file from other machinery may parse, but comparing it with these references is not scientifically supported.
             This page is not a general machinery monitor.
           </div>
         </div>
@@ -135,14 +135,14 @@ export default function Analyze() {
           <input ref={inputRef} type="file" className="visually-hidden" accept=".txt,.csv,.tsv,text/plain,text/csv" onChange={(e) => chooseFile(e.target.files?.[0] ?? null)} aria-label="Reading file" />
         </div>
         <div className="small" style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
-          <span className="muted">Or use a real IMS reading:</span>
-          {SAMPLES.map((s) => <button type="button" key={s.href} className="btn btn-sm btn-ghost" onClick={() => loadSample(s.href)}>{s.label}</button>)}
+          <span className="muted">Or use a provided NASA IMS reading:</span>
+          {SAMPLES.map((s) => <button type="button" key={s.href} className="btn btn-sm btn-ghost" onClick={() => loadSample(s.href)}>{s.title} <span className="muted">· {s.label}</span></button>)}
         </div>
         <div className="an-fields">
           <label className="field"><span>Sample rate (fixed)</span><input type="text" readOnly value={`${SUPPORTED.sampleRate.toLocaleString()} Hz`} aria-describedby="fixed-help" /></label>
           <label className="field"><span>Shaft speed (fixed)</span><input type="text" readOnly value={`${SUPPORTED.rpm.toLocaleString()} RPM`} aria-describedby="fixed-help" /></label>
-          <label className="field"><span>Channel column (0 = first)</span><input type="number" min={0} max={63} step={1} value={col} onChange={(e) => setCol(e.target.value)} /></label>
-          <label className="field an-ref"><span>Healthy reference to compare against</span>
+          <label className="field"><span>Sensor column (0 = first column)</span><input type="number" min={0} max={63} step={1} value={col} onChange={(e) => setCol(e.target.value)} /></label>
+          <label className="field an-ref"><span>Reference recording</span>
             <select value={ref} onChange={(e) => setRef(e.target.value)}>
               {refs.length ? refs.map((r) => <option key={r.id} value={r.id}>{r.label}</option>) : <option value="test2:1">IMS Test 2 · bearing 1</option>}
             </select>

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { SpectrumChart } from '../components/charts/SpectrumChart'
 import { Arrow } from '../components/Icons'
-import { FRONTEND_COMMIT, REPO_URL } from '../components/Layout'
+import { DEMO_URL, FRONTEND_COMMIT, REPO_URL } from '../components/Layout'
 import { LivePreview } from '../components/LivePreview'
 import { StateBadge } from '../components/StateBadge'
 import { api, type FrozenConfig } from '../lib/api'
@@ -69,15 +69,16 @@ export default function Landing() {
           <Link to="/evaluation" className="announce">
             <span className="accent">Held-out result</span> TOCSIN alerted on 1 of 2 bearing failures. See why <Arrow />
           </Link>
-          <h1>See the vibration <span className="accent-word">change</span>.<br />Inspect the evidence.</h1>
+          <h1>Understand changes in machine <span className="accent-word">vibration</span>.<br />See the evidence behind each warning.</h1>
           <p className="hero-lede">
-            Explore bearing vibration recordings, see which changes trigger an inspection priority, and examine the measurements behind each result.
+            TOCSIN is a browser-based tool for analyzing bearing vibration recordings. Try a provided sample, inspect changes over time, and compare the warnings from different detection methods.
           </p>
           <div className="hero-cta">
-            <Link to="/demo/test3?guide=alert&b=3" className="btn btn-pill btn-lg">Explore the replay <span className="disc" aria-hidden="true"><Arrow /></span></Link>
-            <Link to="/evaluation" className="btn-link">Read the results <Arrow /></Link>
+            <Link to="/analyze?sample=late" className="btn btn-pill btn-lg">Analyze a sample <span className="disc" aria-hidden="true"><Arrow /></span></Link>
+            <Link to="/demo/test3?guide=alert&b=3" className="btn-link">Explore a recorded test <Arrow /></Link>
+            <a href={DEMO_URL} className="btn-link" target="_blank" rel="noopener noreferrer">Watch the demo (3 min, YouTube) <Arrow /></a>
           </div>
-          <p className="hero-scope">A research prototype evaluated on recorded bearing tests, not a production monitoring system.</p>
+          <p className="hero-scope">Research prototype using recorded laboratory data, not a production monitoring system. Currently supports the documented IMS bearing-test setup.</p>
         </div>
         <div className="wrap">
           <LivePreview />
@@ -85,43 +86,58 @@ export default function Landing() {
       </section>
 
       <section className="wrap sec">
+        <div className="split">
+          <div>
+            <p className="eyebrow"><span className="tick" />The basics</p>
+            <h2>What is a vibration recording?</h2>
+          </div>
+          <div className="muted" style={{ maxWidth: '60ch' }}>
+            <p>
+              Bearings help shafts rotate smoothly inside machines such as motors, pumps and fans. A vibration sensor measures their movement and records it as numbers over time.
+            </p>
+            <p style={{ marginTop: 12 }}>
+              Changes in those measurements can be clues to damage. TOCSIN helps you examine the changes and the evidence behind a warning.
+            </p>
+            <p style={{ marginTop: 12 }}>
+              The examples here come from laboratory bearing tests. They are measurements shown as charts, not audio recordings to listen to. TOCSIN has been evaluated only on these laboratory tests, not on the machines named above.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="wrap sec">
         <div className="sec-head center">
           <p className="eyebrow"><span className="tick" />Start here</p>
-          <h2>Five ways in</h2>
-          <p className="muted sec-lede">Each opens on a real reading chosen from the analysis output, with a short note on what it shows and what it does not.</p>
+          <h2>Start with a sample. Then investigate the recording.</h2>
+          <p className="muted sec-lede">
+            Sample analysis runs on the server when you request it. Recorded-test exploration displays results computed beforehand.
+          </p>
         </div>
         <div className="entry-grid">
-          <Link to="/demo/test3?guide=alert&b=3" className="entry">
-            <StateBadge state="ALERT" />
-            <h3>Understand an alert</h3>
-            <p>Test 3, bearing 3: the first sustained alert, and the band, reference and persistence behind it.</p>
-            <span className="go">Open <Arrow /></span>
-          </Link>
-          <Link to="/demo/test2?guide=miss&b=1" className="entry">
-            <StateBadge state="NORMAL" />
-            <h3>Inspect the missed failure</h3>
-            <p>Test 2, bearing 1 failed. The RMS alarm warned and TOCSIN did not. The spectrum shows why.</p>
-            <span className="go">Open <Arrow /></span>
-          </Link>
-          <Link to="/demo/test2?guide=gaps&cond=gaps&b=1" className="entry">
-            <StateBadge state="DATA_INSUFFICIENT" />
-            <h3>See missing-data handling</h3>
-            <p>A reading with a 40% gap gets no verdict. The last valid state is kept, with its age.</p>
-            <span className="go">Open <Arrow /></span>
-          </Link>
           <Link to="/analyze?sample=late" className="entry">
-            <span className="entry-tag">Live pipeline</span>
-            <h3>Analyze a supported sample</h3>
-            <p>Run the frozen pipeline on the server for one real IMS reading, against a stored healthy reference.</p>
+            <span className="entry-tag">Step 1 · runs on request</span>
+            <h3>Analyze a provided reading</h3>
+            <p>Run the analysis on a provided sample or a compatible file. See its measurements and how they compare with a stored reference.</p>
+            <span className="go">Open <Arrow /></span>
+          </Link>
+          <Link to="/demo/test3?guide=alert&b=3" className="entry">
+            <span className="entry-tag">Step 2 · computed beforehand</span>
+            <h3>Explore a warning over time</h3>
+            <p>Move through a laboratory test to see when a warning appeared and what supported it.</p>
             <span className="go">Open <Arrow /></span>
           </Link>
           <Link to="/evaluation#glance" className="entry">
-            <span className="entry-tag">Counts, not percentages</span>
-            <h3>Compare the methods</h3>
-            <p>TOCSIN against an RMS alarm, an isolation forest and a simpler variant, on held-out recordings.</p>
+            <span className="entry-tag">Step 3 · counts, not percentages</span>
+            <h3>Compare the results and limitations</h3>
+            <p>See how TOCSIN did against simpler methods, including the failure it missed.</p>
             <span className="go">Open <Arrow /></span>
           </Link>
         </div>
+        <p className="small muted" style={{ marginTop: 16, display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center' }}>
+          <span>Go deeper:</span>
+          <Link to="/demo/test2?guide=miss&b=1">Inspect the missed failure</Link>
+          <Link to="/demo/test2?guide=gaps&cond=gaps&b=1">See missing-data handling</Link>
+        </p>
       </section>
 
       <section className="wrap sec">
@@ -163,9 +179,13 @@ export default function Landing() {
         <div className="split">
           <div>
             <p className="eyebrow"><span className="tick" />One alert, explained</p>
-            <h2>What an alert is made of</h2>
+            <h2>Bearing 3 needs a closer look</h2>
+            <p style={{ marginTop: 14, maxWidth: '46ch' }}>
+              A vibration pattern associated with bearing damage stayed unusually strong across three usable readings. Review the trend and supporting measurements before deciding on an inspection.
+              This warning identifies an unusual pattern. It does not confirm a damaged bearing.
+            </p>
             <p className="muted" style={{ marginTop: 14, maxWidth: '46ch' }}>
-              This frequency band rose above the bearing's reference level for three valid readings. Every number comes from the analysis output for that reading.
+              The evidence: this frequency band rose above the bearing's reference level for three valid readings. Every number comes from the analysis output for that reading.
               The sentence is a template filled from those numbers; no language model writes it.
             </p>
             <p className="action-note">
@@ -226,10 +246,11 @@ export default function Landing() {
       <section className="wrap sec">
         <div className="sec-head">
           <p className="eyebrow"><span className="tick" />Results</p>
-          <h2>The results include the misses.</h2>
+          <h2>What did the tests show?</h2>
           <p className="muted sec-lede">
-            On two held-out bearing failures, TOCSIN alerted on one. The RMS alarm and isolation forest alerted on both. TOCSIN produced fewer alert hours than those
-            baselines, but that came with a missed failure. Explore the comparison, the simpler variant and the limitations before drawing conclusions.
+            TOCSIN raised an alert for one of two bearings labelled as failed. Both comparison methods alerted on both. It also alerted on four of six bearings not labelled as failed.
+            These results show the method's limitations; they do not establish reliable performance on other machines. The results page separates the original evaluation
+            from later data-handling corrections and exploratory changes. <Link to="/evaluation">See the comparison and limitations</Link>.
           </p>
         </div>
         <div className="panel">
@@ -305,12 +326,12 @@ export default function Landing() {
       <section className="wrap sec">
         <div className="sec-head">
           <p className="eyebrow"><span className="tick" />Who it is for</p>
-          <h2>Inspection triage for teams without a vibration analyst</h2>
+          <h2>Who can use TOCSIN today, and who it could help next</h2>
         </div>
         <dl className="facts three">
-          <div className="fact"><dt>User</dt><dd>Maintenance teams and smaller operators who collect bearing vibration readings but have limited capacity to interpret them.</dd></div>
-          <div className="fact"><dt>Workflow</dt><dd>Start with exported readings from existing vibration sensors or route collectors, uploaded for analysis. Direct sensor integration would come later. Neither is built beyond single IMS-format readings today.</dd></div>
-          <div className="fact"><dt>Benefit (proposed, not measured)</dt><dd>A ranked list of bearings to check, each with the measurement behind it, so inspection time goes where the vibration changed. No downtime or cost saving has been measured.</dd></div>
+          <div className="fact"><dt>Today</dt><dd>Students, researchers and developers investigating bearing vibration data can explore real recordings, compare detection methods and analyze compatible samples.</dd></div>
+          <div className="fact"><dt>What works now</dt><dd>You can analyze one compatible reading against an existing laboratory reference. Connecting your own sensors and building a reference for your own machine are not supported yet.</dd></div>
+          <div className="fact"><dt>Next (not built)</dt><dd>Maintenance teams that already collect vibration measurements could benefit from clearer inspection priorities. That would need machine-specific settings, reference readings and further validation. No downtime or cost saving has been measured.</dd></div>
         </dl>
       </section>
 
@@ -333,27 +354,40 @@ export default function Landing() {
       <section className="wrap sec faq-split">
         <div>
           <p className="eyebrow"><span className="tick" />Questions</p>
-          <h2>Before you read too much into it</h2>
+          <h2>What can I use it for today?</h2>
         </div>
         <div className="faq">
+          <details>
+            <summary>What does TOCSIN analyze?</summary>
+            <p>Vibration measurements from bearings: numbers recorded by a sensor thousands of times per second. It looks for vibration patterns associated with bearing damage and shows the evidence behind any warning. Today it supports the documented IMS laboratory setup only.</p>
+          </details>
+          <details>
+            <summary>What is a bearing?</summary>
+            <p>A bearing lets a shaft rotate smoothly inside a machine, such as a motor, pump or fan. When a bearing starts to wear or crack, the way it vibrates often changes.</p>
+          </details>
+          <details>
+            <summary>Does it use sound recordings?</summary>
+            <p>No. The data are vibration measurements from sensors on a laboratory test rig, shown as charts. There is nothing to listen to.</p>
+          </details>
           <details>
             <summary>Is this live data from a machine?</summary>
             <p>No. The replay steps through readings recorded on a bearing test rig in 2003–2004, revealing decisions the frozen pipeline computed in advance. Nothing is streamed from a machine. The Analyze page does run the pipeline live, on one uploaded reading.</p>
           </details>
           <details>
-            <summary>What does an alert mean?</summary>
-            <p>A bearing-fault frequency band stayed above its threshold, relative to the same bearing's early readings, for three consecutive valid readings. It means "prioritize a confirmatory inspection", not "this bearing will fail". The score is not a probability.</p>
+            <summary>What does a warning mean?</summary>
+            <p>A repeated vibration pattern has changed enough to deserve closer examination. TOCSIN shows the measurements supporting that warning. It does not confirm damage or predict exactly when the bearing will fail.</p>
+            <p>The technical rule: a bearing-fault frequency band stayed above its threshold, relative to the same bearing's early readings, for three consecutive valid readings. It means "prioritize a confirmatory inspection", not "this bearing will fail". The score is not a probability.</p>
           </details>
           <details>
             <summary>What happens when data is missing?</summary>
             <p>When a reading fails the supported quality checks, TOCSIN withholds a verdict instead of treating missing data as normal. The last valid state is kept and its age is shown. Only the conditions in the checks are covered: wrong rate or length, too many missing samples, long gaps, and readings far below the bearing's normal level.</p>
           </details>
           <details>
-            <summary>Can I monitor my own machine with it?</summary>
+            <summary>Can I upload data from my own machine?</summary>
             <p>Not yet. The Analyze page compares one IMS-compatible reading with a stored IMS reference. Your own machine would need its own geometry, settings and healthy reference. See <Link to="/data#scope">the scope notes</Link>.</p>
           </details>
           <details>
-            <summary>How reliable is it?</summary>
+            <summary>How well did the detector perform?</summary>
             <p>On two held-out failures it alerted on one, with 4 of 6 undamaged bearings also alerted. The simpler variant without defect bands did better on these recordings. That is a research result, not evidence of reliable fault detection.</p>
           </details>
         </div>

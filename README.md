@@ -6,6 +6,8 @@ TOCSIN turns bearing vibration recordings into inspection priorities with the me
 
 Built for **Wild Bugs PS01: MachinaSense** (intelligent industrial fault detection and predictive maintenance).
 
+**▶ [Watch the demo (3 min, YouTube)](https://www.youtube.com/watch?v=oI8t5DeqMFU)**
+
 > **App:** https://tocsin-phi.vercel.app · **API:** https://tocsin-production.up.railway.app ([health](https://tocsin-production.up.railway.app/api/health), [version](https://tocsin-production.up.railway.app/api/version))
 > Author: **Divine Dilibe** · Code licence: [MIT](LICENSE) · Data and third-party terms: [NOTICE.md](NOTICE.md)
 

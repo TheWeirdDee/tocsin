@@ -116,16 +116,16 @@ test.describe('Analyze', () => {
   test('TC-04 names the upload, not a hard-coded bearing; TC-05 marks results stale when inputs change', async ({ page }) => {
     await page.goto('/analyze')
     await page.getByRole('button', { name: /first reading/ }).click()
-    await page.getByLabel('Channel column (0 = first)').fill('3')
-    await page.getByLabel('Healthy reference to compare against').selectOption('test2:4')
+    await page.getByLabel('Sensor column (0 = first column)').fill('3')
+    await page.getByLabel('Reference recording').selectOption('test2:4')
     await page.getByRole('button', { name: 'Analyze reading' }).click()
     await expect(page.locator('.ev-sentence').first()).toContainText('Uploaded reading (column 3):', { timeout: 30000 })
     await expect(page.locator('.ev-sentence').first()).not.toContainText('Bearing 1')
     await expect(page.getByTestId('result-inputs')).toContainText('bearing 4')
     await expect(page.getByTestId('stale-result')).toHaveCount(0)
-    await page.getByLabel('Channel column (0 = first)').fill('2')
+    await page.getByLabel('Sensor column (0 = first column)').fill('2')
     await expect(page.getByTestId('stale-result')).toBeVisible()
-    await page.getByLabel('Channel column (0 = first)').fill('3')
+    await page.getByLabel('Sensor column (0 = first column)').fill('3')
     await expect(page.getByTestId('stale-result')).toHaveCount(0)
   })
 
@@ -133,13 +133,13 @@ test.describe('Analyze', () => {
     await page.goto('/analyze')
     await expect(page.getByLabel('Sample rate (fixed)')).toHaveAttribute('readonly', '')
     await expect(page.getByLabel('Shaft speed (fixed)')).toHaveAttribute('readonly', '')
-    await expect(page.getByText('Supported scope: IMS-compatible readings only.')).toBeVisible()
+    await expect(page.getByText('Supported files.')).toBeVisible()
   })
 
   test('TC-02 server validation messages are shown, not "server could not be reached"', async ({ page }) => {
     await page.goto('/analyze')
     await page.getByRole('button', { name: /first reading/ }).click()
-    await page.getByLabel('Channel column (0 = first)').fill('9')
+    await page.getByLabel('Sensor column (0 = first column)').fill('9')
     await page.getByRole('button', { name: 'Analyze reading' }).click()
     await expect(page.getByRole('alert')).toContainText('Column 9 is not present', { timeout: 30000 })
     await expect(page.getByRole('alert')).not.toContainText('could not be reached')
@@ -166,18 +166,18 @@ test('footer reports frontend and API versions', async ({ page }) => {
   await expect(page.getByTestId('versions')).toContainText(/frontend [0-9a-f]{7}/)
 })
 
-test('landing offers the five scenario entry points and they open working pages', async ({ page }) => {
+test('landing offers the three starting steps and the deeper scenarios, and they open working pages', async ({ page }) => {
   await page.goto('/')
-  for (const name of ['Understand an alert', 'Inspect the missed failure', 'See missing-data handling', 'Analyze a supported sample', 'Compare the methods']) {
+  for (const name of ['Analyze a provided reading', 'Explore a warning over time', 'Compare the results and limitations', 'Inspect the missed failure', 'See missing-data handling']) {
     await expect(page.getByRole('link', { name: new RegExp(name) })).toBeVisible()
   }
   await page.getByRole('link', { name: /Inspect the missed failure/ }).click()
   await expect(page.getByRole('region', { name: 'Scenario: Inspect the missed failure' })).toContainText('never alerted')
   await page.goto('/')
-  await page.getByRole('link', { name: /Analyze a supported sample/ }).click()
+  await page.getByRole('link', { name: /Analyze a provided reading/ }).click()
   await expect(page.getByText('ims_test2_2004.02.19.05.42.39.txt')).toBeVisible()
   await page.goto('/')
-  await page.getByRole('link', { name: /Compare the methods/ }).click()
+  await page.getByRole('link', { name: /Compare the results and limitations/ }).click()
   await expect(page.locator('#glance')).toBeInViewport({ timeout: 10_000 })
 })
 

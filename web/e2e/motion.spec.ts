@@ -58,7 +58,7 @@ test('motion: returning to the landing page never duplicates scroll animations',
 
 test('motion: calls to action work while the hero is still entering', async ({ page }) => {
   await page.goto('/')
-  await page.getByRole('link', { name: /Explore the replay/ }).first().click()
+  await page.getByRole('link', { name: /Explore a recorded test/ }).first().click()
   await expect(page).toHaveURL(/\/demo\/test3/)
 })
 

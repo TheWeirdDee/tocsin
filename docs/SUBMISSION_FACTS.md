@@ -31,7 +31,9 @@ See [DEPLOYMENT.md](DEPLOYMENT.md): ownership, every environment variable, build
 
 ## Demo video
 
-Not recorded yet. The three-minute script is in [DEMO_SCRIPT.md](DEMO_SCRIPT.md). It needs the owner's narration and screen recording.
+**Video:** https://www.youtube.com/watch?v=oI8t5DeqMFU (2 min 57 s).
+
+It was recorded on 15 Oct 2026 against the deployed release `ddb5e0d` and shows that release's page wording. The landing and Analyze copy were simplified afterwards; the functionality and results shown are unchanged. The narration uses a synthetic voice. [DEMO_SCRIPT.md](DEMO_SCRIPT.md) is the earlier plan, not the final narration.
 
 ## Text for the submission form
 
@@ -53,4 +55,4 @@ Not recorded yet. The three-minute script is in [DEMO_SCRIPT.md](DEMO_SCRIPT.md)
 - v1.1 corrected two data-handling defects after the pre-registered v1.0 run, so only v1.0 is clean held-out evidence. Both are reported.
 - Noise and missing-data handling are tested with seeded perturbations of the real recordings.
 
-**Links:** app https://tocsin-phi.vercel.app · repository https://github.com/TheWeirdDee/tocsin · judge quick start in the README.
+**Links:** app https://tocsin-phi.vercel.app · repository https://github.com/TheWeirdDee/tocsin · demo video https://www.youtube.com/watch?v=oI8t5DeqMFU · judge quick start in the README.

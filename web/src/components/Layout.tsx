@@ -6,6 +6,7 @@ import { ErrorBoundary } from './ErrorBoundary'
 import { Arrow, Close, Logo, Menu } from './Icons'
 
 export const REPO_URL = 'https://github.com/TheWeirdDee/tocsin'
+export const DEMO_URL = 'https://www.youtube.com/watch?v=oI8t5DeqMFU'
 export const FRONTEND_COMMIT: string = __BUILD_COMMIT__
 
 export function Layout() {
@@ -67,7 +68,7 @@ export function Layout() {
             <Logo />
             <span>TOCSIN</span>
           </Link>
-          <Link to="/demo/test3?guide=alert&b=3" className="btn btn-pill btn-sm header-cta-mobile">Replay <span className="disc" aria-hidden="true"><Arrow /></span></Link>
+          <Link to="/demo/test3?guide=alert&b=3" className="btn btn-pill btn-sm header-cta-mobile">Recorded test <span className="disc" aria-hidden="true"><Arrow /></span></Link>
           <button className="btn btn-ghost btn-icon menu-toggle" aria-expanded={open} aria-controls="site-nav" aria-label={open ? 'Close menu' : 'Open menu'} onClick={() => setOpen((o) => !o)}>
             {open ? <Close /> : <Menu />}
           </button>
@@ -79,7 +80,7 @@ export function Layout() {
               <NavLink to="/analyze">Analyze</NavLink>
               <a href={REPO_URL} rel="noreferrer">GitHub</a>
             </nav>
-            <Link to="/demo/test3?guide=alert&b=3" className="btn btn-pill btn-sm">Explore the replay <span className="disc" aria-hidden="true"><Arrow /></span></Link>
+            <Link to="/demo/test3?guide=alert&b=3" className="btn btn-pill btn-sm">Explore a recorded test <span className="disc" aria-hidden="true"><Arrow /></span></Link>
           </div>
         </div>
       </header>

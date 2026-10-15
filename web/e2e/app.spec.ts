@@ -15,11 +15,16 @@ async function openNav(page: Page) {
 
 test('landing explains the product and opens the demo', async ({ page }) => {
   await page.goto('/')
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('See the vibration change')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Understand changes in machine vibration')
   await expect(page.getByText('Not a production monitoring system.')).toBeVisible()
   await expect(page.getByText(/of 2/).first()).toBeVisible() // measured results loaded from heldout.json
+  // The demo video is a plain external link (no embedded player loads on the landing page).
+  const demo = page.locator('.hero-cta').first().getByRole('link', { name: /Watch the demo/ })
+  await expect(demo).toHaveAttribute('href', 'https://www.youtube.com/watch?v=oI8t5DeqMFU')
+  await expect(demo).toHaveAttribute('target', '_blank')
+  await expect(page.locator('iframe')).toHaveCount(0)
   await noHorizontalScroll(page)
-  await page.locator('.hero-cta').getByRole('link', { name: /Explore the replay/ }).click()
+  await page.locator('.hero-cta').getByRole('link', { name: /Explore a recorded test/ }).click()
   await expect(page).toHaveURL(/\/demo/)
   await expect(page.getByText('Recorded dataset replay. Not a live machine feed.')).toBeVisible()
 })
