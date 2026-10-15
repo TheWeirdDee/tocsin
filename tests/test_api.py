@@ -101,8 +101,12 @@ def test_cors_allows_known_origin_and_preflight_but_not_others():
 
 def test_upload_size_limit_rejected_before_parsing():
     big = b"0.1\n" * (3 * 1024 * 1024)  # ~12 MB
-    r = client.post("/api/analyze", files={"file": ("big.txt", big, "text/plain")})
+    r = client.post("/api/analyze", files={"file": ("big.txt", big, "text/plain")},
+                    headers={"Origin": "http://localhost:5173"})
     assert r.status_code == 413 and "8 MB" in r.json()["detail"]
+    # The size guard sits inside CORS: browsers must be able to read this
+    # deliberate error rather than presenting it as a network failure.
+    assert r.headers["access-control-allow-origin"] == "http://localhost:5173"
 
 
 def test_health_is_503_when_artifacts_missing(tmp_path, monkeypatch):
