@@ -1,16 +1,16 @@
 # command: npx vitest run
 # cwd: web/
 # env: Windows 11 Pro 10.0.26200, Python 3.12.10 (.venv), Node v24.13.1
-# tree: HEAD c7819c3 + uncommitted, fingerprint 4b62c8d0e00ae926b04368580b43661237f410530ffbdeae7a8928b229b45ce4
-# run: 2026-10-15T13:28:11Z
+# tree: HEAD 260348a + uncommitted, fingerprint a05ab1006140d80b05dcc433f3e0181cda4aaadb2d35bcbc67f56b351b5f3a4d
+# run: 2026-10-15T14:41:39Z
 
 
 [1m[46m RUN [49m[22m [36mv3.2.4 [39m[90mC:/Users/DELL/Desktop/tocsin/web[39m
 
- [32m✓[39m src/lib/decision.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m src/lib/decision.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 11[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
 [2m      Tests [22m [1m[32m10 passed[39m[22m[90m (10)[39m
-[2m   Start at [22m 14:28:14
-[2m   Duration [22m 3.28s[2m (transform 153ms, setup 347ms, collect 113ms, tests 10ms, environment 2.16s, prepare 186ms)[22m
+[2m   Start at [22m 15:41:43
+[2m   Duration [22m 4.85s[2m (transform 167ms, setup 603ms, collect 96ms, tests 11ms, environment 3.41s, prepare 222ms)[22m
 
