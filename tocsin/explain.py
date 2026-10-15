@@ -31,10 +31,11 @@ def ratio_vs_reference(prom_db: float, ref_db: float) -> float | None:
 def evidence(bearing: int, timestamp: str, state: int, family_idx: int, score: float, theta: float,
              counter: int, k: int, prom_db: dict[str, float], reference: dict[str, dict], defect_hz: dict[str, float],
              peak_hz: float | None = None, trend_per_hour: float | None = None, quality_note: str | None = None,
-             config_sha: str | None = None, clear_count: int = 0) -> dict:
+             config_sha: str | None = None, clear_count: int = 0, subject: str | None = None) -> dict:
     fam = FAMILY_LIST[family_idx] if 0 <= family_idx < len(FAMILY_LIST) else None
     ev = {
         "bearing": bearing,
+        "subject": subject or f"Bearing {bearing}",
         "timestamp": timestamp,
         "state": STATE_NAMES[state],
         "family": fam,
@@ -58,12 +59,12 @@ def evidence(bearing: int, timestamp: str, state: int, family_idx: int, score: f
 
 def sentence(ev: dict) -> str:
     st = ev["state"]
-    b = ev["bearing"]
+    b = ev.get("subject") or f"Bearing {ev['bearing']}"
     if st == "BASELINING":
-        return f"Bearing {b}: learning this bearing's healthy reference; no alerts are possible yet."
+        return f"{b}: learning this bearing's healthy reference; no alerts are possible yet."
     if st == "DATA_INSUFFICIENT":
         note = ev.get("quality_note") or "the reading failed validation"
-        return f"Bearing {b}: no verdict for this reading because {note}. The previous state is kept."
+        return f"{b}: no verdict for this reading because {note}. The previous state is kept."
     fam = ev.get("family_label") or "defect"
     band = f"{fam} band ({_fmt(ev.get('defect_hz'), 0)} Hz)"
     cur, ref = ev.get("current_prom_db"), ev.get("reference_prom_db")
@@ -74,13 +75,13 @@ def sentence(ev: dict) -> str:
     if ratio is not None:
         level += f" ({_fmt(ratio)}× the reference)"
     if st == "ALERT" and p.get("clear_count", 0) > 0:
-        return (f"Bearing {b}: alert still active. {level}, now below the threshold for "
+        return (f"{b}: alert still active. {level}, now below the threshold for "
                 f"{p['clear_count']} of {p['required']} readings needed to clear it.")
     if st == "ALERT":
-        return (f"Bearing {b}: {level}, at or above the alert threshold for {p['count']} consecutive readings "
+        return (f"{b}: {level}, at or above the alert threshold for {p['count']} consecutive readings "
                 f"(needs {p['required']}). Prioritize inspection of this bearing.")
     if st == "WATCH":
         need = p["required"] - p["count"]
-        return (f"Bearing {b}: {level}. Above threshold for {p['count']} of {p['required']} readings; "
+        return (f"{b}: {level}. Above threshold for {p['count']} of {p['required']} readings; "
                 f"it becomes an alert if it holds for {need} more.")
-    return f"Bearing {b}: no defect band is above its threshold. Strongest: {level}."
+    return f"{b}: no defect band is above its threshold. Strongest: {level}."
