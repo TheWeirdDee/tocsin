@@ -1,0 +1,51 @@
+{
+ "base": "https://tocsin-phi.vercel.app",
+ "time": "2026-10-15T05:09:15.035Z",
+ "tc01": {
+  "99999": {
+   "usable": true,
+   "url": "https://tocsin-phi.vercel.app/demo/test3?cond=clean&b=3&t=6323",
+   "pageErrors": []
+  },
+  "1.5": {
+   "usable": false,
+   "url": "https://tocsin-phi.vercel.app/demo/test3?cond=clean&b=3&t=1.5",
+   "pageErrors": [
+    "TypeError: Cannot read properties of undefined (reading 'split')"
+   ]
+  },
+  "-4": {
+   "usable": true,
+   "url": "https://tocsin-phi.vercel.app/demo/test3?cond=clean&b=3&t=0",
+   "pageErrors": []
+  },
+  "abc": {
+   "usable": true,
+   "url": "https://tocsin-phi.vercel.app/demo/test3?cond=clean&b=3&t=0",
+   "pageErrors": []
+  }
+ },
+ "tc03": {
+  "evidenceText": "Bearing 1Learning baselineBearing 1: learning this bearing's healthy reference; no alerts are possible yet.Implicated bandOuter-race · 236 HzPeak found at232 HzBand prominence now8.1 dBHealthy reference6.1 dBRatio to reference1.25×Score vs threshold1.2 / 3.5Persistence0 of 3 readingsTrend (last 6 valid readings)—Data qualityValid · complete readingRecording time · analysis version12 Feb 2004, 10:32 · config 960523ff · v1.1.0 · speed assumed 2000 RPM (rig nominal)The score is a robust z-value, not a probability of failure. It measures how far the strongest defect band sits above this bearing's ",
+  "priorityText": "1Bearing 371 readings until the baseline is readyBaseline2Bearing 171 readings until the baseline is readyBaseline3Bearing 471 readings until the baseline is readyBaseline4Bearing 271 readings until the baseline is readyBaseline"
+ },
+ "tc07": {
+  "idx": 101,
+  "evidenceText": "Bearing 1No valid dataNormalBearing 1: no verdict for this reading because 40% of samples missing (limit 20%); gap of 8192 consecutive missing samples (0.410 s) exceeds 2048. The last valid state, NORMAL, is kept.Implicated bandInner-race · 297 HzPeak found at298 HzBand prominence now9.0 dBHealthy reference6.8 dBRatio to reference1.29×Score vs threshold1.4 / 3.5Persistence0 of 3 readingsTrend (last 6 valid readings)+1.26 per hourData qualityNo verdict · 40% of samples missing (limit 20%); gap of"
+ },
+ "tc09": {
+  "specBefore": "This reading · 2000–8000 Hz band-passed",
+  "readingDuring": "Reading 241 of 984",
+  "specDuring": "This reading · 2000–8000 Hz band-passed",
+  "spectrumRequestsDuring2_5sPlay": 0
+ },
+ "tc06": {
+  "selected": "test3",
+  "shownTime": "15 Feb 2004, 21:52",
+  "priorityHeader": "IMS Test 2 · held-out"
+ },
+ "tc05": {
+  "resultStillShown": true,
+  "staleWarning": false
+ }
+}
