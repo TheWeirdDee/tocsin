@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { api } from '../lib/api'
+import { applyMeta } from '../lib/meta'
 import { ErrorBoundary } from './ErrorBoundary'
 import { Arrow, Close, Logo, Menu } from './Icons'
 
@@ -16,23 +17,40 @@ export function Layout() {
     api.health().then((h) => setApiCommit((h as { build_commit?: string }).build_commit ?? null)).catch(() => setApiCommit(null))
   }, [])
 
+  useEffect(() => applyMeta(loc.pathname), [loc.pathname])
+
   useEffect(() => {
     setOpen(false)
     if (!loc.hash) {
       window.scrollTo(0, 0)
       return
     }
-    // Sections on some pages render after their data loads; retry briefly before giving up.
+    // Sections on some pages render after their data loads; retry briefly before giving up. Once the
+    // target exists, keep it in place while content above it loads (slow connections), until the
+    // reader scrolls or 15 s pass.
     let tries = 0
+    let ro: ResizeObserver | null = null
+    let stopTimer = 0
     const id = decodeURIComponent(loc.hash.slice(1))
+    const stop = () => {
+      ro?.disconnect()
+      ro = null
+      window.clearTimeout(stopTimer)
+      for (const ev of ['wheel', 'touchstart', 'keydown', 'pointerdown'] as const) window.removeEventListener(ev, stop)
+    }
     const timer = window.setInterval(() => {
       const el = document.getElementById(id)
       if (el || ++tries > 40) {
         window.clearInterval(timer)
-        el?.scrollIntoView({ block: 'start' })
+        if (!el) return
+        el.scrollIntoView({ block: 'start' })
+        ro = new ResizeObserver(() => el.scrollIntoView({ block: 'start' }))
+        ro.observe(document.body)
+        stopTimer = window.setTimeout(stop, 15_000)
+        for (const ev of ['wheel', 'touchstart', 'keydown', 'pointerdown'] as const) window.addEventListener(ev, stop, { passive: true })
       }
     }, 100)
-    return () => window.clearInterval(timer)
+    return () => { window.clearInterval(timer); stop() }
   }, [loc.pathname, loc.hash])
 
   const short = (s: string | null) => (s ? s.slice(0, 7) + (s.endsWith('+uncommitted') ? '+uncommitted' : '') : 'unknown')
