@@ -1,5 +1,8 @@
 """Regression tests for the external audit findings (TC-02, TC-04, TC-08, TC-10, TC-11)."""
+import hashlib
+import json
 import os
+from collections import defaultdict, deque
 
 import numpy as np
 import pytest
@@ -163,35 +166,60 @@ def test_tc11_timed_out_analysis_keeps_its_slot_until_the_work_finishes(monkeypa
         release.set()
 
 
-def test_tc11_client_identity_ignores_spoofed_forwarded_entries(monkeypatch):
+def _req(headers, peer="10.0.0.5"):
     from starlette.requests import Request
+    raw = [(k.lower().encode(), v.encode()) for k, v in headers]
+    return Request({"type": "http", "headers": raw, "client": (peer, 1234), "method": "GET", "path": "/"})
 
-    def req(xff, peer="10.0.0.5"):
-        headers = [(b"x-forwarded-for", xff.encode())] if xff is not None else []
-        return Request({"type": "http", "headers": headers, "client": (peer, 1234), "method": "GET", "path": "/"})
 
-    monkeypatch.setattr(srv, "TRUSTED_PROXY_HOPS", 1)
-    assert srv.client_id(req("203.0.113.7")) == "203.0.113.7"
-    # a client cannot choose its identity by prepending entries: the proxy-appended one wins
-    assert srv.client_id(req("1.1.1.1, 203.0.113.7")) == "203.0.113.7"
-    assert srv.client_id(req("9.9.9.9, 8.8.8.8, 203.0.113.7")) == "203.0.113.7"
-    assert srv.client_id(req(None)) == "10.0.0.5"
-    monkeypatch.setattr(srv, "TRUSTED_PROXY_HOPS", 0)
-    # without a trusted proxy, forwarded headers are ignored completely
-    assert srv.client_id(req("1.1.1.1", peer="198.51.100.2")) == "198.51.100.2"
+def test_tc11_identity_comes_from_the_edge_header_never_from_forwarded_for(monkeypatch):
+    monkeypatch.setattr(srv, "CLIENT_IP_HEADER", "x-real-ip")
+    assert srv.client_id(_req([("X-Real-IP", "203.0.113.7")])) == "203.0.113.7"
+    # X-Forwarded-For is ignored whatever it contains
+    assert srv.client_id(_req([("X-Real-IP", "203.0.113.7"), ("X-Forwarded-For", "1.1.1.1, 9.9.9.9")])) == "203.0.113.7"
+    assert srv.client_id(_req([("X-Forwarded-For", "1.1.1.1")])) == "10.0.0.5"
+    # IPv6 is normalised so one visitor cannot appear as several spellings
+    assert srv.client_id(_req([("X-Real-IP", "2001:DB8:0:0::1")])) == "2001:db8::1"
+
+
+@pytest.mark.parametrize("headers", [
+    [],                                                   # header missing
+    [("X-Real-IP", "not-an-ip")],                         # malformed
+    [("X-Real-IP", "1.2.3.4, 5.6.7.8")],                  # a chain where one address is expected
+    [("X-Real-IP", "")],                                  # empty
+    [("X-Real-IP", "1.2.3.4"), ("X-Real-IP", "5.6.7.8")],  # repeated header
+])
+def test_tc11_unexpected_identity_values_fall_back_to_the_peer(monkeypatch, headers):
+    monkeypatch.setattr(srv, "CLIENT_IP_HEADER", "x-real-ip")
+    assert srv.client_identity_source(_req(headers)) == ("10.0.0.5", "peer")
+
+
+def test_tc11_no_header_is_trusted_off_railway(monkeypatch):
+    monkeypatch.setattr(srv, "CLIENT_IP_HEADER", "")
+    assert srv.client_identity_source(_req([("X-Real-IP", "203.0.113.7")], peer="198.51.100.2")) == ("198.51.100.2", "peer")
 
 
 @needs
-def test_tc11_rate_limit_cannot_be_dodged_with_forwarded_headers(monkeypatch):
+def test_tc11_visitors_get_separate_limits_and_forwarded_headers_cannot_dodge_them(monkeypatch):
     monkeypatch.setattr(srv, "ANALYZE_RATE_PER_MIN", 2)
-    monkeypatch.setattr(srv, "TRUSTED_PROXY_HOPS", 1)
-    codes = []
-    for i in range(3):
+    monkeypatch.setattr(srv, "CLIENT_IP_HEADER", "x-real-ip")
+    monkeypatch.setattr(srv, "_rate", defaultdict(deque))
+
+    def post(real_ip, i):
         with open(SAMPLE, "rb") as fh:
-            r = client.post("/api/analyze", files={"file": ("ims.txt", fh, "text/plain")},
-                            headers={"X-Forwarded-For": f"10.9.9.{i}, 203.0.113.7"})
-        codes.append(r.status_code)
-    assert codes == [200, 200, 429]
+            return client.post("/api/analyze", files={"file": ("ims.txt", fh, "text/plain")},
+                               headers={"X-Real-IP": real_ip, "X-Forwarded-For": f"10.9.9.{i}"}).status_code
+
+    assert [post("203.0.113.7", i) for i in range(3)] == [200, 200, 429]  # new X-Forwarded-For each time
+    assert post("198.51.100.20", 9) == 200  # a different visitor is not blocked by the first
+
+
+def test_tc11_identity_diagnostic_never_returns_the_address(monkeypatch):
+    monkeypatch.setattr(srv, "CLIENT_IP_HEADER", "x-real-ip")
+    body = client.get("/api/client-id", headers={"X-Real-IP": "203.0.113.7"}).json()
+    assert body["source"] == "header" and body["trusted_header"] == "x-real-ip"
+    assert body["client_hash"] == hashlib.sha256(b"203.0.113.7").hexdigest()[:12]
+    assert "203.0.113.7" not in json.dumps(body)
 
 
 @needs
