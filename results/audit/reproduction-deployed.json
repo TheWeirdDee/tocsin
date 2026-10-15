@@ -1,0 +1,49 @@
+{
+ "base": "https://tocsin-phi.vercel.app",
+ "time": "2026-10-15T12:22:37.526Z",
+ "tc01": {
+  "99999": {
+   "usable": true,
+   "url": "https://tocsin-phi.vercel.app/demo/test3?cond=clean&b=3&t=6323",
+   "pageErrors": []
+  },
+  "1.5": {
+   "usable": true,
+   "url": "https://tocsin-phi.vercel.app/demo/test3?cond=clean&b=3&t=1",
+   "pageErrors": []
+  },
+  "-4": {
+   "usable": true,
+   "url": "https://tocsin-phi.vercel.app/demo/test3?cond=clean&b=3&t=0",
+   "pageErrors": []
+  },
+  "abc": {
+   "usable": true,
+   "url": "https://tocsin-phi.vercel.app/demo/test3?cond=clean&b=3&t=0",
+   "pageErrors": []
+  }
+ },
+ "tc03": {
+  "evidenceText": "Bearing 1Learning baselineBearing 1: learning this bearing's healthy reference; no alerts are possible yet. 71 more valid readings are needed before a reference exists.Calibration1 of 72 valid readingsReference availableafter 71 more valid readingsRaw outer-race prominence (this reading)8.1 dBRaw inner-race prominence (this reading)4.6 dBRaw rolling-element prominence (this reading)5.7 dBData qualityValid · complete readingRecording time · analysis version12 Feb 2004, 10:32 · config 960523ff · v1.1.0The healthy reference is the median and spread of this bearing's first 72 valid readings. Until",
+  "priorityText": "1Bearing 1Learning baseline · 1 of 72 valid readingsBaseline2Bearing 2Learning baseline · 1 of 72 valid readingsBaseline3Bearing 3Learning baseline · 1 of 72 valid readingsBaseline4Bearing 4Learning baseline · 1 of 72 valid readingsBaseline"
+ },
+ "tc07": {
+  "idx": 101,
+  "evidenceText": "Bearing 1No valid dataNormalBearing 1: no verdict for this reading because 40% of samples missing (limit 20%); gap of 8192 consecutive missing samples (0.410 s) exceeds 2048. The last valid state, NORMAL, is kept.Values below are the last valid measurement (13 Feb 2004, 03:12, 10 min before this reading). This reading has no verdict.Implicated bandInner-race · 297 HzPeak found at (last valid)298 HzBand prominence (last valid)9.0 dBHealthy reference6.8 dBRatio to reference1.29×Score vs threshold "
+ },
+ "tc09": {
+  "specBefore": "Reading 201 · 2000–8000 Hz band-passed",
+  "readingDuring": "Reading 241 of 984",
+  "specDuring": "Showing reading 223 · updating to reading 241 during playback · 2000–8000 Hz band-passed",
+  "spectrumRequestsDuring2_5sPlay": 5
+ },
+ "tc06": {
+  "selected": "test3",
+  "shownTime": "—",
+  "priorityHeader": "IMS Test 3"
+ },
+ "tc05": {
+  "resultStillShown": true,
+  "staleWarning": true
+ }
+}
