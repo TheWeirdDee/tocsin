@@ -2,10 +2,10 @@ import { useMemo, useState } from 'react'
 import { fmtNum, fmtShortDate, fmtStamp, parseNaive } from '../../lib/format'
 import type { Num } from '../../lib/types'
 import { STATE_NAMES } from '../../lib/types'
-import { STATE_LABEL } from '../StateBadge'
+import { STATE_LABEL } from '../../lib/state'
 import { niceTicks, useWidth } from './useWidth'
 
-export const STATE_FILL: Record<number, string> = {
+const STATE_FILL: Record<number, string> = {
   0: 'var(--st-base)',
   1: 'var(--st-normal)',
   2: 'var(--st-watch)',
@@ -28,6 +28,11 @@ interface Props {
   strips: Strip[]
   onSeek?: (i: number) => void
   title: string
+  /** First index at which the bearing's reference exists. Scores before it depend on
+   *  readings the replay has not reached yet, so they are never drawn (audit TC-03). */
+  scoreFrom: number
+  /** Optional first index of the visible time window (default: whole run). */
+  from?: number
 }
 
 const M = { top: 24, right: 16, bottom: 28, left: 44 }
@@ -35,7 +40,8 @@ const STRIP_H = 12
 const STRIP_GAP = 8
 
 /** Health-score trend. Draws only readings up to the replay cursor (causal display). */
-export function TrendChart({ times, score, valid, threshold, t, strips, onSeek, title }: Props) {
+export function TrendChart({ times, score, valid, threshold, t, strips, onSeek, title, scoreFrom, from = 0 }: Props) {
+  const shown = (i: number) => scoreFrom >= 0 && i >= scoreFrom && i <= t && !!valid[i] && score[i] != null
   const [ref, width] = useWidth<HTMLDivElement>()
   const [hover, setHover] = useState<number | null>(null)
   const plotH = width < 520 ? 170 : 210
@@ -46,7 +52,7 @@ export function TrendChart({ times, score, valid, threshold, t, strips, onSeek, 
   const innerW = width - left - M.right
   const n = times.length
 
-  const t0 = useMemo(() => parseNaive(times[0]).getTime(), [times])
+  const t0 = useMemo(() => parseNaive(times[from]).getTime(), [times, from])
   const t1 = useMemo(() => parseNaive(times[n - 1]).getTime(), [times, n])
   const xs = useMemo(() => times.map((s) => parseNaive(s).getTime()), [times])
   const x = (ms: number) => left + ((ms - t0) / Math.max(1, t1 - t0)) * innerW
@@ -54,9 +60,9 @@ export function TrendChart({ times, score, valid, threshold, t, strips, onSeek, 
   // y range grows with what has been observed so far (never peeks ahead)
   let maxSeen = threshold * 1.6
   let minSeen = -3
-  for (let i = 0; i <= t; i++) {
+  for (let i = from; i <= t; i++) {
     const s = score[i]
-    if (s != null && valid[i]) {
+    if (s != null && shown(i)) {
       if (s > maxSeen) maxSeen = s
       if (s < minSeen) minSeen = s
     }
@@ -68,9 +74,9 @@ export function TrendChart({ times, score, valid, threshold, t, strips, onSeek, 
   // pixel-bucketed max decimation keeps spikes visible on long runs
   const path = useMemo(() => {
     const buckets = new Map<number, { i: number; v: number }>()
-    for (let i = 0; i <= t; i++) {
+    for (let i = from; i <= t; i++) {
       const s = score[i]
-      if (s == null || !valid[i]) continue
+      if (s == null || !shown(i)) continue
       const px = Math.round(x(xs[i]))
       const cur = buckets.get(px)
       if (!cur || s > cur.v) buckets.set(px, { i, v: s })
@@ -86,11 +92,11 @@ export function TrendChart({ times, score, valid, threshold, t, strips, onSeek, 
     }
     return d
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [score, valid, t, width, yMax, yMin, xs])
+  }, [score, valid, t, width, yMax, yMin, xs, scoreFrom, from])
 
   const stripSegs = (eff: number[]) => {
     const segs: { a: number; b: number; s: number }[] = []
-    for (let i = 0; i <= t; i++) {
+    for (let i = from; i <= t; i++) {
       const s = valid[i] ? eff[i] : 4
       const last = segs[segs.length - 1]
       if (last && last.s === s && xs[i] - xs[last.b] < 2 * 3_600_000) last.b = i
@@ -149,13 +155,24 @@ export function TrendChart({ times, score, valid, threshold, t, strips, onSeek, 
         {cursorX < width - M.right - 1 && (
           <rect x={cursorX} y={M.top} width={width - M.right - cursorX} height={plotH} fill="var(--surface-2)" opacity={0.6} />
         )}
+        {(() => {
+          const end = scoreFrom >= 0 && scoreFrom <= t ? Math.max(left, x(xs[scoreFrom])) : cursorX
+          return end > left + 2 ? (
+            <g>
+              <rect x={left} y={M.top} width={end - left} height={plotH} fill="var(--st-base-bg)" />
+              {end - left > 120 && (
+                <text x={left + 8} y={M.top + plotH - 8} style={{ fill: 'var(--st-base-ink)' }}>Learning baseline: no score yet</text>
+              )}
+            </g>
+          ) : null
+        })()}
         <line x1={left} x2={width - M.right} y1={thY} y2={thY} stroke="var(--st-alert)" strokeWidth={1.5} />
         <text x={left + 6} y={thY - 6} style={{ fill: 'var(--st-alert-ink)', fontWeight: 600 }}>
           Alert threshold {threshold}
         </text>
         <text x={left} y={M.top - 8} style={{ fill: 'var(--ink-3)' }}>Score (robust z)</text>
         <path d={path} fill="none" stroke="var(--det-tocsin)" strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" />
-        {score[t] != null && valid[t] ? (
+        {shown(t) ? (
           <circle cx={cursorX} cy={y(score[t] as number)} r={4.5} fill="var(--det-tocsin)" stroke="var(--surface)" strokeWidth={2} />
         ) : null}
         <line x1={cursorX} x2={cursorX} y1={M.top} y2={M.top + plotH + stripsH} stroke="var(--ink)" strokeWidth={1} />
@@ -202,7 +219,7 @@ export function TrendChart({ times, score, valid, threshold, t, strips, onSeek, 
       {h != null && (
         <div className="chart-tooltip" style={{ left: Math.min(x(xs[h]) + 10, width - 210), top: 8 }}>
           <div>{fmtStamp(times[h])}</div>
-          <div><span className="k">Score </span>{valid[h] ? fmtNum(score[h], 2) : 'no valid reading'}</div>
+          <div><span className="k">Score </span>{!valid[h] ? 'no valid reading' : shown(h) ? fmtNum(score[h], 2) : 'not yet available (learning baseline)'}</div>
           {strips.map((s) => (
             <div key={s.label}><span className="k">{s.label}: </span>{valid[h] ? STATE_LABEL[STATE_NAMES[s.effective[h]]] : STATE_LABEL.DATA_INSUFFICIENT}</div>
           ))}
