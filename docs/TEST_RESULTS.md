@@ -4,6 +4,8 @@ Every local log below was produced on 15 Oct 2026 against one source state: comm
 
 Environment: Windows 11 Pro 10.0.26200; Python 3.12.10 in `.venv`; Node 24.13.1; Playwright Chromium; local uvicorn.
 
+**One later test change.** After this run, the deployed-smoke browser job on release `9317a3e` failed one test on phone: "working preview panels do not overlap". The panels, which sit edge to edge, were reported overlapping by 0.013 px, which is sub-pixel rounding. The test now ignores overlaps under 1 px and measures after the entrance animation settles. That single test was then re-run on all three viewports in same-origin, cross-origin and live-deployment mode: 9 of 9 passed. Nothing else changed.
+
 | Suite | Command (cwd) | Configuration | Passed | Failed | Skipped | Log |
 |---|---|---|---|---|---|---|
 | Python unit, integration, API, artifact integrity, audit regressions | `.venv/Scripts/python -m pytest -v` (root) | repo venv, local artifacts | 67 | 0 | 0 | `results/test-logs/pytest.txt` |
