@@ -1,28 +1,19 @@
-# Demo video: storyboard and shot list (about 2 minutes)
+# Demo video: 3-minute script and verified links
 
-Plain narration. No invented customer, incident or inspection outcome. Record the screen at 1440×900 with the browser at 100% zoom, against the local server or the live URL.
+- **Submission form:** the video requirements (length, platform) are **not public**. Check the Devfolio form before recording.
+- **Setup:** record at 1440×900, browser zoom 100%, on the live app.
+- **Rules:** do not imply the replay is live ingestion. Do not scroll the landing page for more than about 10 seconds.
 
-| Time | Shot | On screen | Narration |
+| Time | Story beat | On screen (verified link) | Narration (plain language) |
 |---|---|---|---|
-| 0:00 | Landing hero | `/` | "TOCSIN tells a maintenance lead which bearing to inspect first, and shows the vibration evidence behind each alert." |
-| 0:10 | Scroll to "Today / With TOCSIN" | `/` | "A fixed vibration alarm says something is louder. It doesn't say which part, or why. TOCSIN looks at each bearing's own fault frequencies and compares them with that bearing's own healthy readings." |
-| 0:25 | Open demo, Test 2, press Play at 16/s | `/demo/test2` | "This is a replay of a public run-to-failure test from the University of Cincinnati. It is recorded data, not a live feed. Each reading is one second of vibration, taken every ten minutes. First, each bearing learns its own baseline." |
-| 0:40 | Switch to Test 3, click "Next TOCSIN alert onset" | `/demo/test3?b=3` | "On Test 3, bearing 3's outer-race band holds above its threshold for three readings in a row. It moves to the top of the list, about 40 hours before the recording ends." |
-| 0:55 | Point at the evidence card and spectrum | same | "Every alert says which band, how far above this bearing's own reference, how many readings it has held, and whether the data was complete. The sentence is built from those numbers. No language model writes it." |
-| 1:05 | Complication → gaps; seek to a "No valid data" reading | `/demo/test3?cond=gaps` | "When a reading is missing or broken, TOCSIN gives no verdict. It keeps the last valid state and shows how old it is. A dead sensor never produces an all-clear." |
-| 1:15 | Evaluation outcome panel and headline table | `/evaluation` | "We froze thresholds on one test and held two out. Our hypothesis was 'earlier and quieter than an RMS alarm'. It didn't hold. TOCSIN caught one of two failures, earliest on that one, with the least alarm time on healthy bearings. It missed the other." |
-| 1:35 | Diagnosis section, then `/demo/test2?b=1&t=900` spectrum | `/evaluation#diagnosis` | "Here's why. The real defect tone sits at 231 hertz, just outside the window we computed from nominal speed. We report that rather than tune it away. A fix would need fresh data to prove it." |
-| 1:50 | Analyze page with a sample | `/analyze` | "You can also run the frozen pipeline live on a reading. It takes about 90 milliseconds on a laptop." |
-| 1:58 | Landing closing section, URL | `/` | "Public data, the full protocol, and every number reproducible. TOCSIN." |
+| 0:00–0:20 | **Problem** | `/` hero | "Bearings usually change how they vibrate before they fail. Smaller operators often record that vibration but have no one to interpret it. TOCSIN is a research prototype that turns those recordings into a ranked list of bearings to check, with the measurements behind each one." |
+| 0:20–0:35 | **Solution** | Scroll once to the working preview; drag its slider | "This panel is a real recorded test from a NASA bearing rig, replayed. Nothing here is a live machine. For each bearing, TOCSIN compares the strength of known fault-vibration patterns with that same bearing's early readings." |
+| 0:35–1:20 | **Working pipeline: a genuine alert** | `/demo/test3?guide=alert&b=3` | "Here is the first sustained alert, on bearing 3 of Test 3, about 40 hours before the recording ends. The card says which pattern changed: the outer race, the bearing's outer ring. It shows how far that pattern rose above this bearing's own reference, and that it held for three valid readings in a row. The score counts how many normal spreads it moved. It is not a probability. The suggested action is a confirmatory inspection; the alert does not prove a defect." Then click "Analyze a supported sample", press Analyze: "And here the same pipeline runs live on the server, on one uploaded reading, in tens of milliseconds." |
+| 1:20–1:50 | **Robustness** | `/demo/test2?guide=gaps&cond=gaps&b=1` | "What happens when data is missing? In this labelled test, some readings lose 40% of their samples. TOCSIN gives no verdict for those readings, keeps the last valid state, and shows how old it is. A gap never turns into a clean bill of health, and it never clears an existing alert." |
+| 1:50–2:40 | **Evaluation, honestly** | `/evaluation#glance`, then `/demo/test2?guide=miss&b=1` | "We froze the settings on one test and held two tests out. Of two failures, TOCSIN alerted on one. A simple vibration-level alarm and an isolation forest alerted on both. TOCSIN spent the least time alerting on healthy bearings, but that came with a missed failure. Here is the miss: the real fault tone sits just outside the narrow frequency window TOCSIN watches. A simpler variant did better on these recordings, but we did not switch to it after seeing the results, because then this test would no longer be a fair test." |
+| 2:40–3:00 | **Close** | `/` closing panel | "TOCSIN shows a working, explainable pipeline with honest results: one alert with evidence, safe handling of missing data, and a reproducible evaluation. The next step is validating it, and the simpler variant, on new recordings from other machines. The links are in the description." |
 
-## Captions to keep visible
+## Captions
 
-- "Recorded dataset replay, not a live machine feed" (already on screen in the demo).
-- "2 held-out failures · 6 undamaged bearings".
-
-## Capture checklist
-
-1. Start the server and open `/`.
-2. Use a screen recorder at 1440×900, 30 fps, with the system cursor visible.
-3. Do one take per row above. Narration can be recorded separately.
-4. Do not speed up the UI beyond its own playback controls.
+- "Recorded dataset replay. Not a live machine feed." (already on screen in the demo)
+- "2 held-out failures · 6 undamaged bearings" (during the evaluation beat)
