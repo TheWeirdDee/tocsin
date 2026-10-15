@@ -1,6 +1,12 @@
 /**
  * Current-state decisions for the replay, read from the precomputed causal
  * pipeline output. Nothing here re-scores data; it only reads index <= t.
+ *
+ * Calibration honesty (audit TC-03): a bearing's healthy reference is the
+ * median/spread of its first n_ref valid readings, so it does not exist until
+ * those readings have been seen. While a bearing is still BASELINING, every
+ * reference-relative quantity (score, ratio, implicated family, trend) is
+ * withheld; only raw measurements are exposed.
  */
 import { hoursBetween } from './format'
 import type { BearingReplay, Evidence, Replay, StateName } from './types'
@@ -10,17 +16,20 @@ export interface BearingNow {
   bearing: number
   shown: StateName // state of this reading (may be DATA_INSUFFICIENT)
   effective: StateName // last valid state, what the operator should act on
-  stale: boolean
+  stale: boolean // this reading has no verdict; values come from an earlier reading
+  baselineReady: boolean // reference exists as of the last valid reading
   lastValidIdx: number
   lastValidAgeH: number | null
-  score: number | null // last valid TOCSIN score
-  ratio: number | null // score / threshold
-  family: string | null
+  score: number | null // last valid TOCSIN score (null while baselining)
+  ratio: number | null // score / threshold (null while baselining)
+  family: string | null // implicated family (null while baselining)
   counter: number
   clear: number
   trendPerHour: number | null
   dataNote: string | null
+  validSeen: number
   baselineRemaining: number
+  rawProm: Record<string, number | null> // raw band prominence (dB) at the last valid reading; no reference involved
   rms: StateName
   iforest: StateName
 }
@@ -32,7 +41,14 @@ function lastValid(b: BearingReplay, t: number): number {
   return -1
 }
 
-/** Least-squares slope of TOCSIN score per hour over the last `n` valid readings up to t. */
+/** First index at which this bearing's reference exists (its state leaves BASELINING), or -1. */
+export function referenceReadyIndex(b: BearingReplay): number {
+  const st = b.detectors.tocsin.state
+  for (let i = 0; i < st.length; i++) if (b.valid[i] && st[i] !== S.BASELINING) return i
+  return -1
+}
+
+/** Least-squares slope of TOCSIN score per hour over the last `n` scored valid readings up to t. */
 export function trendPerHour(r: Replay, b: BearingReplay, t: number, n = 6): number | null {
   const xs: number[] = []
   const ys: number[] = []
@@ -61,15 +77,19 @@ export function bearingNow(r: Replay, bid: string, t: number): BearingNow {
   const lv = lastValid(b, t)
   const shown = STATE_NAMES[tr.state[t]]
   const effective = STATE_NAMES[tr.effective[t]]
-  const score = lv >= 0 ? tr.score[lv] : null
-  const famIdx = lv >= 0 && tr.family ? tr.family[lv] : -1
+  const ready = lv >= 0 && tr.state[lv] !== S.BASELINING
+  const score = ready ? tr.score[lv] : null
+  const famIdx = ready && tr.family ? tr.family[lv] : -1
   let validSeen = 0
   for (let i = 0; i <= t; i++) validSeen += b.valid[i]
+  const rawProm: Record<string, number | null> = {}
+  for (const f of r.families) rawProm[f] = lv >= 0 ? b.features[`${f}_prom_db`]?.[lv] ?? null : null
   return {
     bearing: Number(bid),
     shown,
     effective,
     stale: shown === 'DATA_INSUFFICIENT',
+    baselineReady: ready,
     lastValidIdx: lv,
     lastValidAgeH: lv >= 0 ? hoursBetween(r.times[lv], r.times[t]) : null,
     score,
@@ -77,28 +97,43 @@ export function bearingNow(r: Replay, bid: string, t: number): BearingNow {
     family: famIdx >= 0 ? r.families[famIdx] : null,
     counter: tr.counter?.[t] ?? 0,
     clear: tr.clear?.[t] ?? 0,
-    trendPerHour: trendPerHour(r, b, t),
+    trendPerHour: ready ? trendPerHour(r, b, t) : null,
     dataNote: !b.valid[t] ? b.reasons[b.reason[t]] || 'reading failed validation' : null,
+    validSeen,
     baselineRemaining: Math.max(0, r.n_ref - validSeen),
+    rawProm,
     rms: STATE_NAMES[b.detectors.b0_rms.effective[t]],
     iforest: STATE_NAMES[b.detectors.b1_iforest.effective[t]],
   }
 }
 
-/** Inspection priority: state of last valid reading first, then score relative to threshold. */
+/**
+ * Inspection priority: state of last valid reading first, then score relative to
+ * threshold. Bearings without a reference have no score, so they keep a stable
+ * neutral order (by bearing number) instead of a score-based one.
+ */
 export function priorityOrder(items: BearingNow[]): BearingNow[] {
   return [...items].sort((a, b) => {
     const ra = RANK[a.effective]
     const rb = RANK[b.effective]
     if (ra !== rb) return rb - ra
-    return (b.ratio ?? -Infinity) - (a.ratio ?? -Infinity)
+    const sa = a.ratio ?? -Infinity
+    const sb = b.ratio ?? -Infinity
+    if (sa !== sb) return sb - sa
+    return a.bearing - b.bearing
   })
 }
 
 const fmt = (x: number | null | undefined, nd = 1) => (x == null || !Number.isFinite(x) ? 'n/a' : x.toFixed(nd))
 
+export interface EvidenceNow extends Evidence {
+  retained: boolean // values come from an earlier valid reading (this one has no verdict)
+  measuredAt: string | null // timestamp of the reading the values come from
+  baselineReady: boolean
+}
+
 /** Mirror of tocsin/explain.py::sentence, built from the same structured fields. */
-export function evidenceAt(r: Replay, bid: string, t: number): Evidence {
+export function evidenceAt(r: Replay, bid: string, t: number): EvidenceNow {
   const b = r.bearings[bid]
   const now = bearingNow(r, bid, t)
   const i = now.lastValidIdx
@@ -107,7 +142,7 @@ export function evidenceAt(r: Replay, bid: string, t: number): Evidence {
   const cur = fam && i >= 0 ? b.features[`${fam}_prom_db`]?.[i] ?? null : null
   const ratio = cur != null && ref != null ? 10 ** ((cur - ref) / 20) : null
   const state: StateName = now.shown === 'DATA_INSUFFICIENT' ? 'DATA_INSUFFICIENT' : now.effective
-  const ev: Evidence = {
+  const ev: EvidenceNow = {
     bearing: now.bearing,
     timestamp: r.times[t],
     index: t,
@@ -125,14 +160,20 @@ export function evidenceAt(r: Replay, bid: string, t: number): Evidence {
     persistence: { count: now.counter, required: r.k, clear_count: now.clear },
     sentence: '',
     config_sha: r.config_sha,
+    retained: now.stale && i >= 0,
+    measuredAt: i >= 0 ? r.times[i] : null,
+    baselineReady: now.baselineReady,
   }
-  ev.sentence = sentence(ev, now.dataNote, now.effective)
+  ev.sentence = sentence(ev, now.dataNote, now.effective, now.baselineRemaining)
   return ev
 }
 
-export function sentence(ev: Evidence, dataNote: string | null = null, lastValidState?: StateName): string {
+export function sentence(ev: Evidence, dataNote: string | null = null, lastValidState?: StateName, baselineRemaining = 0): string {
   const b = ev.bearing
-  if (ev.state === 'BASELINING') return `Bearing ${b}: learning this bearing's healthy reference; no alerts are possible yet.`
+  if (ev.state === 'BASELINING') {
+    const left = baselineRemaining > 0 ? ` ${baselineRemaining} more valid reading${baselineRemaining === 1 ? '' : 's'} are needed before a reference exists.` : ''
+    return `Bearing ${b}: learning this bearing's healthy reference; no alerts are possible yet.${left}`
+  }
   if (ev.state === 'DATA_INSUFFICIENT') {
     const keep = lastValidState && lastValidState !== 'DATA_INSUFFICIENT' ? ` The last valid state, ${lastValidState}, is kept.` : ' The previous state is kept.'
     return `Bearing ${b}: no verdict for this reading because ${dataNote ?? 'the reading failed validation'}.${keep}`
@@ -149,4 +190,21 @@ export function sentence(ev: Evidence, dataNote: string | null = null, lastValid
   if (ev.state === 'WATCH')
     return `Bearing ${b}: ${level}. Above threshold for ${p.count} of ${p.required} readings; it becomes an alert if it holds for ${p.required - p.count} more.`
   return `Bearing ${b}: no defect band is above its threshold. Strongest: ${level}.`
+}
+
+/** Parse a replay cursor from a URL value. Returns an integer >= 0, or null when it must be canonicalised. */
+export function parseCursor(raw: string | null): { value: number; canonical: boolean } {
+  if (raw == null || raw === '') return { value: 0, canonical: raw == null }
+  const ok = /^\d+$/.test(raw)
+  const n = ok ? Number.parseInt(raw, 10) : Number.NaN
+  if (!Number.isSafeInteger(n)) {
+    const f = Number(raw)
+    return { value: Number.isFinite(f) && f > 0 ? Math.floor(f) : 0, canonical: false }
+  }
+  return { value: n, canonical: true }
+}
+
+export function clampCursor(t: number, n: number): number {
+  if (!Number.isFinite(t) || n <= 0) return 0
+  return Math.min(Math.max(0, Math.floor(t)), n - 1)
 }
