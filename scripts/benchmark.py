@@ -71,7 +71,41 @@ def dir_size(path):
     return total
 
 
+def single_core_child():
+    """Runs in a separate process pinned to one logical core; prints JSON timings and peak memory."""
+    proc = psutil.Process()
+    try:
+        proc.cpu_affinity([0])
+        pinned = proc.cpu_affinity()
+    except (AttributeError, psutil.Error):
+        pinned = None
+    with open(os.path.join(ROOT, "config", "frozen.json")) as fh:
+        cfg = json.load(fh)
+    fp = cfg["feature_params"]
+    params = FeatureParams(band=tuple(fp["band"]), harmonics=fp["harmonics"], band_tol=fp["band_tol"],
+                           background_halfwidth_hz=fp["background_halfwidth_hz"], env_max_hz=fp["env_max_hz"])
+    defect = IMS_ZA2115.frequencies(IMS_NOMINAL_RPM)
+    raw = open(SAMPLE, "rb").read()
+    for _ in range(5):
+        snapshot_features(validate_and_repair(parse_ims_bytes(raw)[:, 0], IMS_FS)[0], IMS_FS, defect, params)
+    ms = []
+    for _ in range(N):
+        t0 = time.perf_counter()
+        x = parse_ims_bytes(raw)[:, 0]
+        snapshot_features(validate_and_repair(x, IMS_FS)[0], IMS_FS, defect, params)
+        ms.append((time.perf_counter() - t0) * 1000)
+    mi = proc.memory_info()
+    peak = getattr(mi, "peak_wset", None)
+    if peak is None:
+        import resource
+        peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024
+    print(json.dumps({"cpu_affinity": pinned, "median_ms": statistics.median(ms), "p95_ms": pct(ms, 95), "runs": N,
+                      "peak_memory_mb": peak / 1e6}))
+
+
 def main():
+    if "--single-core-child" in sys.argv:
+        return single_core_child()
     with open(os.path.join(ROOT, "config", "frozen.json")) as fh:
         cfg = json.load(fh)
     fp = cfg["feature_params"]
@@ -97,10 +131,24 @@ def main():
         full.append((t2 - t0) * 1000)
 
     # server: cold start to first healthy response, then memory under load
-    env = dict(os.environ, OMP_NUM_THREADS="1", OPENBLAS_NUM_THREADS="1", MKL_NUM_THREADS="1")
+    # The local benchmark server lifts the per-client rate limit so 40 timed requests can run back to back.
+    env = dict(os.environ, OMP_NUM_THREADS="1", OPENBLAS_NUM_THREADS="1", MKL_NUM_THREADS="1", TOCSIN_ANALYZE_RATE_PER_MIN="1000")
     t0 = time.perf_counter()
     proc = subprocess.Popen([sys.executable, "-m", "uvicorn", "server.app:app", "--port", str(PORT), "--log-level", "warning"],
                             cwd=ROOT, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    cold = None
+    try:
+        return _measure_server(proc, t0, raw, full, feat_only, parse_only, cfg, env)
+    finally:
+        try:
+            for q in psutil.Process(proc.pid).children(recursive=True):
+                q.terminate()
+        except psutil.Error:
+            pass
+        proc.terminate()
+
+
+def _measure_server(proc, t0, raw, full, feat_only, parse_only, cfg, env):
     cold = None
     for _ in range(600):
         try:
@@ -132,6 +180,10 @@ def main():
     proc.terminate()
     proc.wait(timeout=10)
 
+    child = subprocess.run([sys.executable, os.path.abspath(__file__), "--single-core-child"], capture_output=True, text=True, env=env,
+                           timeout=600)
+    single = json.loads(child.stdout.strip().splitlines()[-1])
+
     vm = psutil.virtual_memory()
     hw = {"cpu": cpu_name(), "logical_cores": psutil.cpu_count(), "ram_gb": round(vm.total / 1e9, 1),
           "os": platform.platform(), "python": platform.python_version()}
@@ -150,6 +202,7 @@ def main():
             "http_analyze_ms": {"median": statistics.median(http_ms), "p95": pct(http_ms, 95)},
             "cold_start_s": cold, "rss_idle_mb": rss_idle / 1e6, "rss_after_load_mb": rss_loaded / 1e6,
             "artifacts_mb": art / 1e6, "per_bearing_reference_bytes": 6 * 8, "frozen_config_bytes": cfg_size,
+            "single_core": single,
         },
     }
     r = out["raw"]
@@ -166,13 +219,17 @@ def main():
          "includes": "Python interpreter start, imports and first /api/health response."},
         {"name": "Server memory (resident)", "value": f"{r['rss_idle_mb']:.0f} MB idle · {r['rss_after_load_mb']:.0f} MB after load",
          "includes": "Whole process tree (on Windows this includes the small venv launcher). Measured after serving the largest replay (Test 3), a spectrum, and 40 live analyses."},
+        {"name": "Single logical core (CPU affinity pinned): analysis per reading (median / p95)",
+         "value": f"{single['median_ms']:.1f} / {single['p95_ms']:.1f} ms",
+         "includes": f"Same work as the first row, in a separate process pinned to one core, {single['runs']} runs. Peak memory of that process: {single['peak_memory_mb']:.0f} MB. No memory cap was enforced."},
         {"name": "Learned state per bearing", "value": "48 bytes",
          "includes": "A median and a spread for each of three defect families. There is no trained model file."},
         {"name": "Precomputed replay artifacts", "value": f"{r['artifacts_mb']:.0f} MB",
          "includes": "All replays and stored spectra for the demo. Not needed for live analysis."},
     ]
-    out["note"] = ("Measured on a developer laptop, not on a 0.5-CPU / 256 MB container. Docker was not available on the build machine, "
-                   "so the constrained-container benchmark proposed in planning was not run.")
+    out["note"] = ("Measured on a developer laptop. The single-core row pins the process to one logical core; it is not a 0.5-CPU / 256 MB container, "
+                   "which was not run because Docker was unavailable on the build machine. Server-side timings on the deployed Railway service are in "
+                   "results/deploy-verification.json.")
     with open(os.path.join(ROOT, "results", "deploy.json"), "w") as fh:
         json.dump(out, fh, indent=2)
     for row in out["rows"]:
