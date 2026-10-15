@@ -10,7 +10,7 @@ The verified facts are marked ✔. The unknowns that the owner must confirm are 
 | Submission deadline | ✔ | No separate deadline is listed; the hackathon end applies: 15 Oct 2026, 11:59 PM IST = 19:29 WAT (Devfolio schedule page, checked 15 Oct) |
 | Team size | ✔ | 1–4 |
 | Required assets (video, deck, repo) | ☐ | Not stated on the public pages; Devfolio shows them in the project submission form |
-| Organiser dataset | ✔ | None supplied. The official PS document (re-fetched 15 Oct, unchanged, SHA-256 `b77fb768…`) and the event pages contain no dataset. PS01 line 20 allows public data if its labels and operating conditions are stated, which the README does |
+| Organiser dataset | ☐ | No dataset link was found in the official PS document (re-fetched 15 Oct, unchanged, SHA-256 `b77fb768…`) or on the public event pages. Participant-only channels (dashboard, email, Discord) were not checked, so that remains to be confirmed. PS01 line 20 allows public data when its labels and operating conditions are stated, which the README does |
 | Judging | ✔ | The PS01 rubric weights are detection 25, early warning 15, robustness 15, engineering 15, explainability 10, deployment 10, commercial 10. The event page also mentions creativity, technical depth and execution |
 | Contact | ✔ | jsmyn.labs@gmail.com (from the event page) |
 
