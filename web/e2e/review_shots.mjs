@@ -25,7 +25,7 @@ await p.goto(base + '/demo/test2?guide=gaps&cond=gaps&b=1'); await settle(p); aw
 await p.goto(base + '/analyze?sample=late'); await settle(p)
 await p.getByRole('button', { name: 'Analyze reading' }).click(); await p.getByText(/Analyzed in/).waitFor({ timeout: 30000 }); await settle(p); await shot(p, '06-analysis-success', true)
 await p.goto(base + '/analyze?sample=first'); await settle(p)
-await p.getByLabel('Channel column (0 = first)').fill('9')
+await p.getByLabel('Sensor column (0 = first column)').fill('9')
 await p.getByRole('button', { name: 'Analyze reading' }).click(); await p.getByRole('alert').waitFor({ timeout: 30000 }); await settle(p); await shot(p, '07-analysis-validation-error', true)
 await p.goto(base + '/evaluation'); await scrollThrough(p); await shot(p, '08-evaluation', true)
 await p.close()

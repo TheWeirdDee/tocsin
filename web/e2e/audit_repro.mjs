@@ -62,7 +62,7 @@ await page.goto(`${base}/analyze`, { waitUntil: 'networkidle' })
 await page.getByRole('button', { name: /first reading/ }).click()
 await page.getByRole('button', { name: /Analyze (snapshot|reading)/ }).click()
 await page.getByText(/Analyzed in/).waitFor({ timeout: 30000 })
-await page.getByLabel(/Channel column/).fill('2')
+await page.getByLabel(/Sensor column/).fill('2')
 await page.waitForTimeout(300)
 res.tc05 = { resultStillShown: await page.getByText(/Analyzed in/).count() > 0, staleWarning: await page.getByText(/inputs have changed|inputs changed/i).count() > 0 }
 
