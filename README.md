@@ -60,7 +60,7 @@ NASA IMS archive (SHA-256 verified) ──stream──► validate each reading 
 | Requirement | How TOCSIN meets it | Evidence | Limitation |
 |---|---|---|---|
 | Ingest and analyze time-series data from industrial equipment | 9,464 one-second accelerometer readings (20 kHz) from bearing run-to-failure tests, plus live single-reading upload | `results/manifest.json` (per-file hashes, 0 parse errors) | One equipment type, one rig |
-| Detect abnormal patterns or classify faults | Per-bearing defect-band detector with persistence. Each alert names the implicated fault family | `results/heldout.json`, `results/derived_metrics.json` | Weak detection: 1 of 2 held-out failures, 4 of 6 undamaged bearings alerted (below). No organiser dataset was found publicly, so public IMS data is used; confirmation with the organisers is pending |
+| Detect abnormal patterns or classify faults | Per-bearing defect-band detector with persistence. Each alert names the implicated fault family | `results/heldout.json`, `results/derived_metrics.json` | Weak detection: 1 of 2 held-out failures, 4 of 6 undamaged bearings alerted (below). The organisers supplied no dataset (PS document and event pages, checked 15 Oct), so public IMS data is used, as PS01 allows |
 | Alerts with sensor evidence, timestamp, severity/priority | Evidence card, recording timestamp, Watch/Alert state, priority rank, score vs threshold | Replay; `tocsin/explain.py` | The score is not a probability |
 | Held-out evaluation with metrics | Thresholds frozen on Test 1; Tests 2 and 3 held out; event-level and bearing-level metrics with counts | [docs/EVALUATION_PROTOCOL.md](docs/EVALUATION_PROTOCOL.md), `results/v1.0_preregistered/` | 2 failure events. Only v1.0 is clean held-out evidence: v1.1's data-handling fixes were made after v1.0's held-out results were seen. Strict compliance for v1.1 needs a test set nobody has looked at; IMS has none left |
 | A realistic complication | Quality checks and a no-verdict state; seeded noise (20/10/0 dB), dropped samples, 40% gaps and lost readings, each rerun through the full pipeline | `results/robustness.json`, `results/robustness_examples.json` | Changing operating conditions are not demonstrated (IMS runs at constant speed and load) |
@@ -88,7 +88,7 @@ Plainly:
 
 - **The pre-registered hypothesis, "earlier and quieter", failed and is withdrawn.**
 - TOCSIN **missed Test 2 bearing 1**. The real outer-race tone (~231 Hz) fell just outside the ±2% window around the computed 236.4 Hz.
-- It gave the earliest warning on Test 3 bearing 3, and all five of its alert onsets there named the correct fault family (outer race).
+- On Test 3 bearing 3 it warned 40 h before the recording endpoint, earlier than the RMS alarm (27 h) and the isolation forest (26.5 h), though a stricter 3-sigma RMS alarm warned at 59 h. All five of its alert onsets there named the correct fault family (outer race).
 - It had the fewest alert hours on undamaged bearings of the three main detectors, at the cost of a missed failure.
 - Most undamaged-bearing alerts, for every detector, start in a run's final day, when the failing bearing shakes the shared shaft. Counting only alerts that began before the final 24 h, TOCSIN's precision is 1/2 (RMS 2/3, isolation forest 2/4).
 - **Why the better-scoring simpler variant was not adopted:** choosing it after seeing these results would tune the final solution on its own test data. PS01 requires evaluation on data not used for tuning.
@@ -130,7 +130,7 @@ cd web && npm ci && npm run dev                   # http://localhost:5173
 
 Windows (PowerShell): the same steps, using `py -3.12 -m venv .venv` and `.venv\Scripts\python`.
 
-Full rebuild from the NASA archive (about 45 min, about 1.2 GB disk, needs `bsdtar`): `PYTHON=.venv/bin/python sh scripts/reproduce.sh`. Per-step commands are on the Results page under "Reproduce".
+Full rebuild from the NASA archive (about 45 min, about 1.2 GB disk, needs `bsdtar`): `make reproduce` (or `PYTHON=.venv/bin/python sh scripts/reproduce.sh` without make). Per-step commands are on the Results page under "Reproduce".
 
 A clean-environment run (new venv, requirements only, bundle fetched from the release) is logged in `results/test-logs/clean_environment.txt`.
 
@@ -150,17 +150,18 @@ The **proposed deployment** is a browser app (Vercel) calling one small API serv
 
 - **Deployed round trips** from the build machine took 3–5 s, almost entirely the upload of a 0.55 MB file over its connection. They are recorded separately.
 - **Not run:** a 0.5-CPU / 256 MB container benchmark (Docker was unavailable).
+- **Hosting:** ownership, every environment variable and the verification workflow are in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). The API runs on a Railway trial with limited credit; if it runs out, the API stops.
 - **Sources:** `results/deploy.json`, `results/deploy-verification.json`.
 
 ## 10. Tests
 
 | Record | Result | Log |
 |---|---|---|
-| Python unit, integration, API and audit regressions | 60 passed (also 60 passed in a clean venv with the release bundle) | `results/test-logs/pytest.txt`, `clean_environment.txt` |
+| Python unit, integration, API and audit regressions | 67 passed (also 67 passed in a clean venv with the release bundle) | `results/test-logs/pytest.txt`, `clean_environment.txt` |
 | Frontend unit, type-check, lint | 10 passed; tsc clean; eslint 0 problems | `results/test-logs/vitest.txt`, `tsc.txt`, `eslint.txt` |
-| Local browser, 3 viewports, same origin (flows, audit regressions, scenarios, axe WCAG A/AA scan, reduced motion) | 119 passed, 1 skipped (phone keyboard test) of 120 | `results/test-logs/playwright.txt` |
-| Local browser, cross-origin (Vercel/Railway split), run separately | 119 passed, 1 skipped of 120 | `results/test-logs/playwright-cross-origin.txt` |
-| Deployed browser and API checks | earlier build; to be rerun after the next authorized deployment | `results/test-logs/playwright-deployed.txt`, `results/deploy-verification.json` |
+| Local browser, 3 viewports, same origin (flows, audit regressions, scenarios, motion, axe WCAG A/AA scan, reduced motion) | 134 passed, 1 skipped (phone keyboard test) of 135 | `results/test-logs/playwright.txt` |
+| Local browser, cross-origin (Vercel/Railway split), run separately | 134 passed, 1 skipped of 135 | `results/test-logs/playwright-cross-origin.txt` |
+| Deployed checks on release `c7819c3` | deployment verification 26/26; 11 of 12 audit findings pass (TC-11 identity fix not yet deployed); browser suite passes after latency reruns. Details in [docs/TEST_RESULTS.md](docs/TEST_RESULTS.md) | `results/test-logs/playwright-deployed.txt`, `results/deploy-verification.json` |
 
 Not covered:
 
