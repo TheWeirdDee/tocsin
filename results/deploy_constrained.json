@@ -1,0 +1,31 @@
+{
+ "generated": "2026-10-15T15:56:25Z",
+ "what": "Production Docker image run with --cpus=0.5 --memory=256m (no swap) on a GitHub Actions runner",
+ "container": {
+  "cpus": 0.5,
+  "memory_limit_mb": 256,
+  "cold_start_s": 5.64,
+  "image_mb": 606.7,
+  "runner_cpu": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+  "memory_after_start_mb": 87.0,
+  "memory_peak_mb": 109.9,
+  "oom_killed": false,
+  "still_running": true
+ },
+ "input": "ims_test2_2004.02.19.05.42.39.txt: 20,480 samples x 4 channels, 552,927 bytes",
+ "analyses": 50,
+ "valid_results": 50,
+ "server_analysis_ms": {
+  "median": 83.2,
+  "p95": 161.5,
+  "max": 183.1,
+  "n": 50
+ },
+ "round_trip_ms_same_host": {
+  "median": 88.6,
+  "p95": 166.2,
+  "max": 188.9,
+  "n": 50
+ },
+ "note": "Sequential requests on half a CPU. Round trip is from the same host, so it adds HTTP and upload handling but no network. The runner's CPU differs from the laptop and from Railway."
+}
