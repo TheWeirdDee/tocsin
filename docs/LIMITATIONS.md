@@ -35,6 +35,16 @@
 - The replay serves precomputed analyses, produced by the same pipeline for each listed condition. Live computation is demonstrated for single uploaded readings. Persistence needs a stream, which the demo does not ingest live.
 - Analysis of uploaded readings is fixed to the IMS bearing geometry.
 - No remaining-useful-life estimate, no fault-size estimate, no hardware integration.
-- Deployment numbers were measured on a developer laptop. No 0.5 CPU / 256 MB container test was run, because Docker was unavailable.
-- Only a light theme is provided.
+- Latency and memory were measured on a developer laptop (including a single-core pinned run) and as server-side timings on the deployed Railway service. No 0.5 CPU / 256 MB container test was run, because Docker was unavailable.
+- Only a dark theme is provided.
 - Automated responsive and keyboard tests passed. That is not an accessibility certification.
+
+## Fault-condition naming
+
+- On the held-out data, the single alerted failure (Test 3 B3) was named correctly (outer race, 5 of 5 alert onsets). That is one event.
+- On the tuning set, the roller-element failure (Test 1 B4) was named as the outer race. Fault naming is a hint, not a diagnosis.
+
+## Detector choice
+
+- The submitted detector scored below both baselines on held-out detection.
+- A simpler variant did better, but was not adopted after seeing the results (see `docs/DECISIONS.md`). Its advantage is unvalidated.
