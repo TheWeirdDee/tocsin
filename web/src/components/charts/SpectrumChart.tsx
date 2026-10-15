@@ -72,7 +72,7 @@ export function SpectrumChart({ f0, df, amp, bands, highlight, maxHz = 1000, tit
           </g>
         ))}
         <text x={M.left - 8} y={M.top - 34} textAnchor="end">{exp !== 0 ? `×10${superscript(exp)}` : ''}</text>
-        {bands.map((b) => {
+        {bands.filter((b) => b.lo < maxHz).map((b) => {
           const on = b.family === highlight
           return (
             <g key={`${b.family}${b.harmonic}`}>
