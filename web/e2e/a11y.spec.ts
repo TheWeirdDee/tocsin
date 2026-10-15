@@ -9,6 +9,14 @@ for (const path of PAGES) {
     await page.goto(path)
     await page.waitForLoadState('networkidle')
     await page.waitForTimeout(500)
+    if (path === '/') {
+      // scan the landing page in its final state: scroll through so every entrance has finished
+      for (let y = 0; y <= (await page.evaluate(() => document.documentElement.scrollHeight - innerHeight)) + 400; y += 400) {
+        await page.evaluate((yy) => window.scrollTo({ top: yy }), y)
+        await page.waitForTimeout(200)
+      }
+      await page.waitForTimeout(1200)
+    }
     const res = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze()
     const summary = res.violations.map((v) => `${v.id} (${v.impact}): ${v.nodes.length} node(s) e.g. ${v.nodes[0]?.target.join(' ')}`)
     expect(summary, summary.join('\n')).toEqual([])
