@@ -1,0 +1,141 @@
+{
+ "api": "https://tocsin-production.up.railway.app",
+ "web": "https://tocsin-phi.vercel.app",
+ "repro_time": "2026-10-15T12:22:37.526Z",
+ "passed": 19,
+ "failed": 3,
+ "checks": [
+  {
+   "finding": "TC-01",
+   "check": "cursor 1.5",
+   "pass": true,
+   "detail": "cond=clean&b=3&t=1"
+  },
+  {
+   "finding": "TC-01",
+   "check": "cursor -4",
+   "pass": true,
+   "detail": "cond=clean&b=3&t=0"
+  },
+  {
+   "finding": "TC-01",
+   "check": "cursor abc",
+   "pass": true,
+   "detail": "cond=clean&b=3&t=0"
+  },
+  {
+   "finding": "TC-01",
+   "check": "cursor 99999",
+   "pass": true,
+   "detail": "cond=clean&b=3&t=6323"
+  },
+  {
+   "finding": "TC-03",
+   "check": "calibration evidence has no reference values",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "finding": "TC-03",
+   "check": "calibration order is by bearing number",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "finding": "TC-05",
+   "check": "stale result is flagged",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "finding": "TC-06",
+   "check": "new run selected, old data not shown under it",
+   "pass": true,
+   "detail": "time shown: \u2014"
+  },
+  {
+   "finding": "TC-07",
+   "check": "retained values labelled last valid",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "finding": "TC-09",
+   "check": "spectrum requested during playback",
+   "pass": true,
+   "detail": "5 requests in 2.5 s"
+  },
+  {
+   "finding": "TC-09",
+   "check": "spectrum label names the reading shown",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "finding": "TC-02/TC-08",
+   "check": "1000 Hz, 2000 RPM refused with reason",
+   "pass": true,
+   "detail": "HTTP 422 unsupported_configuration"
+  },
+  {
+   "finding": "TC-02/TC-08",
+   "check": "20000 Hz, 30000 RPM refused with reason",
+   "pass": true,
+   "detail": "HTTP 422 unsupported_configuration"
+  },
+  {
+   "finding": "TC-04",
+   "check": "sentence names the uploaded column",
+   "pass": true,
+   "detail": "Uploaded reading (column 3): no defect band is above its thr"
+  },
+  {
+   "finding": "TC-10",
+   "check": "empty cells become a 40-sample gap in place",
+   "pass": true,
+   "detail": "HTTP 200 gap 40"
+  },
+  {
+   "finding": "TC-10",
+   "check": "inconsistent rows refused",
+   "pass": true,
+   "detail": "HTTP 422 unparseable_file"
+  },
+  {
+   "finding": "TC-11",
+   "check": "identity taken from the edge header",
+   "pass": false,
+   "detail": "{\"client_hash\": \"2b3dc6a00a17\", \"trusted_proxy_hops\": 1, \"forwarded_entries\": 2}"
+  },
+  {
+   "finding": "TC-11",
+   "check": "spoofed X-Forwarded-For / X-Real-IP do not change identity",
+   "pass": false,
+   "detail": "2 distinct identities from 4 requests"
+  },
+  {
+   "finding": "TC-11",
+   "check": "identity is not a spoofed value",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "finding": "TC-11",
+   "check": "identity is this caller's real address",
+   "pass": false,
+   "detail": "expected 322287570dd2"
+  },
+  {
+   "finding": "TC-12",
+   "check": "README uses the project venv and has Windows commands",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "finding": "TC-12",
+   "check": "reproduce.sh defaults to the venv",
+   "pass": true,
+   "detail": ""
+  }
+ ]
+}
