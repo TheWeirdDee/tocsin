@@ -1,3 +1,6 @@
+/* eslint-disable react-refresh/only-export-components -- application entrypoint mounts React. */
+import '@fontsource-variable/inter-tight/wght.css'
+import '@fontsource/ibm-plex-sans/300.css'
 import '@fontsource/ibm-plex-sans/400.css'
 import '@fontsource/ibm-plex-sans/500.css'
 import '@fontsource/ibm-plex-sans/600.css'
