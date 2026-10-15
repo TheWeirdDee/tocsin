@@ -1,0 +1,76 @@
+name: Constrained benchmark
+
+# PRD F10: the production image inside a container limited to 0.5 CPU and 256 MB (no swap).
+# Runs when this workflow or the benchmark script changes, or on demand. Read-only: it deploys nothing.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/constrained-benchmark.yml
+      - scripts/constrained_benchmark.py
+
+permissions:
+  contents: read
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the production image (fetches and verifies the artifact bundle)
+        run: |
+          docker build -t tocsin-api .
+          docker image inspect tocsin-api --format '{{.Size}}' > image_bytes
+      - name: Start it with 0.5 CPU and 256 MB, and time the cold start
+        run: |
+          set -eu
+          start=$(date +%s.%N)
+          docker run -d --name api --cpus=0.5 --memory=256m --memory-swap=256m -p 8000:8000 \
+            -e PORT=8000 -e TOCSIN_ANALYZE_RATE_PER_MIN=10000 tocsin-api
+          for i in $(seq 1 240); do
+            if curl -fsS http://127.0.0.1:8000/api/health > /dev/null 2>&1; then break; fi
+            sleep 0.25
+          done
+          end=$(date +%s.%N)
+          curl -fsS http://127.0.0.1:8000/api/health
+          python3 -c "print(round($end - $start, 2))" > cold_start_s
+          echo "cold start: $(cat cold_start_s) s"
+      - name: Measure analysis latency inside the limits
+        run: |
+          set -eu
+          idle=$(docker exec api cat /sys/fs/cgroup/memory.current)
+          python3 - <<'EOF'
+          import json, os, subprocess
+          sh = lambda c: subprocess.run(c, shell=True, capture_output=True, text=True).stdout.strip()
+          json.dump({
+            "cpus": float(sh("docker inspect api --format '{{.HostConfig.NanoCpus}}'")) / 1e9,
+            "memory_limit_mb": int(sh("docker inspect api --format '{{.HostConfig.Memory}}'")) // 2**20,
+            "cold_start_s": float(open("cold_start_s").read()),
+            "image_mb": round(int(open("image_bytes").read()) / 1e6, 1),
+            "runner_cpu": sh("lscpu | grep 'Model name' | sed 's/.*: *//'"),
+          }, open("meta.json", "w"))
+          EOF
+          python3 scripts/constrained_benchmark.py --base http://127.0.0.1:8000 --n 50 --meta meta.json --out results/deploy_constrained.json
+          peak=$(docker exec api cat /sys/fs/cgroup/memory.peak)
+          oom=$(docker inspect api --format '{{.State.OOMKilled}}')
+          running=$(docker inspect api --format '{{.State.Running}}')
+          echo "memory idle ${idle}, peak ${peak}, OOM-killed ${oom}, running ${running}"
+          python3 - "$idle" "$peak" "$oom" "$running" <<'EOF'
+          import json, sys
+          p = "results/deploy_constrained.json"; r = json.load(open(p))
+          r["container"].update({"memory_after_start_mb": round(int(sys.argv[1]) / 2**20, 1),
+                                 "memory_peak_mb": round(int(sys.argv[2]) / 2**20, 1),
+                                 "oom_killed": sys.argv[3] == "true", "still_running": sys.argv[4] == "true"})
+          json.dump(r, open(p, "w"), indent=1); print(json.dumps(r, indent=1))
+          assert not r["container"]["oom_killed"] and r["container"]["still_running"], "container did not survive the limits"
+          assert r["valid_results"] == r["analyses"], "an analysis failed inside the limits"
+          EOF
+      - if: always()
+        run: docker logs api 2>&1 | tail -20
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: constrained-benchmark
+          path: results/deploy_constrained.json
