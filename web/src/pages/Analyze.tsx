@@ -1,48 +1,77 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import { SpectrumChart } from '../components/charts/SpectrumChart'
-import { Upload, Warn } from '../components/Icons'
+import { Info, Upload, Warn } from '../components/Icons'
 import { ApiError, analyzeUpload, api, type AnalyzeResult } from '../lib/api'
 import { fmtHz, fmtNum } from '../lib/format'
 import type { RunsIndex } from '../lib/types'
 import './evaluation.css'
 import './workspace.css'
 
+// The stored healthy references were recorded under one acquisition configuration.
+// Readings taken under other settings cannot be compared with them (audit TC-08),
+// so the configuration is shown, not edited. The API enforces the same rule.
+const SUPPORTED = { sampleRate: 20000, rpm: 2000, samples: 20480 }
+
 const SAMPLES = [
   { href: '/samples/ims_test2_2004.02.12.10.32.39.txt', label: 'IMS Test 2, first reading (12 Feb 2004 10:32)' },
-  { href: '/samples/ims_test2_2004.02.19.05.42.39.txt', label: 'IMS Test 2, near the end (19 Feb 2004 05:42)' },
+  { href: '/samples/ims_test2_2004.02.19.05.42.39.txt', label: 'IMS Test 2, near the recording endpoint (19 Feb 2004 05:42)' },
 ]
+
+interface Inputs { fileName: string; fileSize: number; column: number; reference: string }
+const sig = (i: Inputs) => JSON.stringify(i)
 
 export default function Analyze() {
   const [runs, setRuns] = useState<RunsIndex | null>(null)
   const [file, setFile] = useState<File | null>(null)
-  const [fs, setFs] = useState('20000')
-  const [rpm, setRpm] = useState('2000')
   const [col, setCol] = useState('0')
   const [ref, setRef] = useState('test2:1')
   const [busy, setBusy] = useState(false)
-  const [res, setRes] = useState<AnalyzeResult | null>(null)
+  const [res, setRes] = useState<{ result: AnalyzeResult; inputs: Inputs } | null>(null)
   const [err, setErr] = useState<string | null>(null)
   const [dragging, setDragging] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
+  const requestSeq = useRef(0) // only the newest request may set the result (audit TC-05)
+  const [sp] = useSearchParams()
+  const sampleParam = sp.get('sample')
 
   useEffect(() => { api.runs().then(setRuns).catch(() => undefined) }, [])
+  // Scenario entry: preload a real IMS sample (the user still presses Analyze).
+  useEffect(() => {
+    const s = sampleParam === 'first' ? SAMPLES[0] : sampleParam === 'late' ? SAMPLES[1] : null
+    if (s) loadSample(s.href)
+  }, [sampleParam])
+
+  const current: Inputs | null = useMemo(
+    () => (file ? { fileName: file.name, fileSize: file.size, column: Number(col), reference: ref } : null),
+    [file, col, ref],
+  )
+  // A result is only current for the exact inputs it was computed from (audit TC-05).
+  const stale = !!res && (!current || sig(current) !== sig(res.inputs))
 
   async function submit(e: React.FormEvent) {
     e.preventDefault()
-    if (!file) { setErr('Choose a file first.'); return }
-    setBusy(true); setErr(null); setRes(null)
+    if (!file || !current) { setErr('Choose a file first.'); return }
+    if (!Number.isInteger(Number(col)) || Number(col) < 0) { setErr('The channel column must be a whole number, 0 or more.'); return }
+    setBusy(true); setErr(null)
     const form = new FormData()
     form.append('file', file)
-    form.append('sample_rate', fs)
-    form.append('rpm', rpm)
+    form.append('sample_rate', String(SUPPORTED.sampleRate))
+    form.append('rpm', String(SUPPORTED.rpm))
     form.append('column', col)
     form.append('reference', ref)
+    const snapshot = { ...current }
+    const seq = ++requestSeq.current
     try {
-      setRes(await analyzeUpload(form))
+      const result = await analyzeUpload(form)
+      if (seq !== requestSeq.current) return
+      setRes({ result, inputs: snapshot })
     } catch (e2) {
-      setErr(e2 instanceof ApiError ? e2.message : 'Analysis failed.')
+      if (seq !== requestSeq.current) return
+      setRes(null)
+      setErr(e2 instanceof ApiError ? (e2.status ? `${e2.message} (HTTP ${e2.status})` : e2.message) : 'Analysis failed.')
     } finally {
-      setBusy(false)
+      if (seq === requestSeq.current) setBusy(false)
     }
   }
 
@@ -59,17 +88,29 @@ export default function Analyze() {
   }
 
   const refs = runs ? Object.entries(runs.references).flatMap(([run, bs]) => Object.entries(bs).map(([b, v]) => ({ id: `${run}:${b}`, label: v.label }))) : []
-  const ev = res?.evidence
+  const refLabel = (id: string) => refs.find((r) => r.id === id)?.label ?? id
+  const result = res?.result
+  const ev = result?.evidence
 
   return (
     <div className="wrap ev-page">
       <header className="ev-head">
-        <p className="eyebrow">Analyze a file</p>
-        <h1>Run the frozen pipeline on one vibration snapshot</h1>
+        <p className="eyebrow">Live file analysis</p>
+        <h1>Check a single IMS-format reading against a stored healthy reference</h1>
         <p className="lede">
-          Upload one reading. TOCSIN validates it, computes the envelope spectrum and defect-band prominences, and compares them with a stored healthy reference.
-          It runs live on the server. One reading can reach WATCH at most, because an alert needs three consecutive readings.
+          Unlike the replay, this runs the analysis pipeline on the server, now, for the file you choose. TOCSIN checks the reading's quality,
+          measures the strength of each bearing-fault vibration pattern, and compares it with the healthy reference of one IMS test bearing.
+          One reading can reach WATCH at most: an alert needs three consecutive readings.
         </p>
+        <div className="notice info" role="note">
+          <Info />
+          <div>
+            <strong>Supported scope: IMS-compatible readings only.</strong> The references were recorded on the IMS rig (Rexnord ZA-2115 bearings),
+            at {SUPPORTED.sampleRate.toLocaleString()} Hz and {SUPPORTED.rpm.toLocaleString()} RPM, as {SUPPORTED.samples.toLocaleString()}-sample readings.
+            A file from other machinery may parse, and its spectrum may be computable, but comparing it with these references is not scientifically supported.
+            This page is not a general machinery monitor.
+          </div>
+        </div>
       </header>
 
       <form className="panel panel-body an-form" onSubmit={submit}>
@@ -81,74 +122,92 @@ export default function Analyze() {
         >
           <Upload />
           <div>
-            <strong>{file ? file.name : 'Drop a file here'}</strong>
-            <p className="small muted">IMS ASCII (tab-separated columns) or CSV with one column per channel, up to 8 MB. Empty cells count as missing samples.</p>
+            <strong>{file ? file.name : 'Drop a reading here'}</strong>
+            <p className="small muted">IMS ASCII (tab-separated columns) or CSV, one column per channel, up to 8 MB. Empty cells count as missing samples at their own position.</p>
           </div>
           <button type="button" className="btn btn-sm" onClick={() => inputRef.current?.click()}>Choose file</button>
-          <input ref={inputRef} type="file" className="visually-hidden" accept=".txt,.csv,.tsv,text/plain,text/csv" onChange={(e) => setFile(e.target.files?.[0] ?? null)} aria-label="Snapshot file" />
+          <input ref={inputRef} type="file" className="visually-hidden" accept=".txt,.csv,.tsv,text/plain,text/csv" onChange={(e) => setFile(e.target.files?.[0] ?? null)} aria-label="Reading file" />
         </div>
-        <div className="small" style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+        <div className="small" style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
           <span className="muted">Or use a real IMS reading:</span>
           {SAMPLES.map((s) => <button type="button" key={s.href} className="btn btn-sm btn-ghost" onClick={() => loadSample(s.href)}>{s.label}</button>)}
         </div>
         <div className="an-fields">
-          <label className="field"><span>Sample rate (Hz)</span><input type="number" min={100} max={200000} value={fs} onChange={(e) => setFs(e.target.value)} /></label>
-          <label className="field"><span>Shaft speed (RPM)</span><input type="number" min={60} max={30000} value={rpm} onChange={(e) => setRpm(e.target.value)} /></label>
-          <label className="field"><span>Channel column (0 = first)</span><input type="number" min={0} max={63} value={col} onChange={(e) => setCol(e.target.value)} /></label>
+          <label className="field"><span>Sample rate (fixed)</span><input type="text" readOnly value={`${SUPPORTED.sampleRate.toLocaleString()} Hz`} aria-describedby="fixed-help" /></label>
+          <label className="field"><span>Shaft speed (fixed)</span><input type="text" readOnly value={`${SUPPORTED.rpm.toLocaleString()} RPM`} aria-describedby="fixed-help" /></label>
+          <label className="field"><span>Channel column (0 = first)</span><input type="number" min={0} max={63} step={1} value={col} onChange={(e) => setCol(e.target.value)} /></label>
           <label className="field an-ref"><span>Healthy reference to compare against</span>
             <select value={ref} onChange={(e) => setRef(e.target.value)}>
               {refs.length ? refs.map((r) => <option key={r.id} value={r.id}>{r.label}</option>) : <option value="test2:1">IMS Test 2 · bearing 1</option>}
             </select>
           </label>
         </div>
-        <p className="small muted">The geometry is fixed to the IMS ZA-2115 bearing. Results for other bearings would need their own geometry, which this demo does not accept.</p>
-        <div><button className="btn btn-primary" disabled={busy || !file}>{busy ? <><span className="spinner" /> Analyzing…</> : 'Analyze snapshot'}</button></div>
+        <p id="fixed-help" className="small muted">Sample rate and speed are fixed to the references' acquisition settings. The API rejects other values instead of comparing incompatible data.</p>
+        <div><button className="btn btn-primary" disabled={busy || !file}>{busy ? <><span className="spinner" /> Analyzing…</> : 'Analyze reading'}</button></div>
       </form>
 
-      {err && <div className="notice error" role="alert" style={{ marginTop: 16 }}><Warn /><div>{err}</div></div>}
+      {err && <div className="notice error" role="alert" style={{ marginTop: 16 }}><Warn /><div><strong>Analysis not completed.</strong> {err}</div></div>}
 
-      {res && (
+      {res && result && (
         <section className="detail" style={{ marginTop: 16 }} aria-live="polite">
-          {!res.valid ? (
-            <div className="panel evidence s-DATA_INSUFFICIENT">
-              <div className="panel-head"><h2>No verdict</h2></div>
-              <div className="panel-body"><p className="ev-sentence">{res.sentence}</p>
-                <p className="small muted" style={{ marginTop: 8 }}>{res.quality.n_samples.toLocaleString()} samples · {fmtNum(res.quality.missing_fraction * 100, 1)}% missing · longest gap {res.quality.longest_gap.toLocaleString()} samples</p>
-              </div>
+          {stale && (
+            <div className="notice warn" role="status" data-testid="stale-result">
+              <Warn />
+              <div><strong>Previous result. The inputs have changed since this analysis.</strong> Run the analysis again to get a result for the current file, column and reference.</div>
             </div>
-          ) : (
-            <>
-              <div className={`panel evidence s-${res.verdict === 'ABOVE_THRESHOLD' ? 'WATCH' : 'NORMAL'}`}>
-                <div className="panel-head">
-                  <h2>{res.verdict === 'ABOVE_THRESHOLD' ? 'Above threshold (one reading)' : 'Below threshold'}</h2>
-                  <span className="panel-sub">Analyzed in {fmtNum(res.timing_ms.total, 1)} ms on the server</span>
-                </div>
-                <div className="panel-body">
-                  <p className="ev-sentence">{ev?.sentence}</p>
-                  <dl className="ev-grid">
-                    <div><dt>Implicated band</dt><dd>{ev?.family_label ?? '—'} · {fmtHz(ev?.defect_hz)}</dd></div>
-                    <div><dt>Peak found at</dt><dd>{fmtHz(ev?.peak_hz)}</dd></div>
-                    <div><dt>Prominence now / reference</dt><dd>{fmtNum(ev?.current_prom_db)} / {fmtNum(ev?.reference_prom_db)} dB</dd></div>
-                    <div><dt>Score vs threshold</dt><dd>{fmtNum(res.score, 1)} / {res.threshold}</dd></div>
-                    {Object.entries(res.z ?? {}).map(([k, v]) => <div key={k}><dt>z · {k}</dt><dd>{fmtNum(v, 2)}</dd></div>)}
-                    <div><dt>Data quality</dt><dd>{res.quality.interpolated ? `${res.quality.interpolated} samples interpolated` : 'complete'}</dd></div>
-                    <div className="wide"><dt>Reference · speed</dt><dd>{res.reference?.label} · {res.speed_note}</dd></div>
-                  </dl>
-                  <p className="small muted ev-foot">{res.persistence_note} The score is a robust z-value, not a probability.</p>
+          )}
+          <div className={stale ? 'an-stale' : ''}>
+            <div className="an-inputs" data-testid="result-inputs">
+              <span>File <b>{res.inputs.fileName}</b> ({(res.inputs.fileSize / 1024).toFixed(0)} KB)</span>
+              <span>Column <b>{res.inputs.column}</b></span>
+              <span>Reference <b>{refLabel(res.inputs.reference)}</b></span>
+              <span>Acquisition <b>{SUPPORTED.sampleRate.toLocaleString()} Hz · {SUPPORTED.rpm.toLocaleString()} RPM</b></span>
+            </div>
+            {!result.valid ? (
+              <div className="panel evidence s-DATA_INSUFFICIENT" style={{ marginTop: 12 }}>
+                <div className="panel-head"><h2>No verdict</h2></div>
+                <div className="panel-body"><p className="ev-sentence">{result.sentence}</p>
+                  <p className="small muted" style={{ marginTop: 8 }}>{result.quality.n_samples.toLocaleString()} samples · {fmtNum(result.quality.missing_fraction * 100, 1)}% missing · longest gap {result.quality.longest_gap.toLocaleString()} samples</p>
                 </div>
               </div>
-              {res.spectrum && res.band_markers && (
-                <div className="panel">
-                  <div className="panel-head"><h3>Envelope spectrum of the uploaded reading</h3></div>
+            ) : (
+              <>
+                <div className={`panel evidence s-${result.verdict === 'ABOVE_THRESHOLD' ? 'WATCH' : 'NORMAL'}`} style={{ marginTop: 12 }}>
+                  <div className="panel-head">
+                    <h2>{result.verdict === 'ABOVE_THRESHOLD' ? 'Above threshold (one reading)' : 'Below threshold'}</h2>
+                    <span className="panel-sub">Analyzed in {fmtNum(result.timing_ms.total, 1)} ms on the server</span>
+                  </div>
                   <div className="panel-body">
-                    <SpectrumChart title="Envelope spectrum of uploaded reading" f0={res.spectrum.f0} df={res.spectrum.df} amp={res.spectrum.amp} bands={res.band_markers} highlight={ev?.family ?? null} />
+                    <p className="ev-sentence">{ev?.sentence}</p>
+                    <dl className="ev-grid">
+                      <div><dt>Analyzed</dt><dd>Uploaded reading, column {res.inputs.column}</dd></div>
+                      <div><dt>Compared with</dt><dd>{result.reference?.label}</dd></div>
+                      <div><dt>Implicated band</dt><dd>{ev?.family_label ?? '—'} · {fmtHz(ev?.defect_hz)}</dd></div>
+                      <div><dt>Peak found at</dt><dd>{fmtHz(ev?.peak_hz)}</dd></div>
+                      <div><dt>Prominence / reference</dt><dd>{fmtNum(ev?.current_prom_db)} / {fmtNum(ev?.reference_prom_db)} dB</dd></div>
+                      <div><dt>Score vs threshold</dt><dd>{fmtNum(result.score, 1)} / {result.threshold}</dd></div>
+                      {Object.entries(result.z ?? {}).map(([k, v]) => <div key={k}><dt>z · {k}</dt><dd>{fmtNum(v, 2)}</dd></div>)}
+                      <div><dt>Data quality</dt><dd>{result.quality.interpolated ? `${result.quality.interpolated} samples interpolated` : 'complete'}</dd></div>
+                    </dl>
+                    <p className="small muted ev-foot">{result.persistence_note} The score is a robust z-value, not a probability. The comparison is meaningful only for IMS-compatible readings (see the scope note above).</p>
                   </div>
                 </div>
-              )}
-            </>
-          )}
+                {result.spectrum && result.band_markers && (
+                  <div className="panel" style={{ marginTop: 16 }}>
+                    <div className="panel-head"><h3>Envelope spectrum of the uploaded reading</h3><span className="panel-sub">{res.inputs.fileName} · column {res.inputs.column}</span></div>
+                    <div className="panel-body">
+                      <SpectrumChart title="Envelope spectrum of uploaded reading" f0={result.spectrum.f0} df={result.spectrum.df} amp={result.spectrum.amp} bands={result.band_markers} highlight={ev?.family ?? null} />
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
         </section>
       )}
+      <p className="small muted" style={{ marginTop: 24 }}>
+        Monitoring your own machine would need its own bearing geometry, acquisition settings and healthy reference. That workflow does not exist yet: see <Link to="/data#scope">what is and is not supported</Link>.
+      </p>
     </div>
   )
 }
