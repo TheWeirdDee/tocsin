@@ -159,9 +159,9 @@ The **proposed deployment** is a browser app (Vercel) calling one small API serv
 |---|---|---|
 | Python unit, integration, API and audit regressions | 67 passed (also 67 passed in a clean venv with the release bundle) | `results/test-logs/pytest.txt`, `clean_environment.txt` |
 | Frontend unit, type-check, lint | 10 passed; tsc clean; eslint 0 problems | `results/test-logs/vitest.txt`, `tsc.txt`, `eslint.txt` |
-| Local browser, 3 viewports, same origin (flows, audit regressions, scenarios, motion, axe WCAG A/AA scan, reduced motion) | 134 passed, 1 skipped (phone keyboard test) of 135 | `results/test-logs/playwright.txt` |
-| Local browser, cross-origin (Vercel/Railway split), run separately | 134 passed, 1 skipped of 135 | `results/test-logs/playwright-cross-origin.txt` |
-| Deployed checks on release `c7819c3` | deployment verification 26/26; 11 of 12 audit findings pass (TC-11 identity fix not yet deployed); browser suite passes after latency reruns. Details in [docs/TEST_RESULTS.md](docs/TEST_RESULTS.md) | `results/test-logs/playwright-deployed.txt`, `results/deploy-verification.json` |
+| Local browser, 3 viewports, same origin (flows, audit regressions, scenarios, motion, axe WCAG A/AA scan, reduced motion) | 137 passed, 1 skipped (phone keyboard test) of 138 | `results/test-logs/playwright.txt` |
+| Local browser, cross-origin (Vercel/Railway split), run separately | 137 passed, 1 skipped of 138 | `results/test-logs/playwright-cross-origin.txt` |
+| Deployed checks on release `260348a` ([workflow run](https://github.com/TheWeirdDee/tocsin/actions/runs/38749784194)) | all jobs passed: deployment checks 26/26, all 12 audit findings (22/22 checks), TC-11 identity from three networks, browser suite on desktop and phone 89 passed, 1 skipped. Details in [docs/TEST_RESULTS.md](docs/TEST_RESULTS.md) | `results/test-logs/playwright-deployed.txt`, `results/deploy-verification.json` |
 
 Not covered:
 
