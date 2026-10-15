@@ -1,0 +1,383 @@
+{
+ "definition": "Derived, label-appropriate metrics from existing results. No re-tuning, no new runs.\n\n  python scripts/derived_metrics.py   -> results/derived_metrics.json\n\n1. Bearing-level precision / recall / F1 (counts kept alongside), for v1.0\n   (pre-registered) and v1.1 (data-handling corrections), every detector.\n   Unit = one bearing in one held-out test; positive = the readme says it was\n   damaged at the end of the test; predicted positive = any ALERT.\n2. The same, counting only alerts that *began before* each run's final 24 h\n   (sub-analysis named in docs/EVALUATION_PROTOCOL.md section 8).\n3. Fault-condition identification: for TOCSIN alerts on damaged bearings, does\n   the implicated defect family match the readme label? Read from the v1.1\n   replay artifacts (alert onset evidence). Tuning-set (Test 1) rows are\n   reported separately and are not held-out evidence.",
+ "versions": {
+  "v1.0_preregistered": {
+   "tocsin": {
+    "all_alerts": {
+     "tp": 2,
+     "fp": 5,
+     "fn": 0,
+     "precision": 0.2857142857142857,
+     "recall": 1.0,
+     "f1": 0.4444444444444445,
+     "precision_frac": "2/7",
+     "recall_frac": "2/2"
+    },
+    "alerts_starting_before_final_24h": {
+     "tp": 1,
+     "fp": 1,
+     "fn": 1,
+     "precision": 0.5,
+     "recall": 0.5,
+     "f1": 0.5,
+     "precision_frac": "1/2",
+     "recall_frac": "1/2"
+    }
+   },
+   "b0_rms": {
+    "all_alerts": {
+     "tp": 2,
+     "fp": 6,
+     "fn": 0,
+     "precision": 0.25,
+     "recall": 1.0,
+     "f1": 0.4,
+     "precision_frac": "2/8",
+     "recall_frac": "2/2"
+    },
+    "alerts_starting_before_final_24h": {
+     "tp": 2,
+     "fp": 1,
+     "fn": 0,
+     "precision": 0.6666666666666666,
+     "recall": 1.0,
+     "f1": 0.8,
+     "precision_frac": "2/3",
+     "recall_frac": "2/2"
+    }
+   },
+   "b1_iforest": {
+    "all_alerts": {
+     "tp": 2,
+     "fp": 3,
+     "fn": 0,
+     "precision": 0.4,
+     "recall": 1.0,
+     "f1": 0.5714285714285715,
+     "precision_frac": "2/5",
+     "recall_frac": "2/2"
+    },
+    "alerts_starting_before_final_24h": {
+     "tp": 2,
+     "fp": 2,
+     "fn": 0,
+     "precision": 0.5,
+     "recall": 1.0,
+     "f1": 0.6666666666666666,
+     "precision_frac": "2/4",
+     "recall_frac": "2/2"
+    }
+   },
+   "b0_rms_3sigma": {
+    "all_alerts": {
+     "tp": 2,
+     "fp": 6,
+     "fn": 0,
+     "precision": 0.25,
+     "recall": 1.0,
+     "f1": 0.4,
+     "precision_frac": "2/8",
+     "recall_frac": "2/2"
+    },
+    "alerts_starting_before_final_24h": {
+     "tp": 2,
+     "fp": 5,
+     "fn": 0,
+     "precision": 0.2857142857142857,
+     "recall": 1.0,
+     "f1": 0.4444444444444445,
+     "precision_frac": "2/7",
+     "recall_frac": "2/2"
+    }
+   },
+   "a1_broadband_env": {
+    "all_alerts": {
+     "tp": 2,
+     "fp": 4,
+     "fn": 0,
+     "precision": 0.3333333333333333,
+     "recall": 1.0,
+     "f1": 0.5,
+     "precision_frac": "2/6",
+     "recall_frac": "2/2"
+    },
+    "alerts_starting_before_final_24h": {
+     "tp": 2,
+     "fp": 1,
+     "fn": 0,
+     "precision": 0.6666666666666666,
+     "recall": 1.0,
+     "f1": 0.8,
+     "precision_frac": "2/3",
+     "recall_frac": "2/2"
+    }
+   },
+   "a2_global_ref": {
+    "all_alerts": {
+     "tp": 2,
+     "fp": 5,
+     "fn": 0,
+     "precision": 0.2857142857142857,
+     "recall": 1.0,
+     "f1": 0.4444444444444445,
+     "precision_frac": "2/7",
+     "recall_frac": "2/2"
+    },
+    "alerts_starting_before_final_24h": {
+     "tp": 2,
+     "fp": 2,
+     "fn": 0,
+     "precision": 0.5,
+     "recall": 1.0,
+     "f1": 0.6666666666666666,
+     "precision_frac": "2/4",
+     "recall_frac": "2/2"
+    }
+   },
+   "a3_no_persistence": {
+    "all_alerts": {
+     "tp": 2,
+     "fp": 6,
+     "fn": 0,
+     "precision": 0.25,
+     "recall": 1.0,
+     "f1": 0.4,
+     "precision_frac": "2/8",
+     "recall_frac": "2/2"
+    },
+    "alerts_starting_before_final_24h": {
+     "tp": 2,
+     "fp": 6,
+     "fn": 0,
+     "precision": 0.25,
+     "recall": 1.0,
+     "f1": 0.4,
+     "precision_frac": "2/8",
+     "recall_frac": "2/2"
+    }
+   }
+  },
+  "v1.1_current": {
+   "tocsin": {
+    "all_alerts": {
+     "tp": 1,
+     "fp": 4,
+     "fn": 1,
+     "precision": 0.2,
+     "recall": 0.5,
+     "f1": 0.28571428571428575,
+     "precision_frac": "1/5",
+     "recall_frac": "1/2"
+    },
+    "alerts_starting_before_final_24h": {
+     "tp": 1,
+     "fp": 1,
+     "fn": 1,
+     "precision": 0.5,
+     "recall": 0.5,
+     "f1": 0.5,
+     "precision_frac": "1/2",
+     "recall_frac": "1/2"
+    }
+   },
+   "b0_rms": {
+    "all_alerts": {
+     "tp": 2,
+     "fp": 6,
+     "fn": 0,
+     "precision": 0.25,
+     "recall": 1.0,
+     "f1": 0.4,
+     "precision_frac": "2/8",
+     "recall_frac": "2/2"
+    },
+    "alerts_starting_before_final_24h": {
+     "tp": 2,
+     "fp": 1,
+     "fn": 0,
+     "precision": 0.6666666666666666,
+     "recall": 1.0,
+     "f1": 0.8,
+     "precision_frac": "2/3",
+     "recall_frac": "2/2"
+    }
+   },
+   "b1_iforest": {
+    "all_alerts": {
+     "tp": 2,
+     "fp": 3,
+     "fn": 0,
+     "precision": 0.4,
+     "recall": 1.0,
+     "f1": 0.5714285714285715,
+     "precision_frac": "2/5",
+     "recall_frac": "2/2"
+    },
+    "alerts_starting_before_final_24h": {
+     "tp": 2,
+     "fp": 2,
+     "fn": 0,
+     "precision": 0.5,
+     "recall": 1.0,
+     "f1": 0.6666666666666666,
+     "precision_frac": "2/4",
+     "recall_frac": "2/2"
+    }
+   },
+   "b0_rms_3sigma": {
+    "all_alerts": {
+     "tp": 2,
+     "fp": 6,
+     "fn": 0,
+     "precision": 0.25,
+     "recall": 1.0,
+     "f1": 0.4,
+     "precision_frac": "2/8",
+     "recall_frac": "2/2"
+    },
+    "alerts_starting_before_final_24h": {
+     "tp": 2,
+     "fp": 5,
+     "fn": 0,
+     "precision": 0.2857142857142857,
+     "recall": 1.0,
+     "f1": 0.4444444444444445,
+     "precision_frac": "2/7",
+     "recall_frac": "2/2"
+    }
+   },
+   "a1_broadband_env": {
+    "all_alerts": {
+     "tp": 2,
+     "fp": 4,
+     "fn": 0,
+     "precision": 0.3333333333333333,
+     "recall": 1.0,
+     "f1": 0.5,
+     "precision_frac": "2/6",
+     "recall_frac": "2/2"
+    },
+    "alerts_starting_before_final_24h": {
+     "tp": 2,
+     "fp": 1,
+     "fn": 0,
+     "precision": 0.6666666666666666,
+     "recall": 1.0,
+     "f1": 0.8,
+     "precision_frac": "2/3",
+     "recall_frac": "2/2"
+    }
+   },
+   "a2_global_ref": {
+    "all_alerts": {
+     "tp": 2,
+     "fp": 4,
+     "fn": 0,
+     "precision": 0.3333333333333333,
+     "recall": 1.0,
+     "f1": 0.5,
+     "precision_frac": "2/6",
+     "recall_frac": "2/2"
+    },
+    "alerts_starting_before_final_24h": {
+     "tp": 2,
+     "fp": 2,
+     "fn": 0,
+     "precision": 0.5,
+     "recall": 1.0,
+     "f1": 0.6666666666666666,
+     "precision_frac": "2/4",
+     "recall_frac": "2/2"
+    }
+   },
+   "a3_no_persistence": {
+    "all_alerts": {
+     "tp": 2,
+     "fp": 6,
+     "fn": 0,
+     "precision": 0.25,
+     "recall": 1.0,
+     "f1": 0.4,
+     "precision_frac": "2/8",
+     "recall_frac": "2/2"
+    },
+    "alerts_starting_before_final_24h": {
+     "tp": 2,
+     "fp": 6,
+     "fn": 0,
+     "precision": 0.25,
+     "recall": 1.0,
+     "f1": 0.4,
+     "precision_frac": "2/8",
+     "recall_frac": "2/2"
+    }
+   }
+  }
+ },
+ "fault_family_identification_v1_1": [
+  {
+   "run": "test2",
+   "role": "held-out",
+   "bearing": 1,
+   "label": "outer-race failure",
+   "expected_family": "BPFO",
+   "alert_onsets": 0,
+   "families_at_onsets": [],
+   "first_onset_family": null,
+   "first_onset_matches": null,
+   "onsets_matching": 0
+  },
+  {
+   "run": "test3",
+   "role": "held-out",
+   "bearing": 3,
+   "label": "outer-race failure",
+   "expected_family": "BPFO",
+   "alert_onsets": 5,
+   "families_at_onsets": [
+    "BPFO",
+    "BPFO",
+    "BPFO",
+    "BPFO",
+    "BPFO"
+   ],
+   "first_onset_family": "BPFO",
+   "first_onset_matches": true,
+   "onsets_matching": 5
+  },
+  {
+   "run": "test1",
+   "role": "tuning",
+   "bearing": 3,
+   "label": "inner-race defect",
+   "expected_family": "BPFI",
+   "alert_onsets": 4,
+   "families_at_onsets": [
+    "BPFI",
+    "BPFI",
+    "BPFI",
+    "BPFI"
+   ],
+   "first_onset_family": "BPFI",
+   "first_onset_matches": true,
+   "onsets_matching": 4
+  },
+  {
+   "run": "test1",
+   "role": "tuning",
+   "bearing": 4,
+   "label": "roller-element defect",
+   "expected_family": "2xBSF",
+   "alert_onsets": 4,
+   "families_at_onsets": [
+    "BPFO",
+    "BPFO",
+    "BPFO",
+    "BPFO"
+   ],
+   "first_onset_family": "BPFO",
+   "first_onset_matches": false,
+   "onsets_matching": 0
+  }
+ ]
+}
