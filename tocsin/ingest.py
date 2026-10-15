@@ -9,7 +9,11 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 
+import re
+
 import numpy as np
+
+_EMPTY_TAB_FIELD = re.compile(r"(^|\n)\t|\t\t|\t[ ]*\r?(\n|$)")
 
 IMS_FS = 20_000.0
 IMS_N = 20_480
@@ -57,6 +61,10 @@ def parse_ims_bytes(raw: bytes) -> np.ndarray:
     on ragged rows or non-numeric content.
     """
     text = raw.decode("ascii", errors="strict")
+    # Whitespace splitting would silently drop empty tab-separated cells and shift
+    # values; files with empty fields must go through the delimiter-aware parser.
+    if _EMPTY_TAB_FIELD.search(text):
+        raise ValueError("file contains empty tab-separated fields")
     lines = text.splitlines()
     while lines and not lines[-1].strip():
         lines.pop()
@@ -72,13 +80,22 @@ def parse_ims_bytes(raw: bytes) -> np.ndarray:
 def parse_csv_bytes(raw: bytes) -> np.ndarray:
     """Generic CSV/TSV adapter: numeric columns, optional single header row.
 
-    Empty cells and 'nan' become NaN (missing samples).
+    Empty cells and 'nan' become NaN (missing samples), at their own position
+    for comma- or tab-separated files. Whitespace-only files cannot express an
+    empty cell, so ragged rows there are rejected rather than silently shifted.
     """
     text = raw.decode("utf-8-sig", errors="strict")
     lines = [ln for ln in text.splitlines() if ln.strip()]
     if not lines:
         raise ValueError("empty file")
-    delim = "," if "," in lines[0] else None
+    # Delimiter-aware so empty cells keep their position: comma, then tab, then
+    # whitespace (whitespace splitting cannot represent an empty cell).
+    if any("," in ln for ln in lines[:5]):
+        delim = ","
+    elif any("	" in ln for ln in lines[:5]):
+        delim = "	"
+    else:
+        delim = None
     first = lines[0].split(delim) if delim else lines[0].split()
 
     def _is_number(tok: str) -> bool:
