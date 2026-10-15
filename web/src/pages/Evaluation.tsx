@@ -58,9 +58,10 @@ export default function Evaluation() {
     <div className="wrap ev-page">
       <header className="ev-head">
         <p className="eyebrow">Evaluation</p>
-        <h1>How TOCSIN performed on recordings it was never tuned on</h1>
+        <h1>Evaluation on two reserved bearing-test runs</h1>
         <p className="lede">
           Thresholds and the analysis band were frozen using IMS Test 1 only, before Tests 2 and 3 were processed.
+          The original pre-registered run (v1.0) is preserved. The current version (v1.1) corrects two data-handling defects found after those results were inspected, so v1.1 is not untouched validation.
           The pre-registered hypothesis was that TOCSIN would warn earlier than a vibration-level alarm, with fewer false alerts.
           <strong> The held-out results do not support that hypothesis.</strong> This page shows what was measured, including where TOCSIN lost.
         </p>
@@ -303,7 +304,7 @@ export default function Evaluation() {
 .venv\Scripts\python scripts\extract_features.py test3 --bands 2000-8000 --conditions all --spectra clean,noise10,noise0,drop20
 .venv\Scripts\python scripts\evaluate.py
 .venv\Scripts\python scripts\build_artifacts.py`}</code></pre>
-            <p className="small muted">Shortcut without the raw archive: <code>python scripts/fetch_artifacts.py</code> downloads the verified demo bundle, and the release's feature bundle lets <code>evaluate.py</code> rerun without the 1 GB NASA download.</p>
+            <p className="small muted">Shortcut without the raw archive: <code>.venv/bin/python scripts/fetch_artifacts.py</code> (Windows: <code>.venv\Scripts\python</code>) downloads the verified demo bundle, and the release's feature bundle lets <code>evaluate.py</code> rerun without the 1 GB NASA download.</p>
             <p className="small muted">Requires <code>bsdtar</code> (libarchive) to stream the RAR archives. Every result file records the frozen-config hash. Generated {new Date(h.generated).toUTCString()}.</p>
           </Section>
         </>
