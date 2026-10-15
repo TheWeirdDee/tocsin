@@ -71,9 +71,15 @@ def parse_ims_bytes(raw: bytes) -> np.ndarray:
     if not lines:
         raise ValueError("empty file")
     n_cols = len(lines[0].split())
+    if n_cols == 0:
+        raise ValueError("empty first row")
+    # Every row must have the same width. A total-count check alone would accept a long row
+    # balanced by a short one, and the reshape would then shift samples between channels.
+    for i, ln in enumerate(lines):
+        w = len(ln.split())
+        if w != n_cols:
+            raise ValueError(f"row {i + 1} has {w} fields; expected {n_cols}")
     flat = np.array(text.split(), dtype=np.float64)
-    if n_cols == 0 or flat.size != len(lines) * n_cols:
-        raise ValueError(f"ragged file: {flat.size} values for {len(lines)} rows x {n_cols} columns")
     return flat.reshape(len(lines), n_cols)
 
 
@@ -83,11 +89,18 @@ def parse_csv_bytes(raw: bytes) -> np.ndarray:
     Empty cells and 'nan' become NaN (missing samples), at their own position
     for comma- or tab-separated files. Whitespace-only files cannot express an
     empty cell, so ragged rows there are rejected rather than silently shifted.
+
+    A blank line is a missing sample on every channel, kept at its position so the
+    time axis is never compressed. Only blank lines after the last data row, or
+    before a header row, are formatting and are ignored.
     """
     text = raw.decode("utf-8-sig", errors="strict")
-    lines = [ln for ln in text.splitlines() if ln.strip()]
-    if not lines:
+    all_lines = text.splitlines()
+    filled = [i for i, ln in enumerate(all_lines) if ln.strip()]
+    if not filled:
         raise ValueError("empty file")
+    lines = all_lines[:filled[-1] + 1]
+    lead = filled[0]  # blank lines before the first non-blank line; decided once the header is known
     # Delimiter-aware so empty cells keep their position: comma, then tab, then
     # whitespace (whitespace splitting cannot represent an empty cell).
     if any("," in ln for ln in lines[:5]):
@@ -96,7 +109,7 @@ def parse_csv_bytes(raw: bytes) -> np.ndarray:
         delim = "	"
     else:
         delim = None
-    first = lines[0].split(delim) if delim else lines[0].split()
+    first = lines[lead].split(delim) if delim else lines[lead].split()
 
     def _is_number(tok: str) -> bool:
         tok = tok.strip()
@@ -108,15 +121,24 @@ def parse_csv_bytes(raw: bytes) -> np.ndarray:
         except ValueError:
             return False
 
-    start = 0 if all(_is_number(t) for t in first) else 1
-    rows = []
+    # With a header, everything up to and including it is skipped; without one, leading blank
+    # lines are missing samples like any other blank line.
+    start = 0 if all(_is_number(t) for t in first) else lead + 1
+    rows: list[list[float] | None] = []
     for ln in lines[start:]:
+        if not ln.strip():
+            rows.append(None)  # a missing sample on every channel, filled in below
+            continue
         toks = ln.split(delim) if delim else ln.split()
         rows.append([float(t) if t.strip() not in ("", "nan", "NaN") else np.nan for t in toks])
-    width = len(rows[0]) if rows else 0
-    if width == 0 or any(len(r) != width for r in rows):
+    widths = [len(r) for r in rows if r is not None]
+    if not widths or widths[0] == 0:
         raise ValueError("ragged or empty CSV")
-    return np.asarray(rows, dtype=np.float64)
+    width = widths[0]
+    for i, r in enumerate(rows):
+        if r is not None and len(r) != width:
+            raise ValueError(f"ragged CSV: data row {i + 1} has {len(r)} fields; expected {width}")
+    return np.asarray([r if r is not None else [np.nan] * width for r in rows], dtype=np.float64)
 
 
 def _longest_run(mask: np.ndarray) -> int:
