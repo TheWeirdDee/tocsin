@@ -1,42 +1,508 @@
+# command: E2E_BASE_URL=https://tocsin-phi.vercel.app E2E_API_BASE=https://tocsin-production.up.railway.app npx playwright test --project=desktop --project=phone
+# target: live deployment, frontend and API at c7819c34892dca0cf06e73920974e1d350c943df
+# env: Windows 11 Pro 10.0.26200, Node v24.13.1, Playwright Chromium, workers 1
+# run: 2026-10-15T12:28:51Z
 
-Running 36 tests using 1 worker
 
-  ok  1 [desktop] › e2e\app.spec.ts:16:1 › landing explains the product and opens the demo (7.3s)
-  ok  2 [desktop] › e2e\app.spec.ts:27:1 › replay controls: play, pause, step, reset, seek (3.8s)
-  ok  3 [desktop] › e2e\app.spec.ts:47:1 › direct URL with state survives refresh, and an alert has evidence (3.8s)
-  ok  4 [desktop] › e2e\app.spec.ts:60:1 › changing the complication loads that analysis and labels it (2.8s)
-  ok  5 [desktop] › e2e\app.spec.ts:68:1 › missing data shows no verdict and keeps the last valid state (4.2s)
-  ok  6 [desktop] › e2e\app.spec.ts:78:1 › evaluation shows held-out counts and comparison (2.1s)
-  ok  7 [desktop] › e2e\app.spec.ts:90:1 › deep link to an evaluation section scrolls there (2.2s)
-  ok  8 [desktop] › e2e\app.spec.ts:95:1 › data page lists provenance and discrepancies (2.3s)
-  ok  9 [desktop] › e2e\app.spec.ts:103:1 › analyze a real sample reading end to end (6.0s)
-  ok 10 [desktop] › e2e\app.spec.ts:113:1 › unknown route shows not-found page; navigation menu is reachable (755ms)
-  ok 11 [desktop] › e2e\app.spec.ts:121:1 › keyboard: skip link and visible focus (898ms)
-  ok 12 [desktop] › e2e\app.spec.ts:131:1 › frontend talks to the API origin it was built for (CORS when cross-origin) (2.2s)
-  ok 13 [tablet] › e2e\app.spec.ts:16:1 › landing explains the product and opens the demo (2.3s)
-  ok 14 [tablet] › e2e\app.spec.ts:27:1 › replay controls: play, pause, step, reset, seek (4.3s)
-  ok 15 [tablet] › e2e\app.spec.ts:47:1 › direct URL with state survives refresh, and an alert has evidence (3.7s)
-  ok 16 [tablet] › e2e\app.spec.ts:60:1 › changing the complication loads that analysis and labels it (2.7s)
-  ok 17 [tablet] › e2e\app.spec.ts:68:1 › missing data shows no verdict and keeps the last valid state (4.1s)
-  ok 18 [tablet] › e2e\app.spec.ts:78:1 › evaluation shows held-out counts and comparison (2.3s)
-  ok 19 [tablet] › e2e\app.spec.ts:90:1 › deep link to an evaluation section scrolls there (2.1s)
-  ok 20 [tablet] › e2e\app.spec.ts:95:1 › data page lists provenance and discrepancies (2.0s)
-  ok 21 [tablet] › e2e\app.spec.ts:103:1 › analyze a real sample reading end to end (4.3s)
-  ok 22 [tablet] › e2e\app.spec.ts:113:1 › unknown route shows not-found page; navigation menu is reachable (755ms)
-  ok 23 [tablet] › e2e\app.spec.ts:121:1 › keyboard: skip link and visible focus (853ms)
-  ok 24 [tablet] › e2e\app.spec.ts:131:1 › frontend talks to the API origin it was built for (CORS when cross-origin) (2.6s)
-  ok 25 [phone] › e2e\app.spec.ts:16:1 › landing explains the product and opens the demo (2.1s)
-  ok 26 [phone] › e2e\app.spec.ts:27:1 › replay controls: play, pause, step, reset, seek (3.7s)
-  ok 27 [phone] › e2e\app.spec.ts:47:1 › direct URL with state survives refresh, and an alert has evidence (3.6s)
-  ok 28 [phone] › e2e\app.spec.ts:60:1 › changing the complication loads that analysis and labels it (3.2s)
-  ok 29 [phone] › e2e\app.spec.ts:68:1 › missing data shows no verdict and keeps the last valid state (3.9s)
-  ok 30 [phone] › e2e\app.spec.ts:78:1 › evaluation shows held-out counts and comparison (2.1s)
-  ok 31 [phone] › e2e\app.spec.ts:90:1 › deep link to an evaluation section scrolls there (2.1s)
-  ok 32 [phone] › e2e\app.spec.ts:95:1 › data page lists provenance and discrepancies (2.3s)
-  ok 33 [phone] › e2e\app.spec.ts:103:1 › analyze a real sample reading end to end (4.2s)
-  ok 34 [phone] › e2e\app.spec.ts:113:1 › unknown route shows not-found page; navigation menu is reachable (878ms)
-  -  35 [phone] › e2e\app.spec.ts:121:1 › keyboard: skip link and visible focus
-  ok 36 [phone] › e2e\app.spec.ts:131:1 › frontend talks to the API origin it was built for (CORS when cross-origin) (2.6s)
+Running 80 tests using 1 worker
 
+  x   1 [desktop] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on / (11.5s)
+  ok  2 [desktop] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on /demo/test3?guide=alert&b=3 (58.1s)
+  x   3 [desktop] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on /demo/test2?cond=gaps&b=1&t=101 (1.0m)
+  x   4 [desktop] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on /evaluation (15.9s)
+  x   5 [desktop] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on /data (2.0s)
+  ok  6 [desktop] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on /analyze (9.1s)
+  ok  7 [desktop] › e2e\a11y.spec.ts:18:1 › reduced motion: no running animations when the user prefers reduced motion (1.4s)
+  x   8 [desktop] › e2e\app.spec.ts:16:1 › landing explains the product and opens the demo (10.0s)
+  ok  9 [desktop] › e2e\app.spec.ts:27:1 › replay controls: play, pause, step, reset, seek (7.7s)
+  ok 10 [desktop] › e2e\app.spec.ts:47:1 › direct URL with state survives refresh, and an alert has evidence (35.4s)
+  ok 11 [desktop] › e2e\app.spec.ts:60:1 › changing the complication loads that analysis and labels it (6.8s)
+  ok 12 [desktop] › e2e\app.spec.ts:68:1 › missing data shows no verdict and keeps the last valid state (5.9s)
+  ok 13 [desktop] › e2e\app.spec.ts:78:1 › evaluation shows held-out counts and comparison (6.0s)
+  ok 14 [desktop] › e2e\app.spec.ts:90:1 › deep link to an evaluation section scrolls there (5.4s)
+  ok 15 [desktop] › e2e\app.spec.ts:95:1 › data page lists provenance and discrepancies (3.2s)
+  ok 16 [desktop] › e2e\app.spec.ts:103:1 › analyze a real sample reading end to end (13.0s)
+  ok 17 [desktop] › e2e\app.spec.ts:113:1 › unknown route shows not-found page; navigation menu is reachable (4.5s)
+  ok 18 [desktop] › e2e\app.spec.ts:121:1 › keyboard: skip link and visible focus (7.2s)
+  ok 19 [desktop] › e2e\app.spec.ts:131:1 › frontend talks to the API origin it was built for (CORS when cross-origin) (4.7s)
+  ok 20 [desktop] › e2e\audit.spec.ts:8:5 › TC-01 malformed replay URLs › t=1.5 renders a usable page with a canonical cursor (13.3s)
+  x  21 [desktop] › e2e\audit.spec.ts:8:5 › TC-01 malformed replay URLs › t=-4 renders a usable page with a canonical cursor (1.0m)
+  x  22 [desktop] › e2e\audit.spec.ts:8:5 › TC-01 malformed replay URLs › t=abc renders a usable page with a canonical cursor (26.7s)
+  ok 23 [desktop] › e2e\audit.spec.ts:8:5 › TC-01 malformed replay URLs › t=99999 renders a usable page with a canonical cursor (25.3s)
+  ok 24 [desktop] › e2e\audit.spec.ts:8:5 › TC-01 malformed replay URLs › t=(empty) renders a usable page with a canonical cursor (23.5s)
+  ok 25 [desktop] › e2e\audit.spec.ts:23:3 › TC-01 malformed replay URLs › unknown run, condition and bearing are reported, not crashed (8.2s)
+  ok 26 [desktop] › e2e\audit.spec.ts:33:3 › TC-01 malformed replay URLs › back and forward move the cursor (5.6s)
+  ok 27 [desktop] › e2e\audit.spec.ts:45:1 › TC-03 calibration period shows no reference-relative evidence and a neutral order (9.5s)
+  ok 28 [desktop] › e2e\audit.spec.ts:72:1 › TC-07 retained values are labelled as the last valid measurement (17.0s)
+  x  29 [desktop] › e2e\audit.spec.ts:81:1 › TC-09 the spectrum keeps up during playback and names its reading (18.0s)
+  ok 30 [desktop] › e2e\audit.spec.ts:95:1 › TC-06 switching runs never shows the previous run under the new name; failures are visible (25.8s)
+  ok 31 [desktop] › e2e\audit.spec.ts:116:3 › Analyze › TC-04 names the upload, not a hard-coded bearing; TC-05 marks results stale when inputs change (13.0s)
+  ok 32 [desktop] › e2e\audit.spec.ts:132:3 › Analyze › TC-02/TC-08 acquisition settings are fixed to the supported configuration (1.5s)
+  ok 33 [desktop] › e2e\audit.spec.ts:139:3 › Analyze › TC-02 server validation messages are shown, not "server could not be reached" (11.8s)
+  ok 34 [desktop] › e2e\audit.spec.ts:152:1 › guided examples land on data-driven readings (14.7s)
+  ok 35 [desktop] › e2e\audit.spec.ts:164:1 › footer reports frontend and API versions (1.8s)
+  x  36 [desktop] › e2e\audit.spec.ts:169:1 › landing offers the five scenario entry points and they open working pages (7.5s)
+  x  37 [desktop] › e2e\audit.spec.ts:184:1 › evaluation reports bearing-level counts, fault identification and the no-switch rationale (7.3s)
+  ok 38 [desktop] › e2e\audit.spec.ts:195:1 › robustness examples open the states they describe (12.2s)
+  ok 39 [desktop] › e2e\audit.spec.ts:204:1 › alerts carry the actionability note without claiming a defect (8.2s)
+  ok 40 [desktop] › e2e\audit.spec.ts:210:1 › working preview panels do not overlap at any width (10.1s)
+  ok 41 [phone] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on / (8.5s)
+  ok 42 [phone] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on /demo/test3?guide=alert&b=3 (11.9s)
+  ok 43 [phone] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on /demo/test2?cond=gaps&b=1&t=101 (9.6s)
+  ok 44 [phone] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on /evaluation (18.1s)
+  ok 45 [phone] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on /data (8.9s)
+  ok 46 [phone] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on /analyze (6.1s)
+  ok 47 [phone] › e2e\a11y.spec.ts:18:1 › reduced motion: no running animations when the user prefers reduced motion (1.8s)
+  ok 48 [phone] › e2e\app.spec.ts:16:1 › landing explains the product and opens the demo (2.5s)
+  ok 49 [phone] › e2e\app.spec.ts:27:1 › replay controls: play, pause, step, reset, seek (5.5s)
+  ok 50 [phone] › e2e\app.spec.ts:47:1 › direct URL with state survives refresh, and an alert has evidence (4.2s)
+  ok 51 [phone] › e2e\app.spec.ts:60:1 › changing the complication loads that analysis and labels it (7.1s)
+  ok 52 [phone] › e2e\app.spec.ts:68:1 › missing data shows no verdict and keeps the last valid state (8.3s)
+  ok 53 [phone] › e2e\app.spec.ts:78:1 › evaluation shows held-out counts and comparison (6.9s)
+  x  54 [phone] › e2e\app.spec.ts:90:1 › deep link to an evaluation section scrolls there (12.4s)
+  ok 55 [phone] › e2e\app.spec.ts:95:1 › data page lists provenance and discrepancies (25.3s)
+  ok 56 [phone] › e2e\app.spec.ts:103:1 › analyze a real sample reading end to end (8.8s)
+  ok 57 [phone] › e2e\app.spec.ts:113:1 › unknown route shows not-found page; navigation menu is reachable (3.4s)
+  -  58 [phone] › e2e\app.spec.ts:121:1 › keyboard: skip link and visible focus
+  ok 59 [phone] › e2e\app.spec.ts:131:1 › frontend talks to the API origin it was built for (CORS when cross-origin) (2.8s)
+  ok 60 [phone] › e2e\audit.spec.ts:8:5 › TC-01 malformed replay URLs › t=1.5 renders a usable page with a canonical cursor (7.9s)
+  ok 61 [phone] › e2e\audit.spec.ts:8:5 › TC-01 malformed replay URLs › t=-4 renders a usable page with a canonical cursor (9.1s)
+  ok 62 [phone] › e2e\audit.spec.ts:8:5 › TC-01 malformed replay URLs › t=abc renders a usable page with a canonical cursor (8.4s)
+  ok 63 [phone] › e2e\audit.spec.ts:8:5 › TC-01 malformed replay URLs › t=99999 renders a usable page with a canonical cursor (12.2s)
+  ok 64 [phone] › e2e\audit.spec.ts:8:5 › TC-01 malformed replay URLs › t=(empty) renders a usable page with a canonical cursor (13.9s)
+  ok 65 [phone] › e2e\audit.spec.ts:23:3 › TC-01 malformed replay URLs › unknown run, condition and bearing are reported, not crashed (9.7s)
+  ok 66 [phone] › e2e\audit.spec.ts:33:3 › TC-01 malformed replay URLs › back and forward move the cursor (5.9s)
+  ok 67 [phone] › e2e\audit.spec.ts:45:1 › TC-03 calibration period shows no reference-relative evidence and a neutral order (8.1s)
+  ok 68 [phone] › e2e\audit.spec.ts:72:1 › TC-07 retained values are labelled as the last valid measurement (5.1s)
+  ok 69 [phone] › e2e\audit.spec.ts:81:1 › TC-09 the spectrum keeps up during playback and names its reading (6.6s)
+  ok 70 [phone] › e2e\audit.spec.ts:95:1 › TC-06 switching runs never shows the previous run under the new name; failures are visible (13.5s)
+  ok 71 [phone] › e2e\audit.spec.ts:116:3 › Analyze › TC-04 names the upload, not a hard-coded bearing; TC-05 marks results stale when inputs change (9.3s)
+  ok 72 [phone] › e2e\audit.spec.ts:132:3 › Analyze › TC-02/TC-08 acquisition settings are fixed to the supported configuration (2.0s)
+  ok 73 [phone] › e2e\audit.spec.ts:139:3 › Analyze › TC-02 server validation messages are shown, not "server could not be reached" (5.5s)
+  ok 74 [phone] › e2e\audit.spec.ts:152:1 › guided examples land on data-driven readings (13.6s)
+  ok 75 [phone] › e2e\audit.spec.ts:164:1 › footer reports frontend and API versions (5.1s)
+  x  76 [phone] › e2e\audit.spec.ts:169:1 › landing offers the five scenario entry points and they open working pages (10.0s)
+  x  77 [phone] › e2e\audit.spec.ts:184:1 › evaluation reports bearing-level counts, fault identification and the no-switch rationale (7.1s)
+  ok 78 [phone] › e2e\audit.spec.ts:195:1 › robustness examples open the states they describe (19.5s)
+  ok 79 [phone] › e2e\audit.spec.ts:204:1 › alerts carry the actionability note without claiming a defect (8.9s)
+  ok 80 [phone] › e2e\audit.spec.ts:210:1 › working preview panels do not overlap at any width (9.6s)
+
+
+  1) [desktop] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on / ──────────────────────────
+
+    Error: page.goto: net::ERR_NETWORK_CHANGED at https://tocsin-phi.vercel.app/
+    Call log:
+      - navigating to "https://tocsin-phi.vercel.app/", waiting until "load"
+
+
+       7 | for (const path of PAGES) {
+       8 |   test(`axe: no WCAG A/AA violations on ${path}`, async ({ page }) => {
+    >  9 |     await page.goto(path)
+         |                ^
+      10 |     await page.waitForLoadState('networkidle')
+      11 |     await page.waitForTimeout(500)
+      12 |     const res = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze()
+        at C:\Users\DELL\Desktop\tocsin\web\e2e\a11y.spec.ts:9:16
+
+    Error Context: test-results\a11y-axe-no-WCAG-A-AA-violations-on--desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\a11y-axe-no-WCAG-A-AA-violations-on--desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\a11y-axe-no-WCAG-A-AA-violations-on--desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [desktop] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on /demo/test2?cond=gaps&b=1&t=101 
+
+    Test timeout of 60000ms exceeded.
+
+    Error: page.waitForLoadState: Test timeout of 60000ms exceeded.
+
+       8 |   test(`axe: no WCAG A/AA violations on ${path}`, async ({ page }) => {
+       9 |     await page.goto(path)
+    > 10 |     await page.waitForLoadState('networkidle')
+         |                ^
+      11 |     await page.waitForTimeout(500)
+      12 |     const res = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze()
+      13 |     const summary = res.violations.map((v) => `${v.id} (${v.impact}): ${v.nodes.length} node(s) e.g. ${v.nodes[0]?.target.join(' ')}`)
+        at C:\Users\DELL\Desktop\tocsin\web\e2e\a11y.spec.ts:10:16
+
+    Error Context: test-results\a11y-axe-no-WCAG-A-AA-viol-ab984-o-test2-cond-gaps-b-1-t-101-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\a11y-axe-no-WCAG-A-AA-viol-ab984-o-test2-cond-gaps-b-1-t-101-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\a11y-axe-no-WCAG-A-AA-viol-ab984-o-test2-cond-gaps-b-1-t-101-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [desktop] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on /evaluation ────────────────
+
+    Error: page.goto: net::ERR_NETWORK_CHANGED at https://tocsin-phi.vercel.app/evaluation
+    Call log:
+      - navigating to "https://tocsin-phi.vercel.app/evaluation", waiting until "load"
+
+
+       7 | for (const path of PAGES) {
+       8 |   test(`axe: no WCAG A/AA violations on ${path}`, async ({ page }) => {
+    >  9 |     await page.goto(path)
+         |                ^
+      10 |     await page.waitForLoadState('networkidle')
+      11 |     await page.waitForTimeout(500)
+      12 |     const res = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze()
+        at C:\Users\DELL\Desktop\tocsin\web\e2e\a11y.spec.ts:9:16
+
+    Error Context: test-results\a11y-axe-no-WCAG-A-AA-violations-on-evaluation-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\a11y-axe-no-WCAG-A-AA-violations-on-evaluation-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\a11y-axe-no-WCAG-A-AA-violations-on-evaluation-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [desktop] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on /data ──────────────────────
+
+    Error: page.goto: net::ERR_NETWORK_CHANGED at https://tocsin-phi.vercel.app/data
+    Call log:
+      - navigating to "https://tocsin-phi.vercel.app/data", waiting until "load"
+
+
+       7 | for (const path of PAGES) {
+       8 |   test(`axe: no WCAG A/AA violations on ${path}`, async ({ page }) => {
+    >  9 |     await page.goto(path)
+         |                ^
+      10 |     await page.waitForLoadState('networkidle')
+      11 |     await page.waitForTimeout(500)
+      12 |     const res = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze()
+        at C:\Users\DELL\Desktop\tocsin\web\e2e\a11y.spec.ts:9:16
+
+    Error Context: test-results\a11y-axe-no-WCAG-A-AA-violations-on-data-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\a11y-axe-no-WCAG-A-AA-violations-on-data-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\a11y-axe-no-WCAG-A-AA-violations-on-data-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [desktop] › e2e\app.spec.ts:16:1 › landing explains the product and opens the demo ────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Recorded dataset replay. Not a live machine feed.')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByText('Recorded dataset replay. Not a live machine feed.') with timeout 5000ms
+      - waiting for getByText('Recorded dataset replay. Not a live machine feed.')
+
+
+      22 |   await page.locator('.hero-cta').getByRole('link', { name: /Explore the replay/ }).click()
+      23 |   await expect(page).toHaveURL(/\/demo/)
+    > 24 |   await expect(page.getByText('Recorded dataset replay. Not a live machine feed.')).toBeVisible()
+         |                                                                                     ^
+      25 | })
+      26 |
+      27 | test('replay controls: play, pause, step, reset, seek', async ({ page }) => {
+        at C:\Users\DELL\Desktop\tocsin\web\e2e\app.spec.ts:24:85
+
+    Error Context: test-results\app-landing-explains-the-product-and-opens-the-demo-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\app-landing-explains-the-product-and-opens-the-demo-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\app-landing-explains-the-product-and-opens-the-demo-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [desktop] › e2e\audit.spec.ts:8:5 › TC-01 malformed replay URLs › t=-4 renders a usable page with a canonical cursor 
+
+    Test timeout of 60000ms exceeded.
+
+    Error: page.goto: Test timeout of 60000ms exceeded.
+    Call log:
+      - navigating to "https://tocsin-phi.vercel.app/demo/test3?cond=clean&b=3&t=-4", waiting until "load"
+
+
+       9 |       const errors: string[] = []
+      10 |       page.on('pageerror', (e) => errors.push(String(e)))
+    > 11 |       await page.goto(`/demo/test3?cond=clean&b=3&t=${raw}`)
+         |                  ^
+      12 |       await loaded(page)
+      13 |       await expect(page.getByRole('button', { name: 'Play', exact: true })).toBeVisible()
+      14 |       await expect(page).toHaveURL(new RegExp(`[?&]t=${expected}(&|$)`))
+        at C:\Users\DELL\Desktop\tocsin\web\e2e\audit.spec.ts:11:18
+
+    Error Context: test-results\audit-TC-01-malformed-repl-98549-age-with-a-canonical-cursor-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\audit-TC-01-malformed-repl-98549-age-with-a-canonical-cursor-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\audit-TC-01-malformed-repl-98549-age-with-a-canonical-cursor-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7) [desktop] › e2e\audit.spec.ts:8:5 › TC-01 malformed replay URLs › t=abc renders a usable page with a canonical cursor 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('.evidence')
+    Expected: visible
+    Timeout: 20000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" locator('.evidence') with timeout 20000ms
+      - waiting for locator('.evidence')
+
+
+      148 |
+      149 | // Test 3 replays are ~3.7 MB of JSON; allow for loading on a slow or busy machine before asserting.
+    > 150 | const loaded = (page: import('@playwright/test').Page) => expect(page.locator('.evidence')).toBeVisible({ timeout: 20_000 })
+          |                                                                                             ^
+      151 |
+      152 | test('guided examples land on data-driven readings', async ({ page }) => {
+      153 |   await page.goto('/demo/test3?guide=alert&b=3')
+        at loaded (C:\Users\DELL\Desktop\tocsin\web\e2e\audit.spec.ts:150:93)
+        at C:\Users\DELL\Desktop\tocsin\web\e2e\audit.spec.ts:12:13
+
+    Error Context: test-results\audit-TC-01-malformed-repl-73e7d-age-with-a-canonical-cursor-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\audit-TC-01-malformed-repl-73e7d-age-with-a-canonical-cursor-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\audit-TC-01-malformed-repl-73e7d-age-with-a-canonical-cursor-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  8) [desktop] › e2e\audit.spec.ts:81:1 › TC-09 the spectrum keeps up during playback and names its reading 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByTestId('spectrum-label')
+    Expected substring: "Reading 242"
+    Received string:    "Showing reading 231 · updating to reading 242 · 2000–8000 Hz band-passed"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" getByTestId('spectrum-label') with timeout 5000ms
+      - waiting for getByTestId('spectrum-label')
+        5 × locator resolved to <span class="panel-sub" data-testid="spectrum-label">Showing reading 222 · updating to reading 242 · 2…</span>
+          - unexpected value "Showing reading 222 · updating to reading 242 · 2000–8000 Hz band-passed"
+        9 × locator resolved to <span class="panel-sub" data-testid="spectrum-label">Showing reading 231 · updating to reading 242 · 2…</span>
+          - unexpected value "Showing reading 231 · updating to reading 242 · 2000–8000 Hz band-passed"
+
+
+      90 |   expect(n).toBeGreaterThan(3)
+      91 |   const reading = Number((await page.getByText(/^Reading \d+ of 984$/).textContent())!.match(/\d+/)![0])
+    > 92 |   await expect(page.getByTestId('spectrum-label')).toContainText(`Reading ${reading}`, { timeout: 5000 })
+         |                                                    ^
+      93 | })
+      94 |
+      95 | test('TC-06 switching runs never shows the previous run under the new name; failures are visible', async ({ page }) => {
+        at C:\Users\DELL\Desktop\tocsin\web\e2e\audit.spec.ts:92:52
+
+    Error Context: test-results\audit-TC-09-the-spectrum-k-b9712-yback-and-names-its-reading-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\audit-TC-09-the-spectrum-k-b9712-yback-and-names-its-reading-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\audit-TC-09-the-spectrum-k-b9712-yback-and-names-its-reading-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  9) [desktop] › e2e\audit.spec.ts:169:1 › landing offers the five scenario entry points and they open working pages 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('region', { name: 'Scenario: Inspect the missed failure' })
+    Expected substring: "never alerted"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" getByRole('region', { name: 'Scenario: Inspect the missed failure' }) with timeout 5000ms
+      - waiting for getByRole('region', { name: 'Scenario: Inspect the missed failure' })
+
+
+      173 |   }
+      174 |   await page.getByRole('link', { name: /Inspect the missed failure/ }).click()
+    > 175 |   await expect(page.getByRole('region', { name: 'Scenario: Inspect the missed failure' })).toContainText('never alerted')
+          |                                                                                            ^
+      176 |   await page.goto('/')
+      177 |   await page.getByRole('link', { name: /Analyze a supported sample/ }).click()
+      178 |   await expect(page.getByText('ims_test2_2004.02.19.05.42.39.txt')).toBeVisible()
+        at C:\Users\DELL\Desktop\tocsin\web\e2e\audit.spec.ts:175:92
+
+    Error Context: test-results\audit-landing-offers-the-f-4d08c-and-they-open-working-pages-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\audit-landing-offers-the-f-4d08c-and-they-open-working-pages-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\audit-landing-offers-the-f-4d08c-and-they-open-working-pages-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  10) [desktop] › e2e\audit.spec.ts:184:1 › evaluation reports bearing-level counts, fault identification and the no-switch rationale 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#prf table')
+    Expected substring: "TOCSIN (submitted)"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" locator('#prf table') with timeout 5000ms
+      - waiting for locator('#prf table')
+
+
+      185 |   await page.goto('/evaluation#prf')
+      186 |   const prf = page.locator('#prf table')
+    > 187 |   await expect(prf).toContainText('TOCSIN (submitted)')
+          |                     ^
+      188 |   await expect(prf.locator('tr.hl')).toContainText('1/2')
+      189 |   await expect(prf.locator('tr.hl')).toContainText('1/5')
+      190 |   await expect(page.locator('#fault-id')).toContainText('outer race')
+        at C:\Users\DELL\Desktop\tocsin\web\e2e\audit.spec.ts:187:21
+
+    Error Context: test-results\audit-evaluation-reports-b-c9db6-and-the-no-switch-rationale-desktop\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\audit-evaluation-reports-b-c9db6-and-the-no-switch-rationale-desktop\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\audit-evaluation-reports-b-c9db6-and-the-no-switch-rationale-desktop\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  11) [phone] › e2e\app.spec.ts:90:1 › deep link to an evaluation section scrolls there ────────────
+
+    Error: expect(locator).toBeInViewport() failed
+
+    Locator:  locator('#reproduce')
+    Expected: in viewport
+    Received: viewport ratio 0
+    Timeout:  10000ms
+
+    Call log:
+      - Expect "toBeInViewport" locator('#reproduce') with timeout 10000ms
+      - waiting for locator('#reproduce')
+        10 × locator resolved to <section id="reproduce" class="ev-section" aria-labelledby="reproduce-h">…</section>
+           - unexpected value "viewport ratio 0"
+
+
+      90 | test('deep link to an evaluation section scrolls there', async ({ page }) => {
+      91 |   await page.goto('/evaluation#reproduce')
+    > 92 |   await expect(page.locator('#reproduce')).toBeInViewport({ timeout: 10_000 })
+         |                                            ^
+      93 | })
+      94 |
+      95 | test('data page lists provenance and discrepancies', async ({ page }) => {
+        at C:\Users\DELL\Desktop\tocsin\web\e2e\app.spec.ts:92:44
+
+    Error Context: test-results\app-deep-link-to-an-evaluation-section-scrolls-there-phone\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\app-deep-link-to-an-evaluation-section-scrolls-there-phone\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\app-deep-link-to-an-evaluation-section-scrolls-there-phone\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  12) [phone] › e2e\audit.spec.ts:169:1 › landing offers the five scenario entry points and they open working pages 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('region', { name: 'Scenario: Inspect the missed failure' })
+    Expected substring: "never alerted"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" getByRole('region', { name: 'Scenario: Inspect the missed failure' }) with timeout 5000ms
+      - waiting for getByRole('region', { name: 'Scenario: Inspect the missed failure' })
+
+
+      173 |   }
+      174 |   await page.getByRole('link', { name: /Inspect the missed failure/ }).click()
+    > 175 |   await expect(page.getByRole('region', { name: 'Scenario: Inspect the missed failure' })).toContainText('never alerted')
+          |                                                                                            ^
+      176 |   await page.goto('/')
+      177 |   await page.getByRole('link', { name: /Analyze a supported sample/ }).click()
+      178 |   await expect(page.getByText('ims_test2_2004.02.19.05.42.39.txt')).toBeVisible()
+        at C:\Users\DELL\Desktop\tocsin\web\e2e\audit.spec.ts:175:92
+
+    Error Context: test-results\audit-landing-offers-the-f-4d08c-and-they-open-working-pages-phone\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\audit-landing-offers-the-f-4d08c-and-they-open-working-pages-phone\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\audit-landing-offers-the-f-4d08c-and-they-open-working-pages-phone\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  13) [phone] › e2e\audit.spec.ts:184:1 › evaluation reports bearing-level counts, fault identification and the no-switch rationale 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#prf table')
+    Expected substring: "TOCSIN (submitted)"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" locator('#prf table') with timeout 5000ms
+      - waiting for locator('#prf table')
+
+
+      185 |   await page.goto('/evaluation#prf')
+      186 |   const prf = page.locator('#prf table')
+    > 187 |   await expect(prf).toContainText('TOCSIN (submitted)')
+          |                     ^
+      188 |   await expect(prf.locator('tr.hl')).toContainText('1/2')
+      189 |   await expect(prf.locator('tr.hl')).toContainText('1/5')
+      190 |   await expect(page.locator('#fault-id')).toContainText('outer race')
+        at C:\Users\DELL\Desktop\tocsin\web\e2e\audit.spec.ts:187:21
+
+    Error Context: test-results\audit-evaluation-reports-b-c9db6-and-the-no-switch-rationale-phone\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\audit-evaluation-reports-b-c9db6-and-the-no-switch-rationale-phone\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\audit-evaluation-reports-b-c9db6-and-the-no-switch-rationale-phone\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  13 failed
+    [desktop] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on / ───────────────────────────
+    [desktop] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on /demo/test2?cond=gaps&b=1&t=101 
+    [desktop] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on /evaluation ─────────────────
+    [desktop] › e2e\a11y.spec.ts:8:3 › axe: no WCAG A/AA violations on /data ───────────────────────
+    [desktop] › e2e\app.spec.ts:16:1 › landing explains the product and opens the demo ─────────────
+    [desktop] › e2e\audit.spec.ts:8:5 › TC-01 malformed replay URLs › t=-4 renders a usable page with a canonical cursor 
+    [desktop] › e2e\audit.spec.ts:8:5 › TC-01 malformed replay URLs › t=abc renders a usable page with a canonical cursor 
+    [desktop] › e2e\audit.spec.ts:81:1 › TC-09 the spectrum keeps up during playback and names its reading 
+    [desktop] › e2e\audit.spec.ts:169:1 › landing offers the five scenario entry points and they open working pages 
+    [desktop] › e2e\audit.spec.ts:184:1 › evaluation reports bearing-level counts, fault identification and the no-switch rationale 
+    [phone] › e2e\app.spec.ts:90:1 › deep link to an evaluation section scrolls there ──────────────
+    [phone] › e2e\audit.spec.ts:169:1 › landing offers the five scenario entry points and they open working pages 
+    [phone] › e2e\audit.spec.ts:184:1 › evaluation reports bearing-level counts, fault identification and the no-switch rationale 
   1 skipped
-  35 passed (1.7m)
+  66 passed (16.4m)
