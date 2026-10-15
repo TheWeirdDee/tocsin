@@ -1,0 +1,70 @@
+name: Deployed smoke
+
+# Runs the browser suite against the live deployment after Vercel reports a
+# successful production deployment (or on demand). It does not deploy anything.
+on:
+  deployment_status:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  WEB_URL: https://tocsin-phi.vercel.app
+  API_URL: https://tocsin-production.up.railway.app
+
+jobs:
+  smoke:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'Production')
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.deployment.sha || github.sha }}
+      - name: Frontend and API serve the deployed commit
+        env:
+          EXPECTED: ${{ github.event.deployment.sha || github.sha }}
+        run: |
+          set -eu
+          web=$(curl -fsS "$WEB_URL/version.json" | python3 -c "import json,sys;print(json.load(sys.stdin)['commit'])")
+          echo "frontend commit: $web (expected $EXPECTED)"
+          test "$web" = "$EXPECTED"
+          # Railway builds the same push independently; wait up to 10 minutes for it.
+          for i in $(seq 1 40); do
+            api=$(curl -fsS "$API_URL/api/health" | python3 -c "import json,sys;print(json.load(sys.stdin).get('build_commit'))" || true)
+            echo "API commit: $api"
+            [ "$api" = "$EXPECTED" ] && exit 0
+            sleep 15
+          done
+          echo "API did not reach the deployed commit"; exit 1
+      - name: Forwarded headers cannot change the rate-limit identity
+        run: |
+          set -eu
+          cid() { curl -fsS "$@" "$API_URL/api/client-id"; }
+          plain=$(cid)
+          spoof1=$(cid -H "X-Forwarded-For: 203.0.113.7")
+          spoof2=$(cid -H "X-Forwarded-For: 198.51.100.9, 192.0.2.1")
+          echo "$plain"; echo "$spoof1"; echo "$spoof2"
+          printf '%s\n%s\n%s\n' "$plain" "$spoof1" "$spoof2" | python3 -c "
+          import json, sys
+          a, b, c = (json.loads(l) for l in sys.stdin)
+          assert a['trusted_proxy_hops'] == 1, 'proxy hop count not set'
+          assert (a['forwarded_entries'], b['forwarded_entries'], c['forwarded_entries']) == (1, 2, 3), 'proxy did not append exactly one entry'
+          assert a['client_hash'] == b['client_hash'] == c['client_hash'], 'spoofed entries changed the client identity'
+          print('client identity stable under spoofed X-Forwarded-For')"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - working-directory: web
+        run: npm ci && npx playwright install --with-deps chromium
+      - name: Browser suite against the live deployment (desktop)
+        working-directory: web
+        env:
+          E2E_BASE_URL: ${{ env.WEB_URL }}
+          E2E_API_BASE: ${{ env.API_URL }}
+        run: npx playwright test --project=desktop
