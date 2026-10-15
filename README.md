@@ -60,7 +60,7 @@ NASA IMS archive (SHA-256 verified) ──stream──► validate each reading 
 | Requirement | How TOCSIN meets it | Evidence | Limitation |
 |---|---|---|---|
 | Ingest and analyze time-series data from industrial equipment | 9,464 one-second accelerometer readings (20 kHz) from bearing run-to-failure tests, plus live single-reading upload | `results/manifest.json` (per-file hashes, 0 parse errors) | One equipment type, one rig |
-| Detect abnormal patterns or classify faults | Per-bearing defect-band detector with persistence. Each alert names the implicated fault family | `results/heldout.json`, `results/derived_metrics.json` | Weak detection: 1 of 2 held-out failures, 4 of 6 undamaged bearings alerted (below). The organisers supplied no dataset (PS document and event pages, checked 15 Oct), so public IMS data is used, as PS01 allows |
+| Detect abnormal patterns or classify faults | Per-bearing defect-band detector with persistence. Each alert names the implicated fault family | `results/heldout.json`, `results/derived_metrics.json` | Weak detection: 1 of 2 held-out failures, 4 of 6 undamaged bearings alerted (below). No dataset link appears in the PS document or the public event pages (participant channels not checked), so public IMS data is used, as PS01 allows |
 | Alerts with sensor evidence, timestamp, severity/priority | Evidence card, recording timestamp, Watch/Alert state, priority rank, score vs threshold | Replay; `tocsin/explain.py` | The score is not a probability |
 | Held-out evaluation with metrics | Thresholds frozen on Test 1; Tests 2 and 3 held out; event-level and bearing-level metrics with counts | [docs/EVALUATION_PROTOCOL.md](docs/EVALUATION_PROTOCOL.md), `results/v1.0_preregistered/` | 2 failure events. Only v1.0 is clean held-out evidence: v1.1's data-handling fixes were made after v1.0's held-out results were seen. Strict compliance for v1.1 needs a test set nobody has looked at; IMS has none left |
 | A realistic complication | Quality checks and a no-verdict state; seeded noise (20/10/0 dB), dropped samples, 40% gaps and lost readings, each rerun through the full pipeline | `results/robustness.json`, `results/robustness_examples.json` | Changing operating conditions are not demonstrated (IMS runs at constant speed and load) |
@@ -136,11 +136,11 @@ A clean-environment run (new venv, requirements only, bundle fetched from the re
 
 ## 9. Deployment and efficiency
 
-The **proposed deployment** is a browser app (Vercel) calling one small API service (Railway, Docker). It needs no GPU and no edge hardware. Demo artifacts come from a pinned, checksum-verified GitHub Release bundle; the build fails if verification fails. `/api/version` reports the commit, config hash and artifact bundle, and the footer flags a frontend/API mismatch.
+The **running deployment** is a browser app (Vercel) calling one small API service (Railway, Docker). It needs no GPU and no edge hardware. Demo artifacts come from a pinned, checksum-verified GitHub Release bundle; the build fails if verification fails. `/api/version` reports the commit, config hash and artifact bundle, and the footer flags a frontend/API mismatch.
 
 | Measurement | Value | Where |
 |---|---|---|
-| Server-side analysis of one reading (parse, validate, features, score) | 34–38 ms median (two runs of 10) | Deployed Railway service |
+| Server-side analysis of one reading (parse, validate, features, score) | 34–38 ms median (two runs of 10, 14 Oct, release `3f857bf`); 25–62 ms medians in later runs (15 Oct) | Deployed Railway service; dated runs in `results/deploy-verification.json` |
 | Same, laptop (median / p95) | 64 / 84 ms; signal processing alone 7 ms | Laptop (i7-10510U) |
 | Same, pinned to one logical core | 64 / 90 ms | Laptop; no memory cap enforced |
 | HTTP round trip on the laptop | 104 ms median | Local |
