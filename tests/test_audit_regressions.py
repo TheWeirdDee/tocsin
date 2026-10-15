@@ -227,3 +227,75 @@ def test_tc11_over_long_readings_are_rejected_before_analysis():
     big = ("0.1\n" * (2 * 20480 + 1)).encode()
     r = client.post("/api/analyze", files={"file": ("long.csv", big, "text/csv")})
     assert r.status_code == 422 and r.json()["code"] == "too_long"
+
+
+# ---- re-audit R-02 / R-03 (15 Oct): row structure and blank sample positions ----
+
+def _rows():
+    return [ln.split() for ln in open(SAMPLE, encoding="ascii").read().splitlines() if ln.strip()]
+
+
+def _balanced_ragged(long_first=True):
+    """The auditor's case: one value moved between adjacent rows, total count unchanged."""
+    rows = [list(r) for r in _rows()]
+    if long_first:
+        rows[1].append(rows[2].pop())   # row 2 gets 5 fields, row 3 keeps 3
+    else:
+        rows[2].append(rows[1].pop())   # row 2 keeps 3, row 3 gets 5
+    return ("\r\n".join("\t".join(r) for r in rows) + "\r\n").encode()
+
+
+@pytest.mark.parametrize("long_first", [True, False])
+def test_r02_balanced_ragged_rows_are_rejected_by_every_parser_route(long_first):
+    raw = _balanced_ragged(long_first)
+    with pytest.raises(ValueError, match="row 2"):
+        parse_ims_bytes(raw)
+    for name in ("ragged.txt", "ragged.csv", "ragged"):
+        with pytest.raises(ValueError, match="row 2"):
+            read_upload(raw, name)
+
+
+@needs
+def test_r02_balanced_ragged_upload_gets_a_422_naming_the_row():
+    r = client.post("/api/analyze", files={"file": ("ragged-balanced.txt", _balanced_ragged(), "text/plain")})
+    assert r.status_code == 422 and r.json()["code"] == "unparseable_file"
+    assert "row 2" in r.json()["detail"]
+
+
+def test_r03_blank_single_channel_rows_stay_missing_at_their_position():
+    col = [r[0] for r in _rows()]
+    for i in range(0, len(col), 20):
+        col[i] = ""
+    a = read_upload(("\n".join(col) + "\n").encode(), "blank-rows.csv")
+    assert a.shape == (20480, 1)
+    assert int(np.isnan(a[:, 0]).sum()) == 1024 and np.isnan(a[0, 0]) and np.isnan(a[20, 0])
+
+
+def test_r03_entirely_empty_multichannel_rows_become_missing_on_every_channel():
+    rows = ["\t".join(r) for r in _rows()[:200]]
+    rows[50] = ""
+    rows[51] = "   "
+    a = read_upload(("\n".join(rows) + "\n").encode(), "gappy.tsv")
+    assert a.shape == (200, 4)
+    assert np.isnan(a[50]).all() and np.isnan(a[51]).all() and not np.isnan(a[49]).any()
+
+
+def test_r03_blank_lines_after_the_data_or_before_a_header_are_formatting():
+    rows = ["\t".join(r) for r in _rows()[:100]]
+    a = read_upload(("\n\na\tb\tc\td\n" + "\n".join(rows) + "\n\n\n").encode(), "padded.tsv")
+    assert a.shape == (100, 4) and not np.isnan(a).any()
+    # without a header, a leading blank line is a missing first sample, not formatting
+    b = read_upload(("\n" + "\n".join(rows) + "\n").encode(), "lead.tsv")
+    assert b.shape == (101, 4) and np.isnan(b[0]).all()
+
+
+@needs
+def test_r03_blank_sample_rows_are_reported_as_missing_not_removed():
+    col = [r[0] for r in _rows()]
+    for i in range(0, len(col), 20):
+        col[i] = ""
+    r = client.post("/api/analyze", files={"file": ("blank-rows.csv", ("\n".join(col) + "\n").encode(), "text/csv")},
+                    data={"column": "0"})
+    q = r.json()["quality"]
+    assert r.status_code == 200 and r.json()["inputs"]["n_samples"] == 20480
+    assert q["missing_fraction"] == pytest.approx(1024 / 20480, abs=1e-4) and q["interpolated"] == 1024
