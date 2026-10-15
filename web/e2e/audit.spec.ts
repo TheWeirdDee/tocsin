@@ -211,9 +211,13 @@ test('working preview panels do not overlap at any width', async ({ page }) => {
   await page.goto('/')
   await page.locator('.preview-frame').scrollIntoViewIfNeeded()
   await expect(page.locator('.preview-main')).toBeVisible({ timeout: 20_000 })
+  await page.waitForTimeout(1500) // let the entrance animation settle
   const a = (await page.locator('.preview-prio').boundingBox())!
   const b = (await page.locator('.preview-main').boundingBox())!
-  const overlap = a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height
+  // panels sit edge to edge, so sub-pixel rounding is not an overlap; anything visible (1 px or more) is
+  const ix = Math.min(a.x + a.width, b.x + b.width) - Math.max(a.x, b.x)
+  const iy = Math.min(a.y + a.height, b.y + b.height) - Math.max(a.y, b.y)
+  const overlap = ix >= 1 && iy >= 1
   expect(overlap, `priority list ${JSON.stringify(a)} overlaps main panel ${JSON.stringify(b)}`).toBe(false)
 })
 
