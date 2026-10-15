@@ -9,6 +9,7 @@ import './styles/global.css'
 import { StrictMode, Suspense, lazy } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+import { ErrorBoundary } from './components/ErrorBoundary'
 import { Layout } from './components/Layout'
 import Landing from './pages/Landing'
 
@@ -31,6 +32,8 @@ const Loading = () => <div className="wrap" style={{ padding: '40px 0' }}><div c
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    {/* Last line of defence: anything that escapes the page-level boundary still leaves a recovery screen. */}
+    <ErrorBoundary>
     <BrowserRouter>
       <Suspense fallback={<Loading />}>
         <Routes>
@@ -46,5 +49,6 @@ createRoot(document.getElementById('root')!).render(
         </Routes>
       </Suspense>
     </BrowserRouter>
+    </ErrorBoundary>
   </StrictMode>,
 )
