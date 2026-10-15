@@ -5,10 +5,10 @@ Every finding was reproduced independently before it was fixed:
 - **Browser findings:** reproduced with `web/e2e/audit_repro.mjs` against the live site at commit `400a328`. Output: `results/audit/reproduction-before.json`.
 - **API findings:** reproduced with direct HTTP calls against the live API.
 
-Status of the fixes:
+Status of the fixes (current; history below):
 
 - **Local:** verified against a local build. The same script's output is in `results/audit/reproduction-after.json`, and the regression tests are listed in `docs/TEST_RESULTS.md`.
-- **Deployed:** not verified yet. The fixes are not committed or deployed.
+- **Deployed:** committed and deployed; verified on the live site. See *Verification status* below and the re-audit section at the end.
 
 | ID | Kind | Reproduced? | Root cause | Correction | Regression test |
 |---|---|---|---|---|---|
@@ -64,3 +64,24 @@ None of the findings is marked closed by an independent party.
 - **TC-12:** a clean-environment run (new venv from `requirements-dev.txt`, bundle fetched from the GitHub release, full tests) is logged in `results/test-logs/clean_environment.txt`.
 - **Guided scenarios (found 15 Oct while recording the demo, on release `260348a`):** on a fresh load, the scenario's chosen reading lost a race with the canonical-URL effect (TC-01). The URL was rewritten to `t=0` and the replay stayed on reading 1, so "Understand an alert" did not open on the alert. The URL sync now waits until the cursor has reached the scenario's reading. A browser test checks all three scenarios against readings computed from the replay data.
 - **Version record:** `GET /api/version` returns the app version, build commit, config hash, artifact bundle and a consistency flag.
+
+## Re-audit of release `c7181a8` (15 Oct 2026)
+
+An independent re-audit found twelve further issues (R-01 to R-12). Each correction below has a regression test. Every test was confirmed to **fail against the audited release** and pass after the fix: the browser tests were run against the live `c7181a8` site, and the Python tests against the previous parser.
+
+| ID | Finding | Correction | Regression test | Status |
+|---|---|---|---|---|
+| R-01 | `#%` in a link blanked the whole app | Fragments are decoded safely, with the raw text as fallback, and a top-level error boundary now wraps the whole app | `audit.spec.ts` R-01 (initial load and in-app hash change) | Fixed |
+| R-02 | A long row balanced by a short row passed the total-count check and was reshaped, shifting samples between channels | Every row's width is checked before flattening, in both parsers. The 422 names the row | `test_r02_*` (both directions, every parser route, API) | Fixed |
+| R-03 | Blank sample rows were dropped and the quality report said nothing was missing | A blank line is a missing sample on every channel, at its own position. Only blank lines after the data, or before a header, are formatting | `test_r03_*` (single and multichannel, scattered, leading, API) | Fixed |
+| R-04 | Scenario text could name an undamaged bearing as failed, or describe a condition no longer shown | Each scenario is bound to its recording, bearing and condition. Outside them the note says it no longer applies and links back | `audit.spec.ts` R-04 | Fixed |
+| R-05 | Following a scenario link again after Reset stayed on reading 1 | A scenario link (URL without a reading) always re-applies its reading and stops playback | `audit.spec.ts` R-05 | Fixed |
+| R-06 | Stale-result signature used file name and size only | The signature includes a file revision that changes on every file choice | `audit.spec.ts` R-06 (same name and size, different content) | Fixed |
+| R-07 | "Same reading, other detectors" showed retained states as current | On an invalid reading, each detector shows "No valid data" plus its last valid state and age | `audit.spec.ts` R-07 | Fixed |
+| R-08 | Some evidence requests fail silently into placeholders | Not changed in this release | none | **Open** |
+| R-09 | Evaluation headline implied untouched validation | Headline now reads "Evaluation on two reserved bearing-test runs", followed immediately by the v1.0/v1.1 disclosure | Content change | Fixed |
+| R-10 | "No organiser dataset" was stated as verified | Now: no dataset link in the PS document or public pages; participant channels not checked | Documentation | Fixed |
+| R-11 | Documentation mixed historical and current release facts | Current status separated from dated snapshots; dated Railway timings; venv command on the evaluation page | Documentation | Fixed |
+| R-12 | Chart point detail is pointer-only | Not changed; the evidence cards and the replay slider remain the keyboard path | none | **Open** |
+
+The parser change rejects only files whose rows have different widths, and reports blank lines as missing samples. Checked against the previous parser: all 984 Test 2 readings from the NASA archive and both bundled samples parse to identical arrays. Tests 1 and 3 were not re-parsed in this check. The frozen configuration, features, artifacts and historical results were not regenerated and are unchanged.
