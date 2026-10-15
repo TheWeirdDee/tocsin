@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { api } from '../lib/api'
 import { bearingNow, evidenceAt, priorityOrder, referenceReadyIndex } from '../lib/decision'
 import { fmtDuration, fmtStamp, hoursBetween } from '../lib/format'
+import { usePreviewFocus } from '../lib/landingMotion'
 import type { Replay } from '../lib/types'
 import { DETECTORS } from './charts/AlertTimeline'
 import { TrendChart } from './charts/TrendChart'
@@ -19,6 +20,7 @@ export function LivePreview() {
   const [err, setErr] = useState(false)
   const [t, setT] = useState<number | null>(null)
   const [bid, setBid] = useState('3')
+  usePreviewFocus(ref, replay != null)
 
   useEffect(() => {
     const el = ref.current
