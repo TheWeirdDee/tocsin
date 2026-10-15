@@ -29,16 +29,16 @@ Status of the fixes:
 
 Labels: **Agent-verified locally** (checked by the AI coding agent on the build machine), **Agent-verified on deployment** (checked by the agent against the public URLs), **Independently verified** (checked by someone other than the agent), **Still unverified**.
 
-Deployment checks ran on 15 Oct 2026 against release `c7819c3` (`results/audit/deployed-check-c7819c3.json`, `results/audit/reproduction-deployed.json`).
+Deployment checks ran on 15 Oct 2026 against release `c7819c3` and again against release **`260348a`**, which carries the TC-11 correction. Sources: `results/audit/deployed-check-*.json` and the [Deployed smoke run](https://github.com/TheWeirdDee/tocsin/actions/runs/38749784194) for `260348a` (all jobs passed, including 22 of 22 audit checks).
 
-| ID | Agent-verified locally | Agent-verified on deployment (`c7819c3`) | Independently verified |
+| ID | Agent-verified locally | Agent-verified on deployment (`260348a`) | Independently verified |
 |---|---|---|---|
 | TC-01, 03, 05, 06, 07, 09 | Yes | Yes (browser reproduction and the deployed browser suite) | Still unverified |
 | TC-02, 04, 08, 10 | Yes | Yes (direct requests) | Still unverified |
 | TC-12 | Yes | Not applicable (documentation) | Still unverified |
-| TC-11 | Yes, for the `X-Real-IP` correction | **Failed on `c7819c3`** (edge address used as identity; spoofing could not change it). The correction is not yet deployed: still unverified | Still unverified |
+| TC-11 | Yes | Yes. It failed on `c7819c3` (an edge address was used as the identity). On `260348a`, three different networks (the build machine and two GitHub runners) each got their own identity, equal to the hash of their real address, and spoofed `X-Real-IP` / `X-Forwarded-For` values changed none of them. The rate limit itself was not load-tested in public | Still unverified |
 
-Separating different visitors on the deployment needs checks from two networks. The deployed-smoke identity job (GitHub runner) and a check from the build machine together give two; one stable identity alone does not prove separation.
+Visitor separation on the deployment was checked from three networks, not inferred from one stable identity.
 
 None of the findings is marked closed by an independent party.
 
@@ -62,4 +62,5 @@ None of the findings is marked closed by an independent party.
 - **TC-10:** tests now cover leading, trailing, repeated and middle empty fields in both TSV and CSV.
 - **TC-11:** public 500 responses carry no paths or tracebacks (tested). The rate limit was confirmed on a local server: the benchmark hit 429 until its own limit was raised.
 - **TC-12:** a clean-environment run (new venv from `requirements-dev.txt`, bundle fetched from the GitHub release, full tests) is logged in `results/test-logs/clean_environment.txt`.
+- **Guided scenarios (found 15 Oct while recording the demo, on release `260348a`):** on a fresh load, the scenario's chosen reading lost a race with the canonical-URL effect (TC-01). The URL was rewritten to `t=0` and the replay stayed on reading 1, so "Understand an alert" did not open on the alert. The URL sync now waits until the cursor has reached the scenario's reading. A browser test checks all three scenarios against readings computed from the replay data.
 - **Version record:** `GET /api/version` returns the app version, build commit, config hash, artifact bundle and a consistency flag.
