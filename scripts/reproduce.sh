@@ -1,7 +1,8 @@
 #!/usr/bin/env sh
 # Rebuild every number and artifact from the NASA archive. ~45 min on a laptop, ~1.2 GB disk.
 set -eu
-PY="${PYTHON:-python}"
+if [ -z "${PYTHON:-}" ]; then if [ -x .venv/bin/python ]; then PYTHON=.venv/bin/python; else PYTHON=python3; fi; fi
+PY="$PYTHON"
 $PY scripts/fetch_data.py
 $PY scripts/extract_features.py test1 --bands 1000-9000,2000-8000,4000-9000 --spectra clean
 $PY scripts/tune.py
