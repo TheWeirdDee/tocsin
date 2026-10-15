@@ -1,0 +1,26 @@
+{
+ "desktop": {
+  "hiddenAfterScroll": [],
+  "scrollTriggers": "21",
+  "pageErrors": []
+ },
+ "phone": {
+  "hiddenAfterScroll": [],
+  "scrollTriggers": "21",
+  "pageErrors": []
+ },
+ "reducedMotion": {
+  "notFullyVisible": [],
+  "scrollTriggers": "0",
+  "connector": "(unset: drawn)"
+ },
+ "routeChanges": [
+  "20",
+  "away:0",
+  "21",
+  "away:0",
+  "21",
+  "away:0",
+  "21"
+ ]
+}
