@@ -6,6 +6,7 @@ import { ApiError, api } from '../lib/api'
 import { fmtDuration, fmtNum } from '../lib/format'
 import type { BearingMetrics, Replay, Summary } from '../lib/types'
 import { Findings } from './evaluationText'
+import { Glance } from './evaluationGlance'
 import './evaluation.css'
 
 interface DetResult {
@@ -80,8 +81,9 @@ export default function Evaluation() {
       {h && (
         <>
           <Outcome h={h} />
+          <Glance h={h} />
           <Section id="headline" title="Held-out results (current version, v1.1)" sub="IMS Tests 2 and 3, as recorded. Endpoint = last recorded reading of each run. v1.1 fixes two ingestion defects found in the pre-registered v1.0 run (see below).">
-            <div className="table-scroll">
+            <div className="table-scroll" tabIndex={0} role="region" aria-label="Table (scrolls horizontally on narrow screens)">
               <table className="data">
                 <thead>
                   <tr>
@@ -134,7 +136,7 @@ export default function Evaluation() {
           </Section>
 
           <Section id="per-bearing" title="Per-bearing detail" sub="All eight held-out bearings, every main detector">
-            <div className="table-scroll">
+            <div className="table-scroll" tabIndex={0} role="region" aria-label="Table (scrolls horizontally on narrow screens)">
               <table className="data">
                 <thead>
                   <tr><th>Run · bearing</th><th>Label</th>{MAIN.map((d) => <th key={d} className="n">{h.detectors[d].label.split(' (')[0]}: first alert · episodes · alert hours</th>)}</tr>
@@ -159,7 +161,7 @@ export default function Evaluation() {
 
           {rob && (
             <Section id="robustness" title="Robustness: same held-out runs, degraded signals" sub="Each condition modifies the raw signal and reruns the full pipeline with the frozen configuration">
-              <div className="table-scroll">
+              <div className="table-scroll" tabIndex={0} role="region" aria-label="Table (scrolls horizontally on narrow screens)">
                 <table className="data">
                   <thead>
                     <tr><th>Condition</th><th className="n">Readings valid</th>{MAIN.map((d) => <th key={d} className="n"><span className="swatch" style={{ background: COLOR[d] }} />{h.detectors[d].label.split(' (')[0]}<br /><span className="muted">alerted failures · undamaged with alert · lead times</span></th>)}</tr>
@@ -191,7 +193,7 @@ export default function Evaluation() {
           )}
 
           <Section id="ablations" title="Ablations: what each part of TOCSIN contributes" sub="Same held-out runs. Each row removes or changes one ingredient.">
-            <div className="table-scroll">
+            <div className="table-scroll" tabIndex={0} role="region" aria-label="Table (scrolls horizontally on narrow screens)">
               <table className="data">
                 <thead><tr><th>Variant</th><th className="n">Threshold</th><th className="n">Failures alerted</th><th className="n">Lead times</th><th className="n">Undamaged with alert</th><th className="n">Undamaged alert episodes</th><th className="n">Alert h / undamaged bearing-day</th></tr></thead>
                 <tbody>
@@ -215,7 +217,7 @@ export default function Evaluation() {
 
           {sens && (
             <Section id="sensitivity" title="Sensitivity to calibration length and persistence" sub={sens.note}>
-              <div className="table-scroll">
+              <div className="table-scroll" tabIndex={0} role="region" aria-label="Table (scrolls horizontally on narrow screens)">
                 <table className="data">
                   <thead><tr><th>Reference readings (N)</th><th className="n">Persistence (k)</th>{MAIN.map((d) => <th key={d} className="n">{h.detectors[d].label.split(' (')[0]}<br /><span className="muted">held-out: failures · undamaged with alert</span></th>)}</tr></thead>
                   <tbody>
@@ -232,7 +234,7 @@ export default function Evaluation() {
           )}
 
           <Section id="tuning" title="Tuning set (IMS Test 1): used to choose thresholds" sub="Not held-out. Shown for transparency, not as evidence of generalisation.">
-            <div className="table-scroll">
+            <div className="table-scroll" tabIndex={0} role="region" aria-label="Table (scrolls horizontally on narrow screens)">
               <table className="data">
                 <thead><tr><th>Detector</th><th className="n">Threshold</th><th className="n">Failures alerted</th><th className="n">Lead times (B3 inner race, B4 roller)</th><th className="n">Undamaged with alert</th></tr></thead>
                 <tbody>
@@ -280,14 +282,28 @@ export default function Evaluation() {
           </Section>
 
           <Section id="reproduce" title="Reproduce these numbers" sub="About 45 minutes on a laptop. Needs about 1.2 GB free disk; raw data is streamed from the archive and never fully extracted.">
-            <pre className="code"><code>{`python -m venv .venv && .venv/bin/pip install -r requirements.txt
-python scripts/fetch_data.py          # download + verify SHA-256 of the NASA archive
-python scripts/extract_features.py test1 --bands 1000-9000,2000-8000,4000-9000
-python scripts/tune.py                # Test 1 only -> config/frozen.json
-python scripts/extract_features.py test2 --bands 2000-8000 --conditions all --spectra clean,noise10,noise0,drop20
-python scripts/extract_features.py test3 --bands 2000-8000 --conditions all --spectra clean,noise10,noise0,drop20
-python scripts/evaluate.py            # -> results/heldout.json, robustness.json, sensitivity.json
-python scripts/build_artifacts.py     # -> artifacts/ served by the app`}</code></pre>
+            <h3 className="small muted" style={{ margin: '4px 0 8px' }}>macOS / Linux</h3>
+            <pre className="code" tabIndex={0} aria-label="Commands (scrolls horizontally)"><code>{`python3 -m venv .venv
+.venv/bin/pip install -r requirements-dev.txt
+.venv/bin/python scripts/fetch_data.py          # download + verify SHA-256 of the NASA archive
+.venv/bin/python scripts/extract_features.py test1 --bands 1000-9000,2000-8000,4000-9000
+.venv/bin/python scripts/tune.py                # Test 1 only -> config/frozen.json
+.venv/bin/python scripts/extract_features.py test2 --bands 2000-8000 --conditions all --spectra clean,noise10,noise0,drop20
+.venv/bin/python scripts/extract_features.py test3 --bands 2000-8000 --conditions all --spectra clean,noise10,noise0,drop20
+.venv/bin/python scripts/evaluate.py            # -> results/heldout.json, robustness.json, sensitivity.json
+.venv/bin/python scripts/build_artifacts.py     # -> artifacts/ served by the app
+# or all of the above: PYTHON=.venv/bin/python sh scripts/reproduce.sh`}</code></pre>
+            <h3 className="small muted" style={{ margin: '12px 0 8px' }}>Windows (PowerShell)</h3>
+            <pre className="code" tabIndex={0} aria-label="Commands (scrolls horizontally)"><code>{String.raw`py -3.12 -m venv .venv
+.venv\Scripts\python -m pip install -r requirements-dev.txt
+.venv\Scripts\python scripts\fetch_data.py
+.venv\Scripts\python scripts\extract_features.py test1 --bands 1000-9000,2000-8000,4000-9000
+.venv\Scripts\python scripts\tune.py
+.venv\Scripts\python scripts\extract_features.py test2 --bands 2000-8000 --conditions all --spectra clean,noise10,noise0,drop20
+.venv\Scripts\python scripts\extract_features.py test3 --bands 2000-8000 --conditions all --spectra clean,noise10,noise0,drop20
+.venv\Scripts\python scripts\evaluate.py
+.venv\Scripts\python scripts\build_artifacts.py`}</code></pre>
+            <p className="small muted">Shortcut without the raw archive: <code>python scripts/fetch_artifacts.py</code> downloads the verified demo bundle, and the release's feature bundle lets <code>evaluate.py</code> rerun without the 1 GB NASA download.</p>
             <p className="small muted">Requires <code>bsdtar</code> (libarchive) to stream the RAR archives. Every result file records the frozen-config hash. Generated {new Date(h.generated).toUTCString()}.</p>
           </Section>
         </>
@@ -336,7 +352,7 @@ function VersionSection({ v10, v11 }: { v10: Heldout; v11: Heldout }) {
         <li><strong>Defect 1: reading order.</strong> Test 3's archive stores one file (18 Apr 02:42) between 4 Apr 19:01 and 19:11. v1.0 analysed it out of time order. v1.1 sorts by timestamp.</li>
         <li><strong>Defect 2: machine-stopped readings accepted.</strong> The final readings of Tests 2 and 3 are flat on all four channels (1–6% of normal level). v1.0 scored them, and TOCSIN's only Test 2 bearing 1 alert came from them. v1.1 gives no verdict for a reading below 10% of the bearing's normal level. This affects no Test 1 reading, so no threshold changed.</li>
       </ul>
-      <div className="table-scroll">
+      <div className="table-scroll" tabIndex={0} role="region" aria-label="Table (scrolls horizontally on narrow screens)">
         <table className="data">
           <thead><tr><th>Detector</th><th>Version</th><th className="n">Failures alerted</th><th className="n">Test 2 B1 first alert</th><th className="n">Test 3 B3 first alert</th><th className="n">Undamaged with alert</th><th className="n">Alert h / undamaged bearing-day</th></tr></thead>
           <tbody>
@@ -371,7 +387,7 @@ function DiagnosisSection({ h, post }: { h: Heldout; post: PostHoc | null }) {
         <li>You can see it in the replay: <Link to="/demo/test2?cond=clean&b=1&t=900">Test 2, bearing 1, 18 Feb</Link>. The tallest peak sits just left of the shaded outer-race window.</li>
       </ul>
       {post ? (
-        <div className="table-scroll" style={{ marginTop: 14 }}>
+        <div className="table-scroll" style={{ marginTop: 14 }} tabIndex={0} role="region" aria-label="Table (scrolls horizontally on narrow screens)">
           <table className="data">
             <thead><tr><th>Variant</th><th className="n">Threshold (Test 1 rule)</th><th className="n">Failures alerted</th><th className="n">Test 2 B1</th><th className="n">Test 3 B3</th><th className="n">Undamaged with alert</th><th className="n">Alert h / undamaged bearing-day</th></tr></thead>
             <tbody>
@@ -414,11 +430,32 @@ function AblationNote({ h }: { h: Heldout }) {
   )
 }
 
+interface VerRec { time: string; label: string; build_commit: string; analyze_server_ms: { median: number; max: number; n: number }; analyze_round_trip_ms: { median: number }; passed: number; failed: number }
+
 function DeploySection({ dep }: { dep: Deploy }) {
   const d = dep as { hardware?: { summary?: string }; rows?: { name: string; value: string; includes: string }[]; note?: string }
+  const [ver, setVer] = useState<VerRec[] | null>(null)
+  useEffect(() => { api.result<VerRec[]>('deploy-verification').then(setVer).catch(() => undefined) }, [])
   return (
-    <Section id="deployment" title="Deployment measurements" sub={`Measured on ${d.hardware?.summary ?? 'the build machine'}. Not a constrained edge device.`}>
-      <div className="table-scroll">
+    <Section id="deployment" title="Deployment measurements" sub="Proposed deployment: a browser app calling one small API service. No GPU or edge hardware needed.">
+      {ver && ver.length > 0 && (
+        <div className="table-scroll" tabIndex={0} role="region" aria-label="Deployed service measurements" style={{ marginBottom: 16 }}>
+          <table className="data">
+            <thead><tr><th>Deployed Railway service</th><th className="n">Server-side analysis per reading (median / max)</th><th className="n">Round trip from the build machine (median)</th><th className="n">Checks passed</th></tr></thead>
+            <tbody>
+              {ver.filter((v) => v.analyze_server_ms).map((v) => (
+                <tr key={v.time}><td>{v.label} · {v.time.slice(0, 10)} · commit <code>{v.build_commit?.slice(0, 7)}</code></td>
+                  <td className="n">{v.analyze_server_ms.median.toFixed(1)} / {v.analyze_server_ms.max.toFixed(1)} ms (n = {v.analyze_server_ms.n})</td>
+                  <td className="n">{(v.analyze_round_trip_ms.median / 1000).toFixed(1)} s</td>
+                  <td className="n">{v.passed} / {v.passed + v.failed}</td></tr>
+              ))}
+            </tbody>
+          </table>
+          <p className="small muted" style={{ marginTop: 8 }}>Round trips are dominated by uploading a 0.55 MB reading over the build machine's own connection. The server-side time is the analysis itself.</p>
+        </div>
+      )}
+      <p className="small muted" style={{ marginBottom: 8 }}>Laptop measurements: {d.hardware?.summary ?? 'build machine'}.</p>
+      <div className="table-scroll" tabIndex={0} role="region" aria-label="Table (scrolls horizontally on narrow screens)">
         <table className="data">
           <thead><tr><th>Measurement</th><th className="n">Value</th><th>What it includes</th></tr></thead>
           <tbody>
