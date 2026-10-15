@@ -32,8 +32,8 @@
 
 ## Open dependencies (need the owner)
 
-1. **Deadline confirmation.** The Devfolio schedule says the hackathon ends **15 Oct 2026, 11:59 PM IST** (19:29 WAT). No separate submission deadline is listed publicly, so please confirm in the Devfolio dashboard.
-2. **Organizer dataset.** PS01 says organizers "should provide" data, but none is linked publicly. Please confirm in the dashboard or Discord whether a mandatory dataset exists.
+1. **Deadline: resolved.** The Devfolio schedule says the hackathon ends **15 Oct 2026, 11:59 PM IST** (19:29 WAT). No separate submission deadline is listed, so that is the deadline.
+2. **Organizer dataset: resolved.** None was supplied. The official PS document (re-fetched 15 Oct 2026, byte-identical to the copy used, SHA-256 `b77fb768…`) and the event pages contain no dataset. PS01 line 20 allows public data when its labels and operating conditions are stated.
 3. **Hosting: resolved.**
    - Vercel project `tocsin` and Railway service `tocsin` are deployed. The Railway service sits in the owner's existing project `gentle-mercy`, which the owner chose because of the free-plan project limit.
    - The Railway account is on a trial with limited credit. Keeping the API online after the trial needs an owner decision.
