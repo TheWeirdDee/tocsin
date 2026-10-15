@@ -216,3 +216,19 @@ test('working preview panels do not overlap at any width', async ({ page }) => {
   const overlap = a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height
   expect(overlap, `priority list ${JSON.stringify(a)} overlaps main panel ${JSON.stringify(b)}`).toBe(false)
 })
+
+test('guided scenarios open on the reading they describe, on a fresh load', async ({ page, request }) => {
+  const t3 = await (await request.get(`${API}/api/replay/test3?condition=clean`)).json()
+  const alertAt = t3.bearings['3'].alert_events[0].index
+  await page.goto('/demo/test3?guide=alert&b=3')
+  await expect(page).toHaveURL(new RegExp(`[?&]t=${alertAt}(&|$)`), { timeout: 20_000 })
+  await expect(page.locator('.evidence .badge', { hasText: 'Alert' }).first()).toBeVisible()
+
+  const t2 = await (await request.get(`${API}/api/replay/test2?condition=clean`)).json()
+  const rmsAt = t2.bearings['1'].detectors.b0_rms.effective.findIndex((s: number) => s === 3) // S.ALERT
+  await page.goto('/demo/test2?guide=miss&b=1')
+  await expect(page).toHaveURL(new RegExp(`[?&]t=${rmsAt}(&|$)`), { timeout: 20_000 })
+
+  await page.goto('/demo/test2?guide=gaps&cond=gaps&b=1')
+  await expect(page.locator('.evidence .badge', { hasText: 'No valid data' }).first()).toBeVisible({ timeout: 20_000 })
+})
