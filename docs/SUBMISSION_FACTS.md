@@ -14,7 +14,7 @@ The verified facts are marked ✔. The unknowns that the owner must confirm are 
 | Judging | ✔ | The PS01 rubric weights are detection 25, early warning 15, robustness 15, engineering 15, explainability 10, deployment 10, commercial 10. The event page also mentions creativity, technical depth and execution |
 | Contact | ✔ | jsmyn.labs@gmail.com (from the event page) |
 
-## Live URLs (checked 15 Oct 2026, release `c7819c3`)
+## Live URLs (checked 15 Oct 2026, release `260348a`)
 
 - App: **https://tocsin-phi.vercel.app**
 - API: **https://tocsin-production.up.railway.app** (`/api/version` reports the running commit, config hash and artifact bundle)
