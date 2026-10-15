@@ -209,3 +209,18 @@
   .announce .accent { white-space: nowrap; }
 }
 @media (max-width: 760px) { .preview-prio ol { grid-template-columns: minmax(0, 1fr); } }
+/* motion: step connector (drawn by GSAP through --connector; fully drawn without it) */
+.steps-split .steps { position: relative; }
+.steps-split .steps::before { content: ""; position: absolute; left: 28px; top: 44px; bottom: 44px; width: 1px; pointer-events: none;
+  background: linear-gradient(var(--accent), rgba(255, 117, 31, 0.15)); transform: scaleY(var(--connector, 1)); transform-origin: top; }
+.steps-split .steps li { position: relative; }
+/* motion: button and link interactions (transform only; reduced motion collapses the transitions) */
+.btn-pill .disc, .btn-link svg, .entry .go svg, .announce svg { transition: transform .22s cubic-bezier(.2, .7, .2, 1); }
+.btn-pill:hover .disc, .btn-pill:focus-visible .disc { transform: translateX(3px); }
+.btn-link:hover svg, .btn-link:focus-visible svg, .entry:hover .go svg, .entry:focus-visible .go svg, .announce:hover svg, .announce:focus-visible svg { transform: translateX(3px); }
+.btn-pill { transition: background .15s, border-color .15s, transform .15s; }
+.btn-pill:active { transform: translateY(1px); }
+.entry { transition: border-color .15s, background .15s, transform .22s cubic-bezier(.2, .7, .2, 1); }
+.entry:hover { transform: translateY(-2px); }
+.steps-split .steps .step-n { position: relative; z-index: 1; justify-self: start; align-self: start; background: var(--page); padding: 4px 2px; }
+.steps-split .steps li:first-child .step-n { background: var(--surface); }
