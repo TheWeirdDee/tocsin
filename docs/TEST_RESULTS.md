@@ -1,23 +1,47 @@
 # Test results
 
-Every log below was produced on 15 Oct 2026 against one source state. That state is HEAD `400a328` plus uncommitted changes, with fingerprint `b8783fbd8446b423d83622fea0ca3c7f700afeccec6eed0eff90254eb3b23548` from `python scripts/tree_fingerprint.py`. The fingerprint excludes `results/`, `docs/` and `README.md`, so recording the results does not change it. After release, the commit replaces the fingerprint as the identifier. Each log starts with its command, environment, fingerprint and start time.
+Every local log below was produced on 15 Oct 2026 against one source state: release commit `c7819c3` plus uncommitted changes, fingerprint `4b62c8d0e00ae926b04368580b43661237f410530ffbdeae7a8928b229b45ce4` (`python scripts/tree_fingerprint.py`). The fingerprint excludes `results/`, `docs/` and `README.md`, so recording results does not change it. Each log starts with its command, environment, fingerprint and start time.
 
 Environment: Windows 11 Pro 10.0.26200; Python 3.12.10 in `.venv`; Node 24.13.1; Playwright Chromium; local uvicorn.
 
+The release adds one file after these runs: a `Makefile` that wraps existing scripts (`make reproduce`, `make artifacts`, `make test`). No test exercises it, so it is the only difference between the tested state and the released source.
+
 | Suite | Command (cwd) | Configuration | Passed | Failed | Skipped | Log |
 |---|---|---|---|---|---|---|
-| Python unit, integration, API, artifact integrity, audit regressions | `.venv/Scripts/python -m pytest -v` (root) | repo venv, local artifacts | 60 | 0 | 0 | `results/test-logs/pytest.txt` |
-| Clean environment | `TOCSIN_ARTIFACTS=<fetched> <clean venv>/python -m pytest -q` (root) | venv built only from `requirements-dev.txt`; bundle `demo-artifacts-v1.1.0` fetched and checksum-verified from the GitHub release | 60 | 0 | 0 | `results/test-logs/clean_environment.txt` |
+| Python unit, integration, API, artifact integrity, audit regressions | `.venv/Scripts/python -m pytest -v` (root) | repo venv, local artifacts | 67 | 0 | 0 | `results/test-logs/pytest.txt` |
+| Clean environment | `TOCSIN_ARTIFACTS=<fetched> <clean venv>/python -m pytest -q` (root) | venv built only from `requirements-dev.txt`; bundle `demo-artifacts-v1.1.0` fetched and checksum-verified from the GitHub release | 67 | 0 | 0 | `results/test-logs/clean_environment.txt` |
 | Frontend unit | `npx vitest run` (web) | | 10 | 0 | 0 | `results/test-logs/vitest.txt` |
 | Type-check | `npx tsc -b` (web) | | clean | | | `results/test-logs/tsc.txt` |
 | Lint | `npx eslint .` (web) | | 0 errors, 0 warnings | | | `results/test-logs/eslint.txt` |
-| Browser, same origin | `npx vite build && npx playwright test` (web) | uvicorn :8001 serves the build and the API; desktop 1440×900, tablet 820×1180, phone Pixel 7; 1 worker | 119 | 0 | 1 | `results/test-logs/playwright.txt`, `results/e2e.json` |
-| Browser, cross-origin (Vercel/Railway split) | `VITE_API_BASE=http://127.0.0.1:8001 npx vite build && E2E_CROSS_ORIGIN=1 npx playwright test` (web) | vite preview :4173 calls the API on :8001; same three viewports | 119 | 0 | 1 | `results/test-logs/playwright-cross-origin.txt`, `results/e2e-cross-origin.json` |
-| Browser, live deployment | `E2E_BASE_URL=https://tocsin-phi.vercel.app E2E_API_BASE=https://tocsin-production.up.railway.app npx playwright test` | earlier build (commit `3f857bf`) | 35 | 0 | 1 | `results/test-logs/playwright-deployed.txt` (to be rerun after deployment) |
-| Deployed API and frontend checks | `python scripts/verify_deployment.py --api … --web …` | earlier build | 26/26, twice | | | `results/deploy-verification.json` (to be rerun after deployment) |
-| Tuning reproducibility | rerun `scripts/tune.py`, compare with `config/frozen_v1.0.json` | | see log | | | `results/test-logs/retune_reproducibility.txt` |
+| Browser, same origin | `npx vite build && npx playwright test` (web) | uvicorn :8001 serves the build and the API; desktop 1440×900, tablet 820×1180, phone Pixel 7; 1 worker | 134 | 0 | 1 | `results/test-logs/playwright.txt`, `results/e2e.json` |
+| Browser, cross-origin (Vercel/Railway split) | `VITE_API_BASE=http://127.0.0.1:8001 npx vite build && E2E_CROSS_ORIGIN=1 npx playwright test` (web) | vite preview :4173 calls the API on :8001; same three viewports | 134 | 0 | 1 | `results/test-logs/playwright-cross-origin.txt`, `results/e2e-cross-origin.json` |
 
-The browser counts are **per configuration**. Each configuration runs the full 120-test suite on all three viewports. The skipped test is the keyboard skip-link test on the phone profile, which has no physical keyboard. The pytest warning is a third-party deprecation notice from Starlette's test client.
+The browser counts are **per configuration**: each configuration runs the full 135-test suite on all three viewports. That suite includes `motion.spec.ts`, which covers:
+- reduced motion;
+- every element visible after scrolling;
+- no duplicate scroll animations after repeated navigation;
+- calls to action and the preview staying usable while the motion runs.
+
+The skipped test is the keyboard skip-link test on the phone profile, which has no physical keyboard. The pytest warning is a third-party deprecation notice from Starlette's test client.
+
+## Checks against the live deployment (release `c7819c3`, 15 Oct 2026)
+
+These ran from the build machine against https://tocsin-phi.vercel.app and https://tocsin-production.up.railway.app, both serving `c7819c3`. They describe the deployed release, not the uncommitted change set above.
+
+| Check | Command | Result | Record |
+|---|---|---|---|
+| Frontend/API version agreement | `GET /version.json`, `GET /api/version` | Both report `c7819c3`; config `960523ff…`, bundle `tocsin-demo-artifacts-v1.1.0`, `consistent: true` | n/a |
+| Deployment verification | `python scripts/verify_deployment.py --api … --web … --label release-c7819c3` | 26 passed, 0 failed (health, artifacts, CORS, uploads, error codes, direct routes); server analysis median 29 ms, round trip from this machine 3.7 s | `results/deploy-verification.json` |
+| 12 audit findings | `node web/e2e/audit_repro.mjs …` then `python scripts/check_audit_deployed.py …` | 19 of 22 checks passed: 11 findings pass. **TC-11 fails:** the identity is one of Railway's edge addresses, not the visitor (spoofing cannot change it). The fix is in the change set above, not yet deployed | `results/audit/reproduction-deployed.json`, `results/audit/deployed-check-c7819c3.json` |
+| Browser suite, desktop and phone | `E2E_BASE_URL=… E2E_API_BASE=… npx playwright test --project=desktop --project=phone` | First pass: 66 passed, 13 failed, 1 skipped (see below) | `results/test-logs/playwright-deployed.txt` |
+| Rerun of those 13 failures, deployed-mode timeouts | same, `--last-failed` | 12 passed; the 13th then passed in isolation | `results/test-logs/playwright-deployed-rerun.txt` |
+
+What the first-pass failures were:
+- **Network on the build machine:** 3 were `net::ERR_NETWORK_CHANGED` (the build machine's network dropped) and 2 were 60 s timeouts.
+- **Slow arrival, not wrong content:** 7 found content arriving after the default 5 s wait. Spectrum and replay requests take about 3.6 s each from this machine, and TC-09's label correctly said "updating to reading N".
+- **A real weakness on slow connections:** the deep link to `#reproduce` on phone lost its target as content loaded above it. Layout now keeps the target in view while content loads; that fix is in the change set above.
+
+Deployed runs now allow 20 s per assertion, and tests against a deployment allow 120 s per test. The behaviour checked is unchanged. The one remaining rerun failure was a tooling clash: a concurrent local run removed its trace file. The `Deployed smoke` workflow repeats all of these from a GitHub runner after each deployment.
 
 ## What the tests cover
 
