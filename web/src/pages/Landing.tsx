@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { SpectrumChart } from '../components/charts/SpectrumChart'
 import { Arrow } from '../components/Icons'
@@ -7,6 +7,7 @@ import { LivePreview } from '../components/LivePreview'
 import { StateBadge } from '../components/StateBadge'
 import { api, type FrozenConfig } from '../lib/api'
 import { fmtDuration, fmtNum, fmtStamp, hoursBetween } from '../lib/format'
+import { useLandingMotion } from '../lib/landingMotion'
 import type { BearingMetrics, Evidence, SpectrumResp, Summary } from '../lib/types'
 import './landing.css'
 
@@ -39,6 +40,8 @@ export default function Landing() {
   const [rob, setRob] = useState<RobEx | null>(null)
   const [ver, setVer] = useState<Verification | null>(null)
   const [apiCommit, setApiCommit] = useState<string | null>(null)
+  const root = useRef<HTMLDivElement>(null)
+  useLandingMotion(root)
 
   useEffect(() => {
     api.result<Heldout>('heldout').then(setH).catch(() => undefined)
@@ -60,7 +63,7 @@ export default function Landing() {
   const cur = der?.versions['v1.1_current']
 
   return (
-    <div className="landing">
+    <div className="landing" ref={root}>
       <section className="hero">
         <div className="wrap hero-inner">
           <Link to="/evaluation" className="announce">
@@ -268,7 +271,7 @@ export default function Landing() {
           ) : <div className="skeleton" style={{ height: 200 }} />}
         </div>
         <p className="small muted" style={{ marginTop: 12, maxWidth: '110ch' }}>
-          Unit: one bearing in one held-out test (2 damaged, 6 undamaged). Any alert counts. Lead time is measured to the last recorded reading (the recording endpoint), not to a measured failure time.
+          Unit: one bearing in one held-out test (2 damaged, 6 undamaged). Any alert counts. Precision is damaged bearings among alerted bearings (TOCSIN: 1 of 5); it is not a per-reading rate or a field estimate. Lead time is measured to the last recorded reading (the recording endpoint), not to a measured failure time.
           Current version (v1.1: data-handling corrections made after the pre-registered run). The simpler variant is shown for comparison and was <em>not</em> adopted, because choosing it after seeing these
           results would tune the final solution on its own test data. <Link to="/evaluation">All versions, metrics and caveats</Link>.
         </p>
