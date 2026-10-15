@@ -20,7 +20,7 @@
 - **Precomputed replay per condition.** The full pipeline reruns offline for each complication. The UI labels these as precomputed with the config hash. Live analysis is available for uploads.
 - **Robust z with a floor** (0.5 dB for prominence and RMS, 0.05 for the isolation-forest score). This stops a near-constant reference window from producing huge scores. The floor was fixed before tuning.
 - **Durations capped at 20 min per reading** in alert-hours metrics, so overnight pauses are not counted.
-- **Single light theme.** Implemented and tested fully, rather than shipping an untested dark mode.
+- **Single theme (dark since 15 Oct).** One theme is implemented and tested fully, rather than shipping an untested second theme.
 - **Custom SVG charts.** These keep causal display (nothing after the cursor), exact threshold lines and small bundles.
 
 - **Hosting: Vercel (frontend) and Railway (API)**, as the owner specified. Railway builds the Dockerfile from GitHub `main`. A Railway "restart" does not rebuild; a push does. The frontend calls the API cross-origin through `VITE_API_BASE`, with CORS limited to configured origins.
@@ -39,3 +39,17 @@
    - The Railway account is on a trial with limited credit. Keeping the API online after the trial needs an owner decision.
 4. **Submission assets.** The required video, deck and links are not stated publicly.
 5. **Team details for the submission form.** The author is recorded as Divine Dilibe.
+
+## Realignment to the PS01 rubric (15 Oct 2026)
+
+- **The simpler variant (A1) was not promoted to default.** PS01 line 6 requires evaluation "on data or scenarios not used to tune the final solution". Selecting A1 because it won on the held-out runs would make those runs part of tuning. TOCSIN stays the submitted detector, and A1 is documented as a candidate for future validation with a frozen procedure.
+- **Five scenario entry points** (alert, missed failure, missing data, supported sample, method comparison) replace dropping visitors at reading 1. Each states what it does not establish.
+- **Bearing-level precision/recall/F1** (with fractions) and **fault-family identification** are derived from existing results (`scripts/derived_metrics.py`). Nothing was re-run or re-tuned.
+- **Visual direction** follows the rendered SquadRoom reference:
+  - pill navigation and a light pill call to action;
+  - a heavy, tight display headline with one accented word;
+  - a large working product panel;
+  - a split FAQ and an inverted closing card.
+
+  The display face is Inter Tight, deliberately not the reference's brand font. No reference assets, copy or brand elements are used.
+- **The machine-monitoring workflow** (`docs/PRODUCT_GAP.md`) stays a scoped proposal. It is not part of the judge journey, and no navigation points to unbuilt features.
