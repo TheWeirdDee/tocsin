@@ -73,7 +73,8 @@ export default function Workspace() {
   // The reading a guide chose, until the cursor state has reached it (see the canonical URL effect).
   const guideTarget = useRef<number | null>(null)
   useEffect(() => {
-    if (!replay || !guide || sp.get('t') != null || guideApplied.current === key + guide) return
+    // Runs whenever a scenario link is followed (no t in the URL), including re-entry after Reset or seeking.
+    if (!replay || !guide || sp.get('t') != null) return
     const bid = sp.get('b') ?? (guide === 'alert' ? '3' : '1')
     const b = replay.bearings[bid]
     if (!b) return
@@ -83,6 +84,7 @@ export default function Workspace() {
     if (guide === 'gaps') target = b.valid.findIndex((v, i) => v === 0 && i > replay.n_ref + 10)
     guideApplied.current = key + guide
     guideTarget.current = Math.max(0, target)
+    setPlaying(false)
     setT(guideTarget.current)
   }, [replay, guide, key, sp])
 
@@ -191,7 +193,9 @@ export default function Workspace() {
         <Link className={`guide-tab${!guide ? ' on' : ''}`} to={`/demo/${run}`}>Free exploration</Link>
       </nav>
 
-      {guide && replay && <GuideNote guide={guide} replay={replay} bid={sel} />}
+      {guide && replay && (inScenario(guide, run, cond, sel)
+        ? <GuideNote guide={guide} replay={replay} bid={sel} />
+        : <ScenarioLeft guide={guide} />)}
 
       {(unknownRun || unknownCond || indexError) && (
         <div className="notice error" role="alert">
@@ -314,6 +318,29 @@ export default function Workspace() {
         </div>
       )}
     </div>
+  )
+}
+
+// Each scenario's statements are true only for its own recording, bearing and condition.
+const SCENARIO: Record<Guide, { run: string; bearing: string; cond: string; title: string; to: string }> = {
+  alert: { run: 'test3', bearing: '3', cond: 'clean', title: 'Understand an alert', to: '/demo/test3?guide=alert&b=3' },
+  miss: { run: 'test2', bearing: '1', cond: 'clean', title: 'Inspect the missed failure', to: '/demo/test2?guide=miss&b=1' },
+  gaps: { run: 'test2', bearing: '1', cond: 'gaps', title: 'See missing-data handling', to: '/demo/test2?guide=gaps&cond=gaps&b=1' },
+}
+
+function inScenario(guide: Guide, run: string, cond: string, bid: string) {
+  const s = SCENARIO[guide]
+  return s.run === run && s.cond === cond && s.bearing === bid
+}
+
+function ScenarioLeft({ guide }: { guide: Guide }) {
+  const s = SCENARIO[guide]
+  return (
+    <section className="guide-note panel" aria-label={`Scenario paused: ${s.title}`}>
+      <p className="eyebrow">Scenario paused · {s.title}</p>
+      <p className="small">The recording, bearing or condition no longer matches this scenario, so its explanation does not apply here.</p>
+      <p className="small" style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}><Link to={s.to}>Return to the scenario</Link></p>
+    </section>
   )
 }
 
@@ -520,10 +547,19 @@ function BearingDetail({ replay, run, cond, bid, t, cfg, index, playing, onSeek 
       </div>
 
       <div className="panel">
-        <div className="panel-head"><h3>Same reading, other detectors</h3><span className="panel-sub">Same calibration window and persistence rule</span></div>
+        <div className="panel-head"><h3>{ev.retained ? 'Other detectors: no verdict for this reading' : 'Same reading, other detectors'}</h3><span className="panel-sub">Same calibration window and persistence rule</span></div>
         <div className="panel-body cmp">
-          <div><span className="swatch" style={{ background: 'var(--det-rms)' }} />RMS level alarm <StateBadge state={now.rms} compact /></div>
-          <div><span className="swatch" style={{ background: 'var(--det-iforest)' }} />Isolation forest <StateBadge state={now.iforest} compact /></div>
+          {ev.retained ? (
+            <>
+              <div><span className="swatch" style={{ background: 'var(--det-rms)' }} />RMS level alarm <StateBadge state="DATA_INSUFFICIENT" compact /> <span className="small muted">last valid: {STATE_LABEL[now.rms]}{now.lastValidAgeH != null ? `, ${fmtDuration(now.lastValidAgeH)} earlier` : ''}</span></div>
+              <div><span className="swatch" style={{ background: 'var(--det-iforest)' }} />Isolation forest <StateBadge state="DATA_INSUFFICIENT" compact /> <span className="small muted">last valid: {STATE_LABEL[now.iforest]}{now.lastValidAgeH != null ? `, ${fmtDuration(now.lastValidAgeH)} earlier` : ''}</span></div>
+            </>
+          ) : (
+            <>
+              <div><span className="swatch" style={{ background: 'var(--det-rms)' }} />RMS level alarm <StateBadge state={now.rms} compact /></div>
+              <div><span className="swatch" style={{ background: 'var(--det-iforest)' }} />Isolation forest <StateBadge state={now.iforest} compact /></div>
+            </>
+          )}
           <div className="small muted">Context, not used by TOCSIN's decision ({measuredLabel}): RMS {fmtNum(b.features.rms?.[now.lastValidIdx] ?? null, 3)} · kurtosis {fmtNum(b.features.kurtosis?.[now.lastValidIdx] ?? null, 2)}</div>
         </div>
       </div>
