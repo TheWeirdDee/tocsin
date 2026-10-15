@@ -236,3 +236,67 @@ test('guided scenarios open on the reading they describe, on a fresh load', asyn
   await page.goto('/demo/test2?guide=gaps&cond=gaps&b=1')
   await expect(page.locator('.evidence .badge', { hasText: 'No valid data' }).first()).toBeVisible({ timeout: 20_000 })
 })
+
+// ---- re-audit (15 Oct, release c7181a8) ----
+
+test('R-01 malformed fragments never blank the app', async ({ page }) => {
+  const errors: string[] = []
+  page.on('pageerror', (e) => errors.push(String(e)))
+  await page.goto('/evaluation#%')
+  await expect(page.getByRole('banner')).toBeVisible()
+  await expect(page.locator('main h1').first()).toBeVisible({ timeout: 20_000 })
+  await page.evaluate(() => { location.hash = '%E0%A4%A' })
+  await page.waitForTimeout(500)
+  await expect(page.getByRole('banner')).toBeVisible()
+  await page.goto('/evaluation#glance')
+  await expect(page.locator('#glance')).toBeInViewport({ timeout: 20_000 })
+  expect(errors).toEqual([])
+})
+
+test('R-04 scenario text never describes a bearing or condition outside its scenario', async ({ page }) => {
+  await page.goto('/demo/test2?guide=miss&b=1')
+  await loaded(page)
+  await expect(page.getByRole('region', { name: 'Scenario: Inspect the missed failure' })).toContainText('bearing 1')
+  await page.locator('.prio-list button', { hasText: 'Bearing 4' }).click()
+  await expect(page.getByRole('region', { name: /Scenario paused/ })).toBeVisible()
+  await expect(page.getByText(/bearing 4, which the dataset says failed/)).toHaveCount(0)
+
+  await page.goto('/demo/test2?guide=gaps&cond=gaps&b=1')
+  await loaded(page)
+  await page.getByRole('combobox', { name: 'Complication' }).selectOption('clean')
+  await expect(page.getByRole('region', { name: /Scenario paused/ })).toBeVisible({ timeout: 20_000 })
+  await expect(page.getByText(/15% of readings had a contiguous 40%/)).toHaveCount(0)
+})
+
+test('R-05 following a scenario link again returns to its reading', async ({ page, request }) => {
+  const t3 = await (await request.get(`${API}/api/replay/test3?condition=clean`)).json()
+  const alertAt = t3.bearings['3'].alert_events[0].index
+  await page.goto('/demo/test3?guide=alert&b=3')
+  await expect(page).toHaveURL(new RegExp(`[?&]t=${alertAt}(&|$)`), { timeout: 20_000 })
+  await page.getByRole('button', { name: 'Reset to start' }).click()
+  await expect(page).toHaveURL(/[?&]t=0(&|$)/)
+  await page.getByRole('link', { name: 'Understand an alert' }).click()
+  await expect(page).toHaveURL(new RegExp(`[?&]t=${alertAt}(&|$)`), { timeout: 20_000 })
+  await expect(page.locator('.evidence .badge', { hasText: 'Alert' }).first()).toBeVisible()
+})
+
+test('R-07 other detectors on an invalid reading show no verdict and their last valid state', async ({ page }) => {
+  await page.goto('/demo/test2?guide=gaps&cond=gaps&b=1')
+  await expect(page.locator('.evidence .badge', { hasText: 'No valid data' }).first()).toBeVisible({ timeout: 20_000 })
+  const cmp = page.locator('.panel', { has: page.getByRole('heading', { name: /Other detectors: no verdict/ }) })
+  await expect(cmp).toBeVisible()
+  await expect(cmp).toContainText('last valid')
+  await expect(page.getByRole('heading', { name: 'Same reading, other detectors' })).toHaveCount(0)
+})
+
+test('R-06 replacing a file with a different one of the same name and size marks the result stale', async ({ page }) => {
+  const a = Buffer.from('0.1\t0.2\n'.repeat(20480))
+  const b = Buffer.from('0.2\t0.1\n'.repeat(20480)) // same name, same byte length, different content
+  await page.goto('/analyze')
+  await page.locator('input[type=file]').setInputFiles({ name: 'reading.txt', mimeType: 'text/plain', buffer: a })
+  await page.getByRole('button', { name: /Analyze reading/ }).click()
+  await expect(page.getByText(/Analyzed in/)).toBeVisible({ timeout: 30_000 })
+  await expect(page.getByText(/inputs have changed/i)).toHaveCount(0)
+  await page.locator('input[type=file]').setInputFiles({ name: 'reading.txt', mimeType: 'text/plain', buffer: b })
+  await expect(page.getByText(/inputs have changed/i).first()).toBeVisible()
+})
