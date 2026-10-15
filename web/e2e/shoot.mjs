@@ -5,8 +5,10 @@ const base = process.argv[3] ?? 'http://127.0.0.1:8000'
 const shots = [
   ['landing', '/', 1440, 900, true],
   ['demo-start', '/demo/test2?cond=clean&t=0', 1440, 900, false],
-  ['demo-test3-alert', '/demo/test3?cond=clean&b=3&t=6100', 1440, 1000, true],
-  ['demo-test2-late', '/demo/test2?cond=clean&b=1&t=975', 1440, 1000, true],
+  ['demo-test3-alert', '/demo/test3?guide=alert&b=3', 1440, 1000, true],
+  ['demo-baselining', '/demo/test2?cond=clean&b=1&t=0', 1440, 1000, true],
+  ['demo-gaps', '/demo/test2?guide=gaps&cond=gaps&b=1', 1440, 1000, true],
+  ['demo-test2-miss', '/demo/test2?guide=miss&b=1', 1440, 1000, true],
   ['evaluation', '/evaluation', 1440, 900, true],
   ['data', '/data', 1440, 900, true],
   ['analyze', '/analyze', 1440, 900, false],
