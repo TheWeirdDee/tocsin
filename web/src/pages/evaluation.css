@@ -27,3 +27,25 @@ pre.code { background: #141414; color: #ecebe6; padding: 16px; border-radius: 8p
 .outcome h2 { font-size: 20px; }
 .outcome p { max-width: 95ch; }
 table.data td:first-child { min-width: 170px; }
+
+/* dark redesign overrides */
+.ev-page { padding-top: clamp(48px, 7vw, 88px); }
+.ev-head h1 { font-size: clamp(32px, 4.6vw, 52px); font-weight: 300; letter-spacing: -0.03em; line-height: 1.06; }
+.ev-section-head h2 { font-size: clamp(22px, 2.4vw, 28px); font-weight: 400; letter-spacing: -0.015em; }
+.counts > div { background: var(--surface); border-color: var(--border); }
+.counts strong { font-weight: 300; font-size: 32px; }
+pre.code { background: #0b0b0b; border: 1px solid var(--border); color: #e8e6e1; }
+.findings { background: var(--surface-2); border-color: var(--border); }
+.outcome { border-left-color: var(--accent); }
+.scope-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.scope-grid h3 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+@media (max-width: 760px) { .scope-grid { grid-template-columns: minmax(0, 1fr); } }
+.glance { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0; }
+.glance > div { padding: 16px 18px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+.glance dt { font-size: 13px; color: var(--accent); font-weight: 600; margin-bottom: 6px; }
+.glance dd { margin: 0; color: var(--ink-2); font-size: 14.5px; }
+.glance b { color: var(--ink); font-weight: 600; }
+@media (max-width: 960px) { .glance { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .glance { grid-template-columns: minmax(0, 1fr); } }
+.ev-head h1, .ev-section-head h2 { font-family: var(--display); font-weight: 500; }
+.glance dt { color: var(--ink); }
