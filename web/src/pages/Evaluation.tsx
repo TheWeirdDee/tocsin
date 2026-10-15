@@ -330,12 +330,12 @@ function Outcome({ h }: { h: Heldout }) {
           <strong>Claim withdrawn: “earlier and quieter”.</strong> On the two held-out failures, TOCSIN alerted on {d.tocsin.combined.tp} of 2.
           The RMS alarm alerted on {d.b0_rms.combined.tp} of 2 and the isolation forest on {d.b1_iforest.combined.tp} of 2.
           TOCSIN {t2 == null ? 'did not alert on' : `alerted ${fmtDuration(t2)} before the recording endpoint on`} Test 2 bearing 1, where the RMS alarm warned {leadTxt(leadOf(d.b0_rms, 'test2', 1))} before the recording endpoint.
-          On Test 3 bearing 3, TOCSIN gave the earliest first alert: {leadTxt(leadOf(d.tocsin, 'test3', 3))}, against {leadTxt(leadOf(d.b0_rms, 'test3', 3))} for the RMS alarm and {leadTxt(leadOf(d.b1_iforest, 'test3', 3))} for the isolation forest.
+          On Test 3 bearing 3, TOCSIN's first alert came before the other two detectors': {leadTxt(leadOf(d.tocsin, 'test3', 3))}, against {leadTxt(leadOf(d.b0_rms, 'test3', 3))} for the RMS alarm and {leadTxt(leadOf(d.b1_iforest, 'test3', 3))} for the isolation forest{d.b0_rms_3sigma ? ` (a stricter 3-sigma RMS alarm warned ${leadTxt(leadOf(d.b0_rms_3sigma, 'test3', 3))} before)` : ''}.
           On undamaged bearings, {SHORT[quietest]} spent the least time in alert ({fmtNum(d[quietest].combined.healthy_alert_hours_per_bearing_day, 2)} h per bearing-day).
           All three detectors alerted on some undamaged bearings, mostly in each run's final day.
         </p>
         <p className="muted small">
-          What TOCSIN does show on this data: alerts that name a defect band and give the evidence, fewer alert-hours on undamaged bearings than the other two detectors, and the earliest warning on one of the two failures.
+          What TOCSIN does show on this data: alerts that name a defect band and give the evidence, fewer alert-hours on undamaged bearings than the other two detectors, and an earlier first alert than those two on one of the two failures.
           What it does not show: reliable early warning. Its own ablation found that a simpler broadband envelope level, with no fault-frequency bands, did better on these two runs.
           With two failure events, none of these differences is statistically meaningful.
         </p>
