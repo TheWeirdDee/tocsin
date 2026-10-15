@@ -31,7 +31,9 @@ export function Layout() {
     let tries = 0
     let ro: ResizeObserver | null = null
     let stopTimer = 0
-    const id = decodeURIComponent(loc.hash.slice(1))
+    // A malformed fragment (for example #%) must never take the page down: fall back to the raw text.
+    let id = loc.hash.slice(1)
+    try { id = decodeURIComponent(id) } catch { /* keep the raw fragment */ }
     const stop = () => {
       ro?.disconnect()
       ro = null
