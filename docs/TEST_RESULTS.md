@@ -1,10 +1,8 @@
 # Test results
 
-Every local log below was produced on 15 Oct 2026 against one source state: release commit `c7819c3` plus uncommitted changes, fingerprint `4b62c8d0e00ae926b04368580b43661237f410530ffbdeae7a8928b229b45ce4` (`python scripts/tree_fingerprint.py`). The fingerprint excludes `results/`, `docs/` and `README.md`, so recording results does not change it. Each log starts with its command, environment, fingerprint and start time.
+Every local log below was produced on 15 Oct 2026 against one source state: commit `260348a` plus the guided-scenario fix, fingerprint `a05ab1006140d80b05dcc433f3e0181cda4aaadb2d35bcbc67f56b351b5f3a4d`. That is exactly the source of the release that follows it (`python scripts/tree_fingerprint.py`). The fingerprint excludes `results/`, `docs/` and `README.md`, so recording results does not change it. Each log starts with its command, environment, fingerprint and start time.
 
 Environment: Windows 11 Pro 10.0.26200; Python 3.12.10 in `.venv`; Node 24.13.1; Playwright Chromium; local uvicorn.
-
-The release adds one file after these runs: a `Makefile` that wraps existing scripts (`make reproduce`, `make artifacts`, `make test`). No test exercises it, so it is the only difference between the tested state and the released source.
 
 | Suite | Command (cwd) | Configuration | Passed | Failed | Skipped | Log |
 |---|---|---|---|---|---|---|
@@ -13,10 +11,10 @@ The release adds one file after these runs: a `Makefile` that wraps existing scr
 | Frontend unit | `npx vitest run` (web) | | 10 | 0 | 0 | `results/test-logs/vitest.txt` |
 | Type-check | `npx tsc -b` (web) | | clean | | | `results/test-logs/tsc.txt` |
 | Lint | `npx eslint .` (web) | | 0 errors, 0 warnings | | | `results/test-logs/eslint.txt` |
-| Browser, same origin | `npx vite build && npx playwright test` (web) | uvicorn :8001 serves the build and the API; desktop 1440×900, tablet 820×1180, phone Pixel 7; 1 worker | 134 | 0 | 1 | `results/test-logs/playwright.txt`, `results/e2e.json` |
-| Browser, cross-origin (Vercel/Railway split) | `VITE_API_BASE=http://127.0.0.1:8001 npx vite build && E2E_CROSS_ORIGIN=1 npx playwright test` (web) | vite preview :4173 calls the API on :8001; same three viewports | 134 | 0 | 1 | `results/test-logs/playwright-cross-origin.txt`, `results/e2e-cross-origin.json` |
+| Browser, same origin | `npx vite build && npx playwright test` (web) | uvicorn :8001 serves the build and the API; desktop 1440×900, tablet 820×1180, phone Pixel 7; 1 worker | 137 | 0 | 1 | `results/test-logs/playwright.txt`, `results/e2e.json` |
+| Browser, cross-origin (Vercel/Railway split) | `VITE_API_BASE=http://127.0.0.1:8001 npx vite build && E2E_CROSS_ORIGIN=1 npx playwright test` (web) | vite preview :4173 calls the API on :8001; same three viewports | 137 | 0 | 1 | `results/test-logs/playwright-cross-origin.txt`, `results/e2e-cross-origin.json` |
 
-The browser counts are **per configuration**: each configuration runs the full 135-test suite on all three viewports. That suite includes `motion.spec.ts`, which covers:
+The browser counts are **per configuration**: each configuration runs the full 138-test suite on all three viewports. That suite includes `motion.spec.ts`, which covers:
 - reduced motion;
 - every element visible after scrolling;
 - no duplicate scroll animations after repeated navigation;
@@ -24,7 +22,20 @@ The browser counts are **per configuration**: each configuration runs the full 1
 
 The skipped test is the keyboard skip-link test on the phone profile, which has no physical keyboard. The pytest warning is a third-party deprecation notice from Starlette's test client.
 
-## Checks against the live deployment (release `c7819c3`, 15 Oct 2026)
+## Checks against the live deployment
+
+### Release `260348a` (current, 15 Oct 2026)
+
+Both services served `260348a`, config `960523ff…`, bundle `tocsin-demo-artifacts-v1.1.0`, `consistent: true`.
+
+| Check | Where it ran | Result |
+|---|---|---|
+| Deployed smoke workflow, all jobs | GitHub runner ([run 38749784194](https://github.com/TheWeirdDee/tocsin/actions/runs/38749784194)) | Passed: versions; deployment checks 26/26 (server analysis median 61.8 ms, round trip 343 ms); TC-11 identity; 12 audit findings 22/22 checks; browser suite desktop and phone 89 passed, 1 skipped; release gate |
+| Deployment verification | Build machine | 26 passed, 0 failed (`results/deploy-verification.json`, label `release-260348a`) |
+| TC-11 identity | Build machine and two GitHub runners | Three networks, three distinct identities, each equal to its own address hash; spoofed headers ignored |
+| 12 audit findings | Build machine | Two runs: every check passed in at least one; the only failures were uploads that got no response over this machine's connection (HTTP 0), not server verdicts (`results/audit/deployed-check-260348a.json`) |
+
+### Release `c7819c3` (previous)
 
 These ran from the build machine against https://tocsin-phi.vercel.app and https://tocsin-production.up.railway.app, both serving `c7819c3`. They describe the deployed release, not the uncommitted change set above.
 
