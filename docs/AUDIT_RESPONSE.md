@@ -22,17 +22,23 @@ Status of the fixes:
 | TC-08 | Source-level concern | Confirmed in code | Any sample rate or RPM was accepted and compared with IMS references | The API accepts only the references' acquisition configuration (20 kHz, 2000 RPM) and rejects others with a structured reason. The UI shows these as fixed values with a scope note. It distinguishes "parseable", "computable" and "scientifically supported" | `test_audit_regressions.py`; `audit.spec.ts` |
 | TC-09 | Inferred, confirmed worse than inferred | Yes. **Zero** spectrum requests in 2.5 s at 16 readings/s, while the label said "This reading" | A 90 ms debounce was cancelled on every playback step | A throttled request pump (200 ms) that always fetches the latest wanted reading. The label names the reading shown ("updating to reading N" while catching up) | `audit.spec.ts` TC-09 |
 | TC-10 | Inferred, confirmed worse than inferred | Yes. A TSV with empty cells was rejected, and the fast IMS path **silently shifted** values when empty fields balanced out | Whitespace splitting drops empty fields | The fast path defers to a delimiter-aware parser whenever empty tab fields appear. Empty cells become NaN in place. Inconsistent field counts are rejected | `test_audit_regressions.py` |
-| TC-11 | Source-level concern | Confirmed in code. No rate limit; CPU work ran on the event loop | | Per-client sliding-window rate limit (default 30/min, 429 with `Retry-After`), a concurrency cap (default 2) with a 10 s wait limit, analysis in a worker thread, and a 30 s response timeout (504). A timed-out analysis keeps its concurrency slot until its worker finishes, so timeouts cannot stack unbounded work; input is capped at two readings' worth of rows before analysis starts. Behind Railway's proxy the client is the right-most `X-Forwarded-For` entry (the one the proxy appends); entries a client adds itself are ignored, and uvicorn runs with `--no-proxy-headers`. No load test was run against the public service | `test_audit_regressions.py` (slot held after 504, spoofed forwarded entries, rate limit not bypassed by forwarded headers, over-long input rejected) |
+| TC-11 | Source-level concern | Confirmed in code. No rate limit; CPU work ran on the event loop. **On deployment (15 Oct, release `c7819c3`)**, the right-most `X-Forwarded-For` entry turned out to be one of Railway's edge proxies, so visitors sharing an edge shared one limit | | Per-visitor sliding-window rate limit (default 30/min, 429 with `Retry-After`); a concurrency cap (default 2) with a 10 s wait limit; analysis in a worker thread; 30 s response timeout (504), with the slot held until the worker finishes; input capped at two readings' worth of rows. **Identity:** on Railway the visitor is the `X-Real-IP` value that Railway's edge sets and replaces ([Railway specs](https://docs.railway.com/networking/public-networking/specs-and-limits)). `X-Forwarded-For` is never read, uvicorn trusts no proxy headers, and a missing, repeated or malformed value falls back to the peer address (conservative). `/api/client-id` reports a hash of the caller's own identity and its source, never an address. No load test was run against the public service | `test_audit_regressions.py` (visitors separated, spoofed headers ignored, malformed values fall back, diagnostic hides the address, slot held after 504, over-long input); `deployed-smoke.yml` identity job; `scripts/check_audit_deployed.py` |
 | TC-12 | Observed documentation issue | Yes | Mixed interpreters | Every command uses `.venv/bin/python`; there are separate Windows instructions; `reproduce.sh` defaults to the venv | Manual review |
 
 ## Verification status
 
 Labels: **Agent-verified locally** (checked by the AI coding agent on the build machine), **Agent-verified on deployment** (checked by the agent against the public URLs), **Independently verified** (checked by someone other than the agent), **Still unverified**.
 
-| ID | Agent-verified locally | Agent-verified on deployment | Independently verified |
+Deployment checks ran on 15 Oct 2026 against release `c7819c3` (`results/audit/deployed-check-c7819c3.json`, `results/audit/reproduction-deployed.json`).
+
+| ID | Agent-verified locally | Agent-verified on deployment (`c7819c3`) | Independently verified |
 |---|---|---|---|
-| TC-01 to TC-10, TC-12 | Yes (tests above; logs in `results/test-logs/`) | Still unverified (fixes not deployed) | Still unverified |
-| TC-11 | Yes, in-process and on a local server | Still unverified. The proxy hop count must be confirmed on Railway: `GET /api/client-id` must give the same hash from two requests with different spoofed `X-Forwarded-For` values | Still unverified |
+| TC-01, 03, 05, 06, 07, 09 | Yes | Yes (browser reproduction and the deployed browser suite) | Still unverified |
+| TC-02, 04, 08, 10 | Yes | Yes (direct requests) | Still unverified |
+| TC-12 | Yes | Not applicable (documentation) | Still unverified |
+| TC-11 | Yes, for the `X-Real-IP` correction | **Failed on `c7819c3`** (edge address used as identity; spoofing could not change it). The correction is not yet deployed: still unverified | Still unverified |
+
+Separating different visitors on the deployment needs checks from two networks. The deployed-smoke identity job (GitHub runner) and a check from the build machine together give two; one stable identity alone does not prove separation.
 
 None of the findings is marked closed by an independent party.
 
