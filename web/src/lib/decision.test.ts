@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { bearingNow, evidenceAt, priorityOrder, sentence } from './decision'
+import { bearingNow, clampCursor, evidenceAt, parseCursor, priorityOrder, referenceReadyIndex, sentence } from './decision'
 import type { Replay } from './types'
 
 // Minimal synthetic replay: 8 readings, n_ref 2, k 3. Used only to test UI decision logic.
@@ -75,5 +75,43 @@ describe('replay decisions', () => {
 
   it('handles the baselining sentence', () => {
     expect(sentence({ ...evidenceAt(r, '2', 0), state: 'BASELINING' })).toContain('learning')
+  })
+})
+
+describe('audit regressions (unit)', () => {
+  const r = makeReplay()
+
+  it('TC-01: cursor values are parsed and clamped to integers', () => {
+    expect(parseCursor('12')).toEqual({ value: 12, canonical: true })
+    expect(parseCursor('1.5')).toEqual({ value: 1, canonical: false })
+    expect(parseCursor('-4').value).toBe(0)
+    expect(parseCursor('abc').value).toBe(0)
+    expect(clampCursor(99999, 8)).toBe(7)
+    expect(clampCursor(Number.NaN, 8)).toBe(0)
+  })
+
+  it('TC-03: no score, ratio, family or trend before the reference exists', () => {
+    const b = bearingNow(r, '1', 1)
+    expect(b.baselineReady).toBe(false)
+    expect(b.score).toBeNull()
+    expect(b.ratio).toBeNull()
+    expect(b.family).toBeNull()
+    expect(b.trendPerHour).toBeNull()
+    expect(b.rawProm.BPFO).not.toBeNull()
+    const ev = evidenceAt(r, '1', 1)
+    expect(ev.reference_prom_db).toBeNull()
+    expect(ev.ratio_vs_reference).toBeNull()
+    expect(referenceReadyIndex(r.bearings['1'])).toBe(2)
+  })
+
+  it('TC-03: baselining bearings keep a neutral order', () => {
+    const order = priorityOrder(['3', '1', '2'].map((b) => bearingNow(r, b, 1))).map((b) => b.bearing)
+    expect(order).toEqual([1, 2, 3])
+  })
+
+  it('TC-07: evidence from an earlier reading is flagged as retained', () => {
+    const ev = evidenceAt(r, '1', 7)
+    expect(ev.retained).toBe(true)
+    expect(ev.measuredAt).toBe(r.times[6])
   })
 })
