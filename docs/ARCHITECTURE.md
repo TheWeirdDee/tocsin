@@ -5,7 +5,8 @@ data/raw/*.rar  (NASA archive, checksummed, never fully extracted)
       │  bsdtar -xO stream, split by exact member sizes (tocsin/archive.py)
       ▼
 scripts/extract_features.py ──► data/work/features_<run>.npz     per-reading raw features, validity, quality
-      │                    └──► artifacts/spectra/<run>/*.npy    display spectra (float16, 512 bins)
+      │                    └──► artifacts/spectra/<run>/*.npy    display spectra (float16 locally, 512 bins;
+      │                         re-encoded to 8-bit log amplitude, ±0.3 dB, in the release bundle by package_artifacts.py)
       ▼
 scripts/tune.py (Test 1 only) ──► config/frozen.json (+ sha256)
       ▼
