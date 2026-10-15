@@ -15,11 +15,11 @@ async function openNav(page: Page) {
 
 test('landing explains the product and opens the demo', async ({ page }) => {
   await page.goto('/')
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('Know which machine to inspect first')
-  await expect(page.getByText('not a live machine feed')).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('See the vibration change')
+  await expect(page.getByText('Not a production monitoring system.')).toBeVisible()
   await expect(page.getByText(/of 2/).first()).toBeVisible() // measured results loaded from heldout.json
   await noHorizontalScroll(page)
-  await page.getByRole('link', { name: 'Open the demo' }).first().click()
+  await page.locator('.hero-cta').getByRole('link', { name: /Explore the replay/ }).click()
   await expect(page).toHaveURL(/\/demo/)
   await expect(page.getByText('Recorded dataset replay. Not a live machine feed.')).toBeVisible()
 })
@@ -102,9 +102,9 @@ test('data page lists provenance and discrepancies', async ({ page }) => {
 
 test('analyze a real sample reading end to end', async ({ page }) => {
   await page.goto('/analyze')
-  await page.getByRole('button', { name: /near the end/ }).click()
+  await page.getByRole('button', { name: /near the recording endpoint/ }).click()
   await expect(page.getByText('ims_test2_2004.02.19.05.42.39.txt')).toBeVisible()
-  await page.getByRole('button', { name: 'Analyze snapshot' }).click()
+  await page.getByRole('button', { name: 'Analyze reading' }).click()
   await expect(page.getByText(/Analyzed in [\d.]+ ms/)).toBeVisible({ timeout: 20_000 })
   await expect(page.locator('.evidence')).toContainText('Implicated band')
   await noHorizontalScroll(page)
@@ -114,7 +114,7 @@ test('unknown route shows not-found page; navigation menu is reachable', async (
   await page.goto('/no-such-page')
   await expect(page.getByRole('heading', { name: 'Page not found' })).toBeVisible()
   await openNav(page)
-  await page.getByRole('link', { name: 'Evaluation' }).click()
+  await page.getByRole('link', { name: 'Results' }).click()
   await expect(page).toHaveURL(/\/evaluation$/)
 })
 
