@@ -8,7 +8,9 @@ const PY = process.platform === 'win32' ? String.raw`.venv\Scripts\python.exe` :
 
 export default defineConfig({
   testDir: './e2e',
-  timeout: 60_000,
+  // Against the deployment, responses cross the public network: allow for latency, not different behaviour.
+  timeout: DEPLOYED ? 120_000 : 60_000,
+  expect: { timeout: DEPLOYED ? 20_000 : 5_000 },
   fullyParallel: false,
   workers: 1,
   reporter: [['list'], ['json', { outputFile: DEPLOYED ? '../results/e2e-deployed.json' : CROSS ? '../results/e2e-cross-origin.json' : '../results/e2e.json' }]],
@@ -21,7 +23,9 @@ export default defineConfig({
       cwd: '..',
       url: `http://127.0.0.1:${PORT}/api/health`,
       reuseExistingServer: false,
-      timeout: 60_000,
+      // Against the deployment, responses cross the public network: allow for latency, not different behaviour.
+  timeout: DEPLOYED ? 120_000 : 60_000,
+  expect: { timeout: DEPLOYED ? 20_000 : 5_000 },
     },
     ...(CROSS
       ? [{ command: 'npx vite preview --port 4173 --strictPort --host 127.0.0.1', url: 'http://127.0.0.1:4173', reuseExistingServer: false, timeout: 60_000 }]
